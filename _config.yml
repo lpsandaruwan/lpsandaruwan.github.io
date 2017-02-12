@@ -1,0 +1,48 @@
+# Build settings
+permalink   : /blog/:year/:title/
+markdown    : kramdown
+highlighter : pygments
+gems: [jekyll-paginate]
+
+paginate: 3
+paginate_path: "/blog/page/:num/"
+comments: true
+
+source: source
+destination: _site
+sass:
+  sass_dir: _scss
+  style: compressed # expanded
+
+# SEO settings
+title: Lahiru Sandaruwan Pathirage
+description: "A fullstack developer"
+keywords: "Lahiru Pathirage, lpsandaruwan, blog, technology, Linux"
+url: ""
+baseurl: ""
+# baseurl: ""
+
+# google_analytics: UA-52446115-1
+repo: http://github.com/lpsandaruwan/lpsandaruwan.github.io
+disqus_shortname: "lpsandaruwan"
+disqus_site_shortname: "lpsandaruwan"
+
+# Author settings
+author:
+  name      : Lahiru Pathirage
+  thumb     : /images/author.jpg
+  email     : lpsandaruwan@gmail.com
+  url       : http://lahiru.site
+  github    : http://github.com/lpsandaruwan
+  twitter   : http://twitter.com/lpsandaruwan
+  facebook  : http://facebook.com/skyblue1992
+  linkedin  : http://linkedin.com/in/lpsandaruwan
+
+# navbar pages
+navbar:
+  - slug: resume
+    title: Resume
+  - slug: blog
+    title: Blog
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
