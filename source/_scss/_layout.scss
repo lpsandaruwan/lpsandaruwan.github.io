@@ -233,6 +233,7 @@ body.home {
   h4 {
     font-size: rem(20);
     margin: .8em 0 1.2em;
+    line-height: 26px;
 
     @include media($tablet-up) {
       font-size: rem(20);
