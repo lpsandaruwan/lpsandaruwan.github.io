@@ -2,22 +2,18 @@
 layout: home
 ---
 
-<section class="hero">
+<section class="hero" ng-app="lahiruSite" ng-cloak>
 
   <div class="hero-inner container">
 
     <img src="{{ site.author.thumb | prepend: site.baseurl }}" alt="author thumb" class="dot">
     <h2>Hi!..</h2>
     <h4>
-      I'm Lahiru Sandaruwan Pathirage, <strong>an experienced Software Engineer</strong> from Sri Lanka.
-      I have completed my <strong>Bachelor of Science</strong> degree in <strong>Computer Science</strong> in <strong>University of Colombo School of Computing</strong>.
-      I love to do <strong>research and development</strong> related work. Having fluent development skills in <strong>C/CPP</strong>, <strong>Python</strong>, <strong>Java</strong>, <strong>JavaScript</strong> languages mixing them with
-      <strong>dev-ops skills</strong> is my key strength.
-      Currently I'm working as <strong>a freelancer</strong>.
+      My name is Lahiru, a software developer from Sri Lanka who loves to do R&D to bring awesome ideas into a reality. I believe in good design and good engineering thus I am seeing their importance more than ever when reaching high-quality products.<br>I am a dedicated energetic enthusiastic person who has the ability to work under any pressure and to do multitasking. I have been working professionally since 2015, a year as a dev-ops engineer and as a software developer. I heartily appreciate free and open source software development movement and I would love to prefer myself as an open source contributor too.
     </h4>
 
-    <a href="{{ '/resume' | prepend: site.baseurl }}" class="btn btn-ghost">resume</a>
-    <a href="{{ '/blog' | prepend: site.baseurl }}" class="btn btn-ghost">blog</a>
+    <md-button href="{{ '/resume' | prepend: site.baseurl }}" class="btn btn-ghost">resume</md-button>
+    <md-button href="{{ '/blog' | prepend: site.baseurl }}" class="btn btn-ghost">blog</md-button>
 
     {% include social.html %}
 
