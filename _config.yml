@@ -42,6 +42,8 @@ author:
 navbar:
   - slug: resume
     title: Resume
+  - slug: projects
+    title: Projects
   - slug: blog
     title: Blog
 
