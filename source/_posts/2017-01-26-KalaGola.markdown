@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "KALAGOLA කාලගෝල"
+title:  "KalaGola කාලගෝල"
 comments: true
 date:   2017-01-26
 keywords: kalagola, python, typeface design, font, open source fonts

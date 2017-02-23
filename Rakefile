@@ -32,7 +32,6 @@ end
 desc "Generate and publish blog to gh-pages"
 task :publish => [:generate] do
   Dir.mktmpdir do |tmp|
-    cp_r "source/CNAME", "_site/CNAME"
     cp_r "_site/.", tmp
 
     pwd = Dir.pwd
