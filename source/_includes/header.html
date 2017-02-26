@@ -1,22 +1,51 @@
-<header class="site-header">
-  <div class="container">
-    <h1><a href="{{ "/" | prepend: site.baseurl }}">lpsandaruwan</a>-blog</h1>
+<div class="site-header-properties" layout="row">
 
-    <button type="button" class="sliding-panel-button">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+  <div class="md-menu-properties" layout="column" flex="10">
+    <div flex></div>
 
-    <nav class="navbar sliding-panel-content">
-      <ul>
+    <md-menu class="md-toolbar-tools">
+
+      <md-button class="md-fab md-fab-top-left" aria-label="nav-menu" ng-click="$mdMenu.open()">
+        <md-tooltip md-direction="right">Menu</md-tooltip>
+        <md-icon>dehaze</md-icon>
+      </md-button>
+
+      <md-menu-content>
+        <md-menu-item>
+          <md-button href="{{site.url}}{{site.baseurl}}/index.html">
+            Home
+          </md-button>
+        </md-menu-item>
+
         {% for item in site.navbar %}
-          <li><a href="{{ '/' | prepend: site.baseurl }}{{ item.slug }}" title="{{ item.title }}">{{ item.title }}</a></li>
+        <md-menu-item>
+          <md-button href="{{ '/' | prepend: site.baseurl }}{{ item.slug }}">
+            {{ item.title }}
+          </md-button>
+        </md-menu-item>
         {% endfor %}
-        <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}" target="_blank"><i class="icon icon-feed"></i></a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+      </md-menu-content>
 
-<div class="sliding-panel-fade-screen"></div>
+    </md-menu>
+
+    <div flex></div>
+  </div>
+
+  <div flex="85">
+    <md-tooltip>Home</md-tooltip>
+    <a href="{{site.url}}{{site.baseurl}}/index.html">
+      <h1 class="site-header-text">
+        {{site.title}}
+      </h1>
+      <div class="site-description">
+        {{site.description}}
+      </div>
+    </a>
+  </div>
+
+  <div>
+    <div>
+      {% include social.html %}
+    </div>
+  </div>
+</div>

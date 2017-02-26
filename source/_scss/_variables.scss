@@ -22,16 +22,16 @@ $big-spacing: $base-spacing * 2.5;
 $base-z-index: 0;
 
 // Colors
-$primary-color: #262626;
-$white-color: #fff;
-$black-color: #000;
+$primary-color: #313131;
+$white-color: #f7f7f7;
+$black-color: #0c0c0c;
 $blue-color: red;
-$dark-gray-color: #232323;
-$medium-gray-color: #595959;
+$dark-gray-color: #272727;
+$medium-gray-color: #353535;
 $light-gray-color: #bababa;
 
 // Font Colors
-$base-font-color: lighten($dark-gray-color, 25%);
+$base-font-color: $dark-gray-color;
 $action-color: $primary-color;
 
 // Border

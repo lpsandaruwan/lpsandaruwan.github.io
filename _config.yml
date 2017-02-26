@@ -15,8 +15,8 @@ sass:
   style: compressed # expanded
 
 # SEO settings
-title: Lahiru Sandaruwan Pathirage
-description: "A fullstack developer"
+title: LAHIRU SANDARUWAN PATHIRAGE
+description: "SOFTWARE DEVELOPER - LINUX ENTHUSIAST - FOSS LOVER"
 keywords: "Lahiru Pathirage, lpsandaruwan, blog, technology, Linux"
 url: ""
 baseurl: ""
@@ -30,7 +30,7 @@ disqus_site_shortname: "lpsandaruwan"
 # Author settings
 author:
   name      : Lahiru Pathirage
-  thumb     : /images/author.jpg
+  thumb     : /images/author.png
   email     : lpsandaruwan@gmail.com
   url       : http://lahiru.site
   github    : http://github.com/lpsandaruwan

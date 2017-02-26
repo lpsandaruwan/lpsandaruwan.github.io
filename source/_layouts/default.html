@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
   {% include head.html %}
-  <body>
-    {% include google_analytics.html %}
-    <main>
-      {% include header.html %}
 
-      <div class="container">
-        {{ content }}
+  <body ng-app="ngModule" ng-controller="ngController" ng-cloak>
+  {% include google_analytics.html %}
+
+  <div>
+    <div class="site-wrapper">
+      <div class="site-header-text">
+        {% include header.html %}
       </div>
 
-      {% include footer.html %}
+      <div class="site-content">
+        <div class="inner-body">
+          <div class="body-content">
+            {{ content }}
+          </div>
+        </div>
 
-      <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script>
-      $(document).ready(function() {
-        $('.sliding-panel-button,.sliding-panel-fade-screen,.sliding-panel-close').on('click touchstart',function (e) {
-          $('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
-          e.preventDefault();
-        });
-      });
-      </script>
-    </main>
+        {% include footer.html %}
+      </div>
+
+    </div>
+
+
+  </div>
   </body>
 </html>

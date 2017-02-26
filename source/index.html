@@ -1,81 +1,16 @@
 ---
-layout: home
+layout: default
 ---
 
-<script type="text/javascript">
-  var homeModule = angular.module('homeModule', ['ngMaterial']);
-  
-  homeModule.controller('homeController', function ($scope, $mdDialog) {
-    function blogController($scope, $mdDialog) {
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-    }
-
-    $scope.showBlog = function(ev) {
-      $mdDialog.show({
-        controller: blogController,
-        templateUrl: 'blog',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-    };
-
-
-    function projectsController($scope, $mdDialog) {
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-    }
-
-    $scope.showProjects = function(ev) {
-      $mdDialog.show({
-        controller: projectsController,
-        templateUrl: 'projects',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-    };
-
-
-    function resumeController($scope, $mdDialog) {
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-    }
-
-    $scope.showResume = function(ev) {
-      $mdDialog.show({
-        controller: resumeController,
-        templateUrl: 'resume',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true
-      })
-    };
-
-  });
-</script>
-
-
-<section class="hero" ng-app="homeModule" ng-controller="homeController" ng-cloak>
+<section class="hero">
 
   <div class="hero-inner container">
 
     <img src="{{ site.author.thumb | prepend: site.baseurl }}" alt="author thumb" class="dot">
     <h2>Hi!..</h2>
     <h4>
-      My name is Lahiru, a software developer from Sri Lanka who loves to do R&D to bring awesome ideas into a reality. I believe in good design and good engineering thus I am seeing their importance more than ever when reaching high-quality products.<br>I am a dedicated energetic enthusiastic person who has the ability to work under any pressure and to do multitasking. I have been working professionally since 2015, a year as a dev-ops engineer and as a software developer. I heartily appreciate free and open source software development movement and I would love to prefer myself as an open source contributor too.
+      My name is Lahiru Pathirage, a full stack developer from Sri Lanka who loves to do R&D to bring awesome ideas into reality. I believe in good design and good engineering thus I am seeing their importance more than ever when reaching high-quality products.<br>I am a dedicated energetic enthusiastic person who has the ability to work under any pressure and to do multitasking. I have been working professionally since 2015, a year as a dev-ops engineer and afterward as a software developer. I heartily appreciate free and open source software development movement and I would love to prefer myself as an open source contributor too.
     </h4>
-
-    <md-button class="btn btn-ghost" ng-click="showResume($event)">resume</md-button>
-    <md-button class="btn btn-ghost" ng-click="showProjects($event)">projects</md-button>
-    <md-button class="btn btn-ghost" ng-click="showBlog($event)">blog</md-button>
-
-    {% include social.html %}
-
   </div>
 
 </section>
