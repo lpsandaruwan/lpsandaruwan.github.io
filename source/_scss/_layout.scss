@@ -6,26 +6,6 @@
 @import url("//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css");
 
 
-.container {
-  @include outer-container;
-  padding: {
-    left: $small-spacing;
-    right: $small-spacing;
-  };
-}
-
-.card {
-  background-color: $white-color;
-  box-shadow: 0 2px 0 rgba($black-color, .1);
-  margin: 0 0 $base-spacing;
-  padding: $base-spacing $small-spacing;
-
-  @include media($mobile-up) {
-    padding: $base-spacing;
-  }
-}
-
-
 /**
 * site layout
 **/
@@ -140,55 +120,6 @@ p {
   }
 }
 
-.icon {
-  > svg {
-    display: inline-block;
-    vertical-align: middle;
-
-    @media screen and (min-width: 1367px) {
-      width: 35px;
-      height: 35px;
-    }
-
-    @media screen and (min-width: 801px) and (max-width: 1366px) {
-      width: 30px;
-      height: 30px;
-    }
-
-    @media screen and (min-width: 641px) and (max-width: 800px){
-      width: 25px;
-      height: 25px;
-    }
-
-    @media screen and (max-width: 640px){
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-}
-
-// icon colors
-svg:hover #facebook-back {
-  fill: red;
-}
-
-svg:hover #github-back {
-  fill: red;
-}
-
-svg:hover #linkedin-back {
-  fill: red;
-}
-
-svg:hover #twitter-back {
-  fill: red;
-}
-
-svg:hover {
-  fill: red;
-}
-
 
 /**
  * Site header
@@ -202,25 +133,25 @@ svg:hover {
 }
 
 .site-header-text {
+  padding-top: 5px;
   text-align: center;
 
   h1 {
-    color: red;
 
     @media screen and (min-width: 1367px) {
-      font-size: 32px;
+      font-size: 34px;
     }
 
     @media screen and (min-width: 801px) and (max-width: 1366px) {
-      font-size: 28px;
+      font-size: 30px;
     }
 
     @media screen and (min-width: 641px) and (max-width: 800px){
-      font-size: 26px;
+      font-size: 28px;
     }
 
     @media screen and (max-width: 640px){
-      font-size: 20px;
+      font-size: 22px;
     }
   }
 }
@@ -253,98 +184,18 @@ svg:hover {
 }
 
 .site-header {
-  @extend %clearfix;
-  padding: $base-spacing 0;
-  margin-bottom: $base-spacing;
   border-bottom: 1px solid rgba($light-gray-color, .5);
 
   h1 {
-    margin: 0;
-    font-weight: $font-weight-normal;
+    margin: 5px;
+  };
 
-    span {
-      color: $primary-color;
-    }
-  }
-
-  .navbar {
-    float: right;
-  }
-
-  a {
-    color: $medium-gray-color;
-
-    &:hover,
-    &:focus,
-    &:active {
+  a:hover {
+    h1 {
       color: red;
     }
   }
 
-  @include media($mobile) {
-    .container {
-      padding-left: $base-spacing;
-      padding-right: $base-spacing;
-    }
-  }
-}
-
-.sliding-panel-button {
-  float: right;
-  @extend .btn;
-  padding: 5px;
-  margin: 0 $big-spacing 0 0;
-
-  span {
-    width: 30px;
-    display: block;
-    height: 3px;
-    border-radius: 2px;
-    background: $white-color;
-    margin: 3px 0;
-  }
-
-  @include media($mobile-up) {
-    display: none;
-  }
-}
-
-@include media($mobile) {
-  $sliding-panel-width: 220px;
-
-  .sliding-panel-content {
-    border-top: 5px solid $primary-color;
-    @include position(fixed, 0 auto 0 0);
-    @include size($sliding-panel-width 100%);
-    @include transform(translateX(-100%));
-    @include transition(all 0.25s linear);
-    background: #fff;
-    -webkit-overflow-scrolling: touch;
-    overflow-y: auto;
-    z-index: 999999;
-
-    &.is-visible {
-      @include transform(translateX(0));
-    }
-  }
-
-  .sliding-panel-fade-screen {
-    @include position(fixed, 0 0 0 0);
-    @include transition;
-    background: #000;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 9999;
-
-    &.is-visible {
-      opacity: 0.4;
-      visibility: visible;
-    }
-  }
-
-  .sliding-panel-close {
-    cursor: pointer;
-  }
 }
 
 .btn:hover {
@@ -375,13 +226,13 @@ svg:hover {
 body.home {
   width: 100%;
   display: table;
-}
+};
 
 .hero {
   text-align: center;
   display: table-cell;
   vertical-align: middle;
-}
+};
 
 .hero-inner {
   text-align: center;
@@ -391,39 +242,17 @@ body.home {
   .dot {
     padding: 5px;
     border: 1px solid $light-gray-color;
-  }
-
-  h1 {
-    margin-top: .7em;
-    font-size: rem(40);
-  }
-
-  h3 {
-    font-size: rem(20);
-    margin: .8em 0 1.2em;
-
-    @include media($tablet-up) {
-      font-size: rem(24);
-    }
-  }
-
-  h3, em {
-    font-weight: $font-weight-light;
-  }
+  };
 
   h4 {
-    font-size: rem(14);
+    font-size: 16px;
     margin: .8em 0 1.2em;
     line-height: 26px;
-
-    @include media($tablet-up) {
-      font-size: rem(15);
-    }
-  }
+  };
 
   h4, em {
     font-weight: 200;
-  }
+  };
 
   em {
     color: $primary-color;
@@ -431,12 +260,15 @@ body.home {
 
   strong {
     font-weight: $font-weight-bold;
-  }
+  };
 }
 
+
+/**
+* social media icons
+**/
 .social {
-  @extend %clearfix;
-  padding: 5px 20px 5px 5px;
+  padding: 5px 0 5px 5px;
 
   li {
     float: left;
@@ -454,26 +286,74 @@ body.home {
   };
 
   @media screen and (min-width: 1367px) {
-    min-width: 300px;
-    padding-top: 40px;
+    min-width: 250px;
+    padding-top: 35px;
   }
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
-    padding-top: 30px
+    padding-top: 5px
   }
 
   @media screen and (min-width: 641px) and (max-width: 800px){
-    padding-top: 20px;;
+    padding-top: 5px;;
   }
 
   @media screen and (max-width: 640px){
-    padding-top:10px;
+    padding-top:5px;
   }
+}
+
+.icon {
+  > svg {
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (min-width: 1367px) {
+      width: 35px;
+      height: 35px;
+    }
+
+    @media screen and (min-width: 801px) and (max-width: 1366px) {
+      width: 30px;
+      height: 30px;
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 800px){
+      width: 30px;
+      height: 30px;
+    }
+
+    @media screen and (max-width: 640px){
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+}
+
+// icon colors
+svg:hover #facebook-back {
+  fill: red;
+}
+
+svg:hover #github-back {
+  fill: red;
+}
+
+svg:hover #linkedin-back {
+  fill: red;
+}
+
+svg:hover #twitter-back {
+  fill: red;
+}
+
+svg:hover {
+  fill: red;
 }
 
 
 .pagination {
-  @extend %clearfix;
   text-align: center;
   margin: 2em 0;
 
@@ -509,16 +389,14 @@ body.home {
 /***
 * posts styling
 ***/
-
-.post-list {
-
-}
-
 .post {
+
+  h5 {
+    padding-top: 10px;
+  };
 
   a {
     border-bottom: dotted 1px black;
-
   };
 
   @media screen and (min-width: 1367px) {
@@ -626,11 +504,100 @@ body.home {
 };
 
 
+/***
+* projects view - home page
+***/
+.portfolio {
+  h2 {
+    border-left: thick solid red;
+    padding-left: 10px;
+
+    @media screen and (min-width: 1367px) {
+      font-size: 28px;
+    }
+
+    @media screen and (min-width: 801px) and (max-width: 1366px) {
+      font-size: 26px;
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 800px){
+      font-size: 24px;
+    }
+
+    @media screen and (max-width: 640px){
+      font-size: 22px;
+    }
+  };
+
+  h3 {
+    @media screen and (min-width: 1367px) {
+      font-size: 25px;
+    }
+
+    @media screen and (min-width: 801px) and (max-width: 1366px) {
+      font-size: 23px;
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 800px){
+      font-size: 21px;
+    }
+
+    @media screen and (max-width: 640px){
+      font-size: 20px;
+    }
+  };
+
+  @media screen and (min-width: 1367px) {
+    padding: 20px 60px 20px 60px;
+  }
+
+  @media screen and (min-width: 801px) and (max-width: 1366px) {
+    padding: 20px 40px 20px 40px;
+  }
+
+  @media screen and (min-width: 641px) and (max-width: 800px){
+    padding: 20px 20px 20px 20px;
+  }
+
+  @media screen and (max-width: 640px){
+    padding: 10px 10px 10px 10px;
+  }
+}
+
+.portfolio-icon {
+  font-size: 30px !important;
+}
+
+.portfolio-big-icon {
+  font-size: 50px !important;
+}
+
+.portfolio-header {
+  padding-bottom: 5px;
+}
+
+.portfolio-tile {
+  padding: 30px 40px 30px 40px;
+}
+
+.portfolio-thumb {
+  padding-bottom: 10px;
+}
+
+.extra-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.red {
+  background: #ff8a80;
+}
+
+
 /* Site footer */
 .footer-container {
   padding-top: 20px;
 }
-
 
 .footer-contents {
   background-color: $white-color;
@@ -677,7 +644,7 @@ body.home {
   };
 
   @media screen and (min-width: 1367px) {
-    padding: 20px 20px 20px 20px;
+    padding: 10px 20px 20px 20px;
   }
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
@@ -701,4 +668,152 @@ body.home {
   p {
     padding: 5px 5px 5px 5px;
   }
+}
+
+
+/***
+* resume styling
+***/
+.resume {
+
+  .sidebar {
+    background-color: #333333;
+    border-radius: 5px;
+    color: white;
+
+    a {
+      color: white;
+    };
+
+    h1 {
+      font-size: 26px;
+      font-weight: 500;
+      text-align: center;
+    };
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+    };
+
+    h4 {
+      font-weight: 500;
+    };
+
+    h5 {
+      font-size: 15px;
+      font-weight: 500;
+    };
+
+    .bar {
+      height: 5px;
+      max-width: 160px;
+    }
+
+    md-progress-linear {
+
+      height: 6px;
+      padding-top: 7px !important;
+
+      .md-container {
+        height: 6px;
+        border-radius: 30px;
+
+        .md-bar {
+          height: 6px;
+        }
+
+        .md-dashed:before {
+          height: 6px;
+        }
+      }
+    };
+
+    .divider {
+      padding: 0 15px 0 15px;
+    }
+
+    .sidebar-icon {
+      fill: white;
+    };
+
+    .contact {
+      padding: 0 25px 40px 25px;
+    }
+
+    .skills {
+      padding: 0 25px 0 25px;
+    }
+
+    .interests {
+      padding: 0 25px 0 25px;
+    };
+
+    .personal {
+      padding: 0 25px 0 25px;
+    };
+
+    .summary {
+      font-size: 16px;
+      padding: 0 25px 0 25px;
+      text-align: justify;
+    };
+  };
+
+  .resume-thumb {
+    padding-top: 40px;
+    padding-bottom: 20px;
+  };
+
+  .right-padding-20 {
+    padding-right: 20px;
+  };
+
+  .top-padding-15 {
+    padding-top: 10px;
+  };
+
+  .red-border {
+    border-left: thick solid red;
+  };
+
+  .resume-body {
+    padding: 0 20px 0 20px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: 500;
+    };
+
+    h3 {
+      font-size: 17px;
+      font-weight: 500;
+    };
+
+    h4 {
+      font-size: 15px;
+      font-weight: 500;
+    };
+
+    p {
+      font-size: 14px;
+    };
+
+    ul {
+      font-size: 14px;
+      list-style: square;
+    };
+
+    .topic {
+      background-color: #f74842;
+      border-radius: 5px;
+      color: white;
+      padding: 5px 0 5px 0;
+    };
+
+    .box {
+      padding: 0 20px 20px 20px;
+    };
+  };
 }

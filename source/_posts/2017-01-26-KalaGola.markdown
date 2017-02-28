@@ -1,13 +1,15 @@
 ---
 author: Lahiru Pathirage
-layout: post
-title:  "KalaGola කාලගෝල"
+category: project
 comments: true
 date:   2017-01-26
+image: /images/portfolio/kalagola.png
 keywords: kalagola, python, typeface design, font, open source fonts
-category: project
+layout: post
+summary: Traverse through the timeline of your GitHub hosted font project.
 tags:
-- python, project, typeface design
+- python, cli app, font design
+title:  "KalaGola කාලගෝල"
 ---
 
 [**KalaGola**](http://github.com/lpsandaruwan/kalagola) is a cross platform **Pythonic tool** to traverse through the timeline of your **GitHub hosted font** repository,

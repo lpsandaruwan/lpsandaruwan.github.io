@@ -1,17 +1,22 @@
 ---
 author: Lahiru Pathirage
-layout: post
-title:  "Surgeon Tux"
+category: project
 comments: true
 date:   2017-02-23
+image: /images/portfolio/surgeon-tux.png
 keywords: Surgeon Tux, Jekyll, theme, template, terminal
-category: project
+layout: post
+summary: A fast jekyll theme designed for people who work with terminal.
 tags:
-- jekyll, theme, monospace, dark
+- jekyll, template, monospace, dark
+title:  "Surgeon Tux"
 ---
 
-Surgeon Tux is a free Jekyll template I built for people those who love to deal with terminal.
-I tried my best to give it the look of a terminal. Please Enjoy.
+Surgeon Tux is a GPL(v3) licensed free Jekyll template meant for terminal lovers.
+I tried my best to give it the appearance of a terminal. Please Enjoy.
+
+#####Where can I find the source code?
+Surgeon Tux code is hosted in a github repository, you can obtain it from [https://github.com/lpsandaruwan/surgeon-tux](https://github.com/lpsandaruwan/surgeon-tux){:target="_blank"}
 
 #####How to use it?
 
@@ -36,4 +41,4 @@ jekyll serve
 
 Now log into http://localhost:4000 from your web browser.
 
-You can refer the demo here, [http://lahiru.site/surgeon-tux](http://lahiru.site/surgeon-tux)
+You can refer the demo here, [http://lahiru.site/surgeon-tux](http://lahiru.site/surgeon-tux){:target="_blank"}

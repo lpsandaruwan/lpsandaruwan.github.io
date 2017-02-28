@@ -4,14 +4,14 @@ layout: default
 
 <md-toolbar md-theme="customTheme">
   <h1 class="md-toolbar-tools  md-toolbar-header post-content-divider">
-    <span>BLOG POSTS</span>
+    <span>BLOG ARCHIVE</span>
   </h1>
 </md-toolbar>
 <br>
 
 <section class="post-list">
   {% for post in paginator.posts %}
-    {% include article.html %}
+      {% include article.html %}
   {% endfor %}
 
   {% include pagination.html %}
