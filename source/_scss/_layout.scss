@@ -19,25 +19,74 @@
   box-sizing: border-box;
 }
 
-.site-wrapper{
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+
+@media screen and (min-width: 1367px) {
+  .site-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .site-header{
+    flex: 0 0 auto;
+  }
+
+  .site-content{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-top: 20px;
+  }
+
+  .site-footer{
+    flex: 0 0 auto;
+  }
 }
 
-.site-header{
-  flex: 0 0 auto;
+@media screen and (min-width: 801px) and (max-width: 1366px) {
+  .site-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .site-header{
+    flex: 0 0 auto;
+  }
+
+  .site-content{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-top: 20px;
+  }
+
+  .site-footer{
+    flex: 0 0 auto;
+  }
 }
 
-.site-content{
-  flex: 1 1 auto;
-  overflow-y: auto;
-  padding-top: 20px;
-}
+@media screen and (min-width: 641px) and (max-width: 800px){
+  .site-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-.site-footer{
-  flex: 0 0 auto;
+  .site-header{
+    flex: 0 0 auto;
+  }
+
+  .site-content{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-top: 20px;
+  }
+
+  .site-footer{
+    flex: 0 0 auto;
+  }
 }
 
 
@@ -66,58 +115,73 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   opacity: .97;
-
-  -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-  -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-  box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-
-  z-index: -1;
-}
-
-.body-content {
-  z-index: -1;
 }
 
 @media screen and (min-width: 1367px) {
+  .inner-body {
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
+  };
+
   .body-content {
+    z-index: -1;
     padding: 20px 60px 20px 60px;
-  }
+  };
+
+  p {
+    font-size: 16px;
+  };
 }
 
 @media screen and (min-width: 801px) and (max-width: 1366px) {
+  .inner-body {
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
+  };
+
   .body-content {
+    z-index: -1;
     padding: 20px 40px 20px 40px;
-  }
+  };
+
+  p {
+    font-size: 15px;
+  };
 }
 
 @media screen and (min-width: 641px) and (max-width: 800px){
+  .inner-body {
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
+  };
+
   .body-content {
+    z-index: -1;
     padding: 20px 20px 20px 20px;
-  }
+  };
+
+  p {
+    font-size: 14px;
+  };
 }
 
 @media screen and (max-width: 640px){
   .body-content {
     padding: 10px 10px 10px 10px;
-  }
-}
+  };
 
-p {
-  @media screen and (min-width: 1367px) {
-    font-size: 16px;
-  }
-
-  @media screen and (min-width: 801px) and (max-width: 1366px) {
-    font-size: 15px;
-  }
-
-  @media screen and (min-width: 641px) and (max-width: 800px) {
-    font-size: 14px;
-  }
-
-  @media screen and (max-width: 640px) {
+  p {
     font-size: 13px;
-  }
+  };
 }
 
 
@@ -137,7 +201,6 @@ p {
   text-align: center;
 
   h1 {
-
     @media screen and (min-width: 1367px) {
       font-size: 34px;
     }
@@ -151,7 +214,8 @@ p {
     }
 
     @media screen and (max-width: 640px){
-      font-size: 22px;
+      padding-left: 50px;
+      font-size: 20px;
     }
   }
 }
@@ -180,6 +244,7 @@ p {
   @media screen and (max-width: 640px){
     font-size: 10px;
     text-indent: 1px;
+    padding-left: 50px;
   }
 }
 
@@ -256,11 +321,39 @@ body.home {
 
   em {
     color: $primary-color;
+  };
+
+  @media screen and (min-width: 1367px) {
+    h4 {
+      font-size: 16px;
+      margin: .8em 0 1.2em;
+      line-height: 26px;
+    };
   }
 
-  strong {
-    font-weight: $font-weight-bold;
-  };
+  @media screen and (min-width: 801px) and (max-width: 1366px) {
+    h4 {
+      font-size: 15px;
+      margin: .8em 0 1.2em;
+      line-height: 25px;
+    };
+  }
+
+  @media screen and (min-width: 641px) and (max-width: 800px){
+    h4 {
+      font-size: 14px;
+      margin: .8em 0 1.2em;
+      line-height: 24px;
+    };
+  }
+
+  @media screen and (max-width: 640px){
+    h4 {
+      font-size: 13px;
+      margin: .8em 0 1.2em;
+      line-height: 20px;
+    };
+  }
 }
 
 
@@ -268,8 +361,6 @@ body.home {
 * social media icons
 **/
 .social {
-  padding: 5px 0 5px 5px;
-
   li {
     float: left;
     padding:5px 5px 5px 5px;
@@ -324,8 +415,8 @@ body.home {
     }
 
     @media screen and (max-width: 640px){
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
   }
 
@@ -508,60 +599,59 @@ svg:hover {
 * projects view - home page
 ***/
 .portfolio {
+
   h2 {
     border-left: thick solid red;
     padding-left: 10px;
-
-    @media screen and (min-width: 1367px) {
-      font-size: 28px;
-    }
-
-    @media screen and (min-width: 801px) and (max-width: 1366px) {
-      font-size: 26px;
-    }
-
-    @media screen and (min-width: 641px) and (max-width: 800px){
-      font-size: 24px;
-    }
-
-    @media screen and (max-width: 640px){
-      font-size: 22px;
-    }
-  };
-
-  h3 {
-    @media screen and (min-width: 1367px) {
-      font-size: 25px;
-    }
-
-    @media screen and (min-width: 801px) and (max-width: 1366px) {
-      font-size: 23px;
-    }
-
-    @media screen and (min-width: 641px) and (max-width: 800px){
-      font-size: 21px;
-    }
-
-    @media screen and (max-width: 640px){
-      font-size: 20px;
-    }
   };
 
   @media screen and (min-width: 1367px) {
+    h2 {
+      font-size: 28px;
+    };
+
+    h3 {
+      font-size: 25px;
+    };
+
     padding: 20px 60px 20px 60px;
   }
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
+    h2 {
+      font-size: 26px;
+    };
+
+    h3 {
+      font-size: 23px;
+    };
+
     padding: 20px 40px 20px 40px;
   }
 
   @media screen and (min-width: 641px) and (max-width: 800px){
+    h2 {
+      font-size: 24px;
+    };
+
+    h3 {
+      font-size: 21px;
+    };
+
     padding: 20px 20px 20px 20px;
   }
 
   @media screen and (max-width: 640px){
+    h2 {
+      font-size: 22px;
+    };
+
+    h3 {
+      font-size: 20px;
+    };
+
     padding: 10px 10px 10px 10px;
-  }
+  };
 }
 
 .portfolio-icon {
@@ -594,7 +684,9 @@ svg:hover {
 }
 
 
-/* Site footer */
+/***
+* Site footer
+***/
 .footer-container {
   padding-top: 20px;
 }
@@ -605,31 +697,38 @@ svg:hover {
   max-width: 1200px;
   opacity: .97;
 
-  -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-  -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-  box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
-
-  z-index: -1;
-
   @media screen and (min-width: 1367px) {
     padding: 20px 60px 20px 60px;
+
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
   }
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
     padding: 20px 40px 20px 40px;
+
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
   }
 
   @media screen and (min-width: 641px) and (max-width: 800px){
-    padding: 20px 20px 20px 20px;
-  }
+    padding: 0 20px 20px 20px;
 
-  @media screen and (max-width: 640px){
-    padding: 10px 10px 10px 10px;
+    -webkit-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: -1px -1px 14px -3px rgba(0,0,0,0.75);
+
+    z-index: -1;
   }
 }
 
 .footer-section {
-  float: left;
   text-align: justify;
 
   .header-background {
@@ -656,7 +755,8 @@ svg:hover {
   }
 
   @media screen and (max-width: 640px){
-    padding: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 0;
+
   }
 }
 
@@ -680,6 +780,7 @@ svg:hover {
     background-color: #333333;
     border-radius: 5px;
     color: white;
+    min-width: 320px !important;
 
     a {
       color: white;
