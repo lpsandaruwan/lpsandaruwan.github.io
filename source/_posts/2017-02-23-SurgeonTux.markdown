@@ -1,6 +1,6 @@
 ---
 author: Lahiru Pathirage
-category: project
+category: post
 comments: true
 date:   2017-02-23
 image: /images/portfolio/surgeon-tux.png
