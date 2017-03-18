@@ -1,0 +1,28 @@
+---
+author: Lahiru Pathirage
+category: project
+comments: true
+date:   2017-02-23
+image: /images/portfolio/savior_ship.png
+keywords: Savior Ship, SDL2, Game, C++
+layout: post
+summary: A simple C++ 2D shooter game using SDL2 libraries.
+tags:
+- c++, sdl2, game, 2d
+title:  "Savior Ship"
+---
+
+Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer version 2(SDL2),
+I implemented the game to refresh my skills on C++. It is released under GPL license in GitHub for the purpose
+of helping out the people who seek SDL2 beginner level applications to learn.
+
+![savior-ship](/images/portfolio/savior_ship.png)
+
+
+Website: [http://lahiru.site/savior-ship](http://lahiru.site/savior-ship)
+
+License: [GPLv3](https://github.com/lpsandaruwan/savior-ship/blob/master/LICENSE.md)
+
+Source code: [https://github.com/lpsandaruwan/savior-ship](https://github.com/lpsandaruwan/savior-ship)
+
+Releases: [https://github.com/lpsandaruwan/savior-ship/releases](https://github.com/lpsandaruwan/savior-ship/releases)
