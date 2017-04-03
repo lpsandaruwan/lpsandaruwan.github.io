@@ -13,7 +13,7 @@ title:  "Savior Ship"
 ---
 
 Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer version 2(SDL2),
-I implemented the game to refresh my skills on C++. It is released under GPL license in GitHub for the purpose
+This is the way I attempted to refresh my skills on C++. Savior ship has been released under GPL license in GitHub for the purpose
 of helping out the people who seek SDL2 beginner level applications to learn.
 
 ![savior-ship](/images/portfolio/savior_ship.png)
@@ -21,7 +21,7 @@ of helping out the people who seek SDL2 beginner level applications to learn.
 
 Website: [http://lahiru.site/savior-ship](http://lahiru.site/savior-ship)
 
-License: [GPLv3](https://github.com/lpsandaruwan/savior-ship/blob/master/LICENSE.md)
+License: [GPLv3 or later](https://github.com/lpsandaruwan/savior-ship/blob/master/LICENSE.md)
 
 Source code: [https://github.com/lpsandaruwan/savior-ship](https://github.com/lpsandaruwan/savior-ship)
 

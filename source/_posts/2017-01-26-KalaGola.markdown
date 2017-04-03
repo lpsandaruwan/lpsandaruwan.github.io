@@ -9,7 +9,7 @@ layout: post
 summary: Traverse through the timeline of your GitHub hosted font project.
 tags:
 - python, cli app, font design
-title:  "KalaGola කාලගෝල"
+title:  "KalaGola"
 ---
 
 [**KalaGola**](http://github.com/lpsandaruwan/kalagola) is a cross platform **Pythonic tool** to traverse through the timeline of your **GitHub hosted font** repository,
