@@ -6,10 +6,10 @@ date:   2017-04-03
 image: /images/portfolio/depli.png
 keywords: Depli, jvm performance monitor, Java tool
 layout: post
-summary: A handsome JVM monitoring tool.
+summary: The 10-second solution to monitor JVM performance.
 tags:
 - java, spring-boot, angularjs, jvm performance
-title:  "DEPLI"
+title:  "Depli"
 ---
 
 Depli provides you the 10-second solution for monitoring JVMs. Just add a JMX remote connection using webUI and see how it works.

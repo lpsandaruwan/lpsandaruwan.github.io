@@ -2,13 +2,11 @@
 =            Layout styles            =
 =====================================*/
 
-@import url('https://fonts.googleapis.com/css?family=Cantarell');
-@import url("//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css");
-
 
 /**
 * site layout
 **/
+
 *{
   box-sizing: border-box;
   margin: 0;
@@ -97,14 +95,22 @@ a {
   outline: 0 !important;
 }
 
+h1, h2, h3, h4, h5, h6, p, a, li, ul, ol, time, .md-menu {
+  font-family: 'Cantarell', sans-serif !important;
+  font-weight: 500;
+}
+
+
 body {
+  font-family: 'Cantarell', sans-serif;
+  font-weight: 900;
+
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
   -o-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
   font-kerning: normal;
-
 
   background: #232526; /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 */
@@ -137,7 +143,7 @@ body {
   };
 
   p {
-    font-size: 16px;
+    font-size: 14px;
   };
 }
 
@@ -156,7 +162,7 @@ body {
   };
 
   p {
-    font-size: 15px;
+    font-size: 13px;
   };
 }
 
@@ -175,7 +181,7 @@ body {
   };
 
   p {
-    font-size: 14px;
+    font-size: 13px;
   };
 }
 
@@ -185,7 +191,7 @@ body {
   };
 
   p {
-    font-size: 13px;
+    font-size: 12px;
   };
 }
 
@@ -288,9 +294,6 @@ body {
   }
 }
 
-.md-toolbar-header {
-  font-weight: bold !important;
-}
 
 // home hero presentation
 body.home {
@@ -315,13 +318,9 @@ body.home {
   };
 
   h4 {
-    font-size: 16px;
+    font-size: 14px;
     margin: .8em 0 1.2em;
     line-height: 26px;
-  };
-
-  h4, em {
-    font-weight: 200;
   };
 
   em {
@@ -330,7 +329,7 @@ body.home {
 
   @media screen and (min-width: 1367px) {
     h4 {
-      font-size: 16px;
+      font-size: 15px;
       margin: .8em 0 1.2em;
       line-height: 26px;
     };
@@ -541,6 +540,7 @@ svg:hover {
 }
 
 .post-summary {
+
   &:hover {
     h1 {
       color: red;
@@ -609,6 +609,7 @@ svg:hover {
     border-left: thick solid red;
     padding-left: 10px;
   };
+
 
   @media screen and (min-width: 1367px) {
     h2 {
@@ -692,10 +693,6 @@ svg:hover {
 /***
 * Site footer
 ***/
-.footer-container {
-  padding-top: 20px;
-}
-
 .footer-contents {
   background-color: $white-color;
   margin: 0 auto;
@@ -747,21 +744,8 @@ svg:hover {
     }
   };
 
-  @media screen and (min-width: 1367px) {
-    padding: 10px 20px 20px 20px;
-  }
-
-  @media screen and (min-width: 801px) and (max-width: 1366px) {
-    padding: 20px 20px 20px 20px;
-  }
-
-  @media screen and (min-width: 641px) and (max-width: 800px){
-    padding: 10px 10px 10px 10px;
-  }
-
   @media screen and (max-width: 640px){
-    padding: 10px 10px 10px 0;
-
+    padding-right: 20px;
   }
 }
 
@@ -793,23 +777,20 @@ svg:hover {
 
     h1 {
       font-size: 26px;
-      font-weight: 500;
       text-align: center;
     };
 
     h3 {
       font-size: 20px;
-      font-weight: 500;
       text-align: center;
     };
 
     h4 {
-      font-weight: 500;
+      font-size: 18px;
     };
 
     h5 {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 14px;
     };
 
     .bar {
@@ -861,7 +842,7 @@ svg:hover {
     };
 
     .summary {
-      font-size: 16px;
+      font-size: 14px;
       padding: 0 25px 0 25px;
       text-align: justify;
     };
@@ -888,18 +869,15 @@ svg:hover {
     padding: 0 20px 0 20px;
 
     h2 {
-      font-size: 20px;
-      font-weight: 500;
+      font-size: 18px;
     };
 
     h3 {
-      font-size: 17px;
-      font-weight: 500;
+      font-size: 15px;
     };
 
     h4 {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 14px;
     };
 
     p {
