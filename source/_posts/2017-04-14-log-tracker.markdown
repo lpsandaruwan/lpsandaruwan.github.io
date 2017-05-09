@@ -13,11 +13,10 @@ title:  "Log Tracker"
 ---
 
 Log Tracker is a simple wrapper around Python **paramiko** to track text files using SSH.
-It gives you the ability to create custom python functions to do whatever you want.
+It gives you the ability to create custom python functions to track and analyze log files the way you want.
 A user can access the contents in multiple log files at the same time also.
-Consider displaying content in a web interface using Flask, so then anyone can analyze contents easily,
-without wasting time to login into servers and download contents.
-However to use the Log Tracker Python programming knowledge is required.
+Using a custom function a user can display a log content in a web interface using Flask like lightweight web service,
+so then anyone can analyze contents easily, without wasting time to login into servers and download contents.
 For more information please refer below links.
 <br><br>
 

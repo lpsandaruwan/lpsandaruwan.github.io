@@ -13,7 +13,7 @@ title:  "Surgeon Tux"
 ---
 
 Surgeon Tux is a GPL(v3) licensed free Jekyll template meant for terminal lovers.
-I tried my best to give it the appearance of a terminal. Please Enjoy.
+I tried my best to give it the appearance of a terminal.
 
 #####Where can I find the source code?
 Surgeon Tux code is hosted in a github repository, you can obtain it from [https://github.com/lpsandaruwan/surgeon-tux](https://github.com/lpsandaruwan/surgeon-tux){:target="_blank"}

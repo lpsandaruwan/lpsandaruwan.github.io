@@ -107,12 +107,12 @@ Now to display the project status on readme, I added labels from Travis and Sona
 
 ### Bravo!
 After following above steps I pushed all changes to GitHub. And waited until Travis sent me a mail confirming that my build has been successful.
-Now the readme is displaying the build status and whether my project has passed the build quality gate.
+Now the readme is displaying the build status and whether my project has passed the quality gate.
 
 ![readme](/images/posts/GitHubSonarQube/readme.png)
 <br><br>
 
-And after clicking on the `quality gate` badge, I can see the detailed analysis code quality report of my repository.
+By clicking on the `quality gate` badge, I can access the SonarQube dashboard, detailed analysis of code quality of my repository.
 
 
 ![readme](/images/posts/GitHubSonarQube/sonarqube_page.png)

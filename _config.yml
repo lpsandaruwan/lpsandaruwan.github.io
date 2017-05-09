@@ -30,18 +30,16 @@ disqus_site_shortname: "lpsandaruwan"
 # Author settings
 author:
   name      : Lahiru Pathirage
-  thumb     : /images/author.png
+  thumb     : /images/author.jpg
   email     : lpsandaruwan@gmail.com
   url       : http://lahiru.site
   github    : http://github.com/lpsandaruwan
   twitter   : http://twitter.com/lpsandaruwan
-  facebook  : http://facebook.com/skyblue1992
+  facebook  : http://facebook.com/lpsandaruwan1
   linkedin  : http://linkedin.com/in/lpsandaruwan
 
 # navbar pages
 navbar:
-  - slug: resume
-    title: Resume
   - slug: projects
     title: Projects
   - slug: blog

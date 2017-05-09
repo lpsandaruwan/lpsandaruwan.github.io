@@ -112,9 +112,9 @@ body {
   font-feature-settings: "kern" 1;
   font-kerning: normal;
 
-  background: #232526; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #232526 , #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   @media screen and (max-width: 640px){
     background: white;
@@ -213,35 +213,35 @@ body {
 
   h1 {
     @media screen and (min-width: 1367px) {
-      font-size: 34px;
+      font-size: 32px;
     }
 
     @media screen and (min-width: 801px) and (max-width: 1366px) {
-      font-size: 30px;
+      font-size: 28px;
     }
 
     @media screen and (min-width: 641px) and (max-width: 800px){
-      font-size: 28px;
+      font-size: 26px;
     }
 
     @media screen and (max-width: 640px){
       padding-left: 50px;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }
 
 .site-description {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 
   @media screen and (min-width: 1367px) {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 3px;
     text-indent: 6px;
   }
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 2px;
     text-indent: 4px;
   }
@@ -264,6 +264,7 @@ body {
 
   h1 {
     margin: 5px;
+    color: red;
   };
 
   a:hover {
@@ -606,18 +607,18 @@ svg:hover {
 .portfolio {
 
   h2 {
-    border-left: thick solid red;
-    padding-left: 10px;
+    color: #232526; /* fallback for old browsers */
+    padding-bottom: 10px;
   };
 
 
   @media screen and (min-width: 1367px) {
     h2 {
-      font-size: 28px;
+      font-size: 26px;
     };
 
     h3 {
-      font-size: 25px;
+      font-size: 24px;
     };
 
     padding: 20px 60px 20px 60px;
@@ -625,11 +626,11 @@ svg:hover {
 
   @media screen and (min-width: 801px) and (max-width: 1366px) {
     h2 {
-      font-size: 26px;
+      font-size: 22px;
     };
 
     h3 {
-      font-size: 23px;
+      font-size: 20px;
     };
 
     padding: 20px 40px 20px 40px;
@@ -734,8 +735,7 @@ svg:hover {
   text-align: justify;
 
   .header-background {
-    border-left: thick solid red;
-    padding-left: 10px;
+    color: #232526;
   };
 
   a {
