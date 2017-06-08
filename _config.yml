@@ -16,14 +16,12 @@ sass:
 
 # SEO settings
 title: LAHIRU SANDARUWAN PATHIRAGE
-description: "SOFTWARE DEVELOPER - LINUX ENTHUSIAST - FOSS LOVER"
+description: "SOFTWARE ENGINEER - LINUX ENTHUSIAST - FOSS LOVER"
 keywords: "Lahiru Pathirage, lpsandaruwan, blog, technology, Linux"
 url: ""
 baseurl: ""
 # baseurl: ""
 
-# google_analytics: UA-52446115-1
-repo: http://github.com/lpsandaruwan/lpsandaruwan.github.io
 disqus_shortname: "lpsandaruwan"
 disqus_site_shortname: "lpsandaruwan"
 
@@ -44,5 +42,7 @@ navbar:
     title: Projects
   - slug: blog
     title: Blog
+  - slug: resume
+    title: Resume
 
 exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
