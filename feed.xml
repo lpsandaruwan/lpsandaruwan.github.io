@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LAHIRU SANDARUWAN PATHIRAGE</title>
+    <description>SOFTWARE ENGINEER - LINUX ENTHUSIAST - OPEN SOURCE CONTRIBUTOR</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 01 Mar 2018 14:49:04 +0530</pubDate>
+    <lastBuildDate>Thu, 01 Mar 2018 14:49:04 +0530</lastBuildDate>
+    <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>Application Deployment in Apache Tomcat on GCE Using Ansible</title>
+        <description>&lt;p&gt;Think about a person who needs a cloud instance temporarily to deploy a web application to do tests frequently and throughout the time he deploys the application,
+use it for a while and then deletes the instance to save the cost.
+Or someone needs to create a cluster, thus he needs to instantiate several cloud servers at once,
+install dependencies and deploy the application on each server. Doing these tasks by hand costs much effort and it is inefficient.
+The way to make such scenarios easier, efficient and effective is making a reusable structure which does these repetitive tasks when we invoke it.
+For that purpose, we use configuration management.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/gce-tomcat-ansible/cm_showoff.png&quot; alt=&quot;cm_what_happens&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This tutorial is about a such scenario, to splash the easiness of using a reusable code base when deploying an application,
+using &lt;strong&gt;Ansible&lt;/strong&gt;(a radical and impressive configuration management tool with its capabilities and ease of use compared to other tools),
+&lt;strong&gt;Google cloud platform&lt;/strong&gt;(future potential cloud services with a good pricing model) and &lt;strong&gt;Apache Tomcat&lt;/strong&gt;
+(one of the most popular web servers in the Java community). For this purpose, we are going to use the &lt;a href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot;&gt;gce-tomcat-ansible-demo&lt;/a&gt; repository,
+ a concatenation of Ansible playbooks(the reusable code base) implemented by me to reflect this task.
+  Running this will create a Google compute engine in a given Google cloud platform project, install java,
+   configure an Apache Tomcat server and will deploy a war file according to given metadata.
+   (To understand playbooks knowing Ansible basics is more than enough. Refer &lt;a href=&quot;http://docs.ansible.com/ansible/latest/intro_getting_started.html&quot;&gt;Ansible documentation&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/gce-tomcat-ansible/playbook_flow.png&quot; alt=&quot;playbook_flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting started&lt;/h2&gt;
+
+&lt;p&gt;To run the playbook you need to have &lt;strong&gt;a Google cloud platform account&lt;/strong&gt;, &lt;strong&gt;a Google cloud platform project&lt;/strong&gt; and &lt;strong&gt;a service account&lt;/strong&gt;
+to manipulate Google cloud project with appropriate roles and permission and &lt;strong&gt;an Ansible running machine&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are several ways to install Ansible but here let’s install it using python pip package manager since the installation
+is not going to depend on which operating system you use. But first make sure Python version 2,
+Python development and Python pip(most probably python-dev and python-pip respectively,
+refer &lt;a href=&quot;https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers&quot;&gt;installing pip with package managers for more information&lt;/a&gt;) packages have been installed on the machine that you are
+ going to install Ansible. To make sure, try running the command below.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;pip list&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/gce-tomcat-ansible/pip_list.png&quot; alt=&quot;pip_list&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And then clone the repository &lt;a href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot;&gt;gce-tomcat-ansible-demo&lt;/a&gt;, which contains playbooks to create a Google compute engine instance,
+ install Java, configure a Apache Tomcat server and deploy a given war file on the configured application server.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;git clone https://github.com/lpsandaruwan/gce-tomcat-ansible-demo.git&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Then change the current working directory into the cloned repository.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; gce-tomcat-ansible-demo&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now use the &lt;code&gt;requirements.txt&lt;/code&gt; to install appropriate Python pip package versions which this playbook has been written and tested for.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This will install ansible and apache-libcloud(a fine interface to deal with popular cloud services)
+Python packages which we are going to use for manipulating Google cloud project.&lt;/p&gt;
+
+&lt;p&gt;Make sure that you have a working Google cloud platform project(if not refer &lt;a href=&quot;https://cloud.google.com/resource-manager/docs/creating-managing-projects&quot;&gt;creating and manage projects&lt;/a&gt;),
+and a service account assigned to it(do not use the default service account since it has full permission over the project,
+refer &lt;a href=&quot;https://cloud.google.com/compute/docs/access/service-accounts&quot;&gt;service accounts&lt;/a&gt; for more information) and then obtain the project ID,
+private JSON keyfile(you can obtain the JSON key file when creating a new service account,
+if not refer &lt;a href=&quot;https://cloud.google.com/storage/docs/authentication#service-account-credentials&quot;&gt;service account credentials&lt;/a&gt;) and the service account email from them.
+Now we have to configure Ansible running machine to access the GCP project.
+Here Let’s use Google cloud SDK to make things easier(refer &lt;a href=&quot;https://cloud.google.com/sdk/downloads#versioned&quot;&gt;install Google cloud SDK&lt;/a&gt;).
+After installing the SDK run the below command to initialize.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;gcloud init&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/gce-tomcat-ansible/gcloud_init.png&quot; alt=&quot;gcloud_init&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And it will direct you to the web page in your browser. From there allow the access to the SDK.
+ Now in the terminal select the appropriate project ID. After that you should be able to run playbooks on the appropriate project and manipulate it.
+  If you run into a permission problem connecting the instance configure SSH authentication using cloud SDK tools by running the command below.
+  (refer &lt;a href=&quot;https://cloud.google.com/sdk/gcloud/reference/compute/config-ssh&quot;&gt;gcloud compute config-ssh&lt;/a&gt;)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;gcloud compute config-ssh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;play-it&quot;&gt;Play it&lt;/h2&gt;
+
+&lt;p&gt;Now configure the file &lt;code&gt;gce-vars/authentication&lt;/code&gt; and update the obtained metadata from GCP project and service account in playbook.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;project_id&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;“project-id-193706”&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;credentials_file&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;“/path/to/private/json/key/file”&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;service_account_email&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;“tomcat-ansible-demo@service-account-193706.iam.gserviceaccount.com”&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After that change instance metadata in &lt;code&gt;gce-vars/instance&lt;/code&gt; as you need. Here,
+we are going to add firewall rules to allow HTTP traffic on 8080 ports for Apache Tomcat server&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tomcat-ansible-demo&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;f1-micro&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;debian-9&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;zone&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;europe-west1-b&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;allowed_ports_tcp&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tcp:8080&lt;/span&gt;
+&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;allowed_ports_udp&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;udp:8080&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Then set the &lt;code&gt;ANSIBLE_HOSTS&lt;/code&gt; environment variable required by Ansible for SSH interactions.
+To do that simply put hostnames in &lt;code&gt;hosts&lt;/code&gt; file and import it as below.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ANSIBLE_HOSTS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;hosts&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now you should be able to run this project. Simply run the main playbook.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;ansible-playbook run.ym&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Final output will be as below. And after a successful run you will have your application deployed in an
+Apache Tomcat server on a Google compute engine instance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/gce-tomcat-ansible/final.png&quot; alt=&quot;final&quot; /&gt;
+&lt;img src=&quot;/images/posts/gce-tomcat-ansible/web.png&quot; alt=&quot;web&quot; /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;appendix&quot;&gt;Appendix&lt;/h2&gt;
+
+&lt;p&gt;(If you wish to change Java version, Tomcat version etc.
+configure main.yml in defaults directory in roles. They contain configuration variables with lower priorities.)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;gce-tomcat-ansible-demo
+|------gce_vars				# variables related to Google cloud platform
+|	|	authentication		# Google project and service account related metadata
+|	|	instance		# GCE instance related metadata
+|
+|-------roles
+|	|-------java				# role to install Java
+|	|	|-------defaults
+|	|	|	|	main.yml	# default variables for java role
+|	|	|
+|	|	|-------tasks
+|	|	|	|	main.yml	# tasks to download and install Java
+|	|
+|	|-------tomcat
+|	|	|-------defaults
+|	|	|	|	main.yml	# default variables for tomcat role
+|	|	|
+|	|	|-------files
+|	|	|	|	tomcat-users.xml	# set tomcat manager credentials
+|	|	|
+|	|	|-------tasks
+|	|	|	|	main.yml	# tasks to download and configure tomcat
+|	|
+|	|-------tomcat-deploy
+|	|	|-------defaults
+|	|	|	|	main.yml	# default variables for tomcat-deploy role
+|	|	|
+|	|	|-------tasks
+|	|	|	|	main.yml	# tasks to deploy the given war file
+|
+|	hosts					# ansible hosts
+|	bootstrap-instance.yml			# playbook to initiate google cloud instance
+|	deploy-war.yml				# playbook to deploy war file
+|	install-java.yml			# playbook to install Java
+|	install-tomcat.yml			# playbook to install Apache Tomcat
+|	run.yml					# main playbook to run&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;http://purl.org/dc/dcmitype/Text&quot; property=&quot;dct:title&quot; rel=&quot;dct:type&quot;&gt;gce-tomcat-ansible-demo post&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/blog/2018/tomcat-gce-ansible-demo/&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot; rel=&quot;dct:source&quot;&gt;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Mar 2018 00:00:00 +0530</pubDate>
+        <link>/blog/2018/tomcat-gce-ansible-demo/</link>
+        <guid isPermaLink="true">/blog/2018/tomcat-gce-ansible-demo/</guid>
+        
+        <category>tomcat, gce, ansible, configuration-management</category>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>Setting Up Creative Labs USB DAC Volume Knob On Linux</title>
+        <description>&lt;p&gt;Lately I bought a &lt;a href=&quot;http://us.creative.com/p/sound-blaster/sound-blaster-x-fi-surround-5-1-pro&quot;&gt;Creative Labs SB1095&lt;/a&gt;, a 5.1 USB DAC for my laptop.
+This USB sound card works perfectly on Linux.
+The sound quality is better than the integrated,
+but it has a volume knob on it and a remote controller,
+which does not support out of the box by Linux distributions which I have tried(Ubuntu, Linux Mint, OpenSuse, Arch Linux).
+After digging up the internet a little bit I perceived that it is required to configure a software volume controller to handle the volume knob.
+However, I did not want to go for that kind of advanced configurations, and finally found an easy workaround for this purpose. Would like to take down the steps,
+so it might help others which have the same issue.&lt;/p&gt;
+
+&lt;p&gt;To achieve this I used lirc (an application which interprets IR actions) to detect volume knob and remote actions and wrapped it with irexec (trigger actions for lirc inputs) to change system sound volume.&lt;/p&gt;
+
+&lt;p&gt;I am currently using Linux Mint 18.1, so this solution will work perfectly with Ubuntu 16.04 derivatives.
+For other Linux distributions please follow &lt;a href=&quot;https://sites.google.com/site/klaasdc/runeaudio-creative-xfi-5-1-usb&quot;&gt;this guide&lt;/a&gt;.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;requirements&quot;&gt;Requirements&lt;/h4&gt;
+&lt;p&gt;First I installed these packages, selected Creative USB IR Receiver (SB0540) for remote controller configuration(not the SB1095,
+but it has the same configurations) and selected none for IR transmitter in appearing configuration menus when installing.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt install lirc lirc-x&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;configurations&quot;&gt;Configurations&lt;/h4&gt;
+&lt;p&gt;Then I changed the &lt;code&gt;REMOTE_DRIVER&lt;/code&gt; in lirc hardware configuration file &lt;code&gt;/etc/lirc/hardware.conf&lt;/code&gt;, left other settings unchanged.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# ~/.lircrc&lt;/span&gt;
+begin
+ &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; *
+ &lt;span class=&quot;nv&quot;&gt;prog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; irexec
+ &lt;span class=&quot;nv&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; amixer -D pulse sset Master &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;%-
+ &lt;span class=&quot;nv&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; vol-
+ &lt;span class=&quot;nv&quot;&gt;repeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+end
+
+begin
+ &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; *
+ &lt;span class=&quot;nv&quot;&gt;prog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; irexec
+ &lt;span class=&quot;nv&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; amixer -D pulse sset Master &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;%+
+ &lt;span class=&quot;nv&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; vol+
+ &lt;span class=&quot;nv&quot;&gt;repeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+end
+
+begin
+ &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; *
+ &lt;span class=&quot;nv&quot;&gt;prog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; irexec
+ &lt;span class=&quot;nv&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; amixer -D pulse sset Master &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mute
+end&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;test&quot;&gt;Test&lt;/h4&gt;
+&lt;p&gt;Then I restarted lirc daemon and loaded irexec daemon.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo service lirc restart
+irexec -d &lt;span class=&quot;c1&quot;&gt;# make a startup entry to load on system boot up&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now I have the volume knob working just fine.
+&lt;br /&gt;If the volume is not changing check whether lirc detects inputs by the USB device using the command &lt;code&gt;irw&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# irw sample output for volume knob changes&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;0000000000000010&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;01&lt;/span&gt; vol+ RM-1500
+&lt;span class=&quot;m&quot;&gt;0000000000000010&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;00&lt;/span&gt; vol+ RM-1500
+&lt;span class=&quot;m&quot;&gt;0000000000000010&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;01&lt;/span&gt; vol+ RM-1500
+000000000000000f &lt;span class=&quot;m&quot;&gt;03&lt;/span&gt; vol- RM-1500
+000000000000000f &lt;span class=&quot;m&quot;&gt;00&lt;/span&gt; vol- RM-1500
+000000000000000d &lt;span class=&quot;m&quot;&gt;00&lt;/span&gt; mute RM-1500&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If the output is something like the above, try changing config values(commands to change sound volume) in the &lt;code&gt;~/.lircrc&lt;/code&gt; after that try restarting lirc daemon and loading &lt;code&gt;irexec&lt;/code&gt; again.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;sources&quot;&gt;Sources&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;http://alsa.opensrc.org/Usb-audio#Creative_USB_X-Fi_Surround_5.1&quot;&gt;http://alsa.opensrc.org/Usb-audio#Creative_USB_X-Fi_Surround_5.1&lt;/a&gt;
+&lt;br /&gt;&lt;a href=&quot;http://www.lirc.org/html/configure.html&quot;&gt;http://www.lirc.org/html/configure.html&lt;/a&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; property=&quot;dct:title&quot;&gt;Setting Up Creative Labs USB DAC Volume Knob On Linux&lt;/span&gt; by &lt;span xmlns:cc=&quot;http://creativecommons.org/ns#&quot; property=&quot;cc:attributionName&quot;&gt;Lahiru Pathirage&lt;/span&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 11 May 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/sb1095-volume-knob-linux/</link>
+        <guid isPermaLink="true">/blog/2017/sb1095-volume-knob-linux/</guid>
+        
+        <category>usb dac, creative labs, sb1095, linux, volume knob</category>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>Continuous Code Quality On My OpenSource Project</title>
+        <description>&lt;p&gt;Good quality in code plays an essential role when it comes to software,
+thus it assets efficiency, reliability, robustness, portability, maintainability and readability like essential factors.
+Considering a GitHub project, there are plenty of options to measure code quality.
+Considering options I would like to chose &lt;a href=&quot;https://www.sonarqube.org/&quot;&gt;SonarQube&lt;/a&gt; for this particular purpose.
+Let me take down the steps, how I used SonarQube to measure code quality using a Java project, one of my GitHub hosted projects, &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;Depli&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;NB: The best way to analyze a maven project is to use the maven sonar plugin &lt;a href=&quot;https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven&quot;&gt;as the SonarQube docs says&lt;/a&gt;.
+You do not require a &lt;code&gt;sonar-project.properties&lt;/code&gt; in that case.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-1---create-an-account-in-travis-ciorg&quot;&gt;Step 1 - Create an account in travis-ci.org&lt;/h4&gt;
+
+&lt;p&gt;SonarQube needs &lt;a href=&quot;https://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code&quot;&gt;sonar-runner&lt;/a&gt; to analyze the code.
+To run the analysis process using sonar-runner on code changes continuously, the ideal solution is using a CI server.
+Here I had to use &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis-CI&lt;/a&gt; since it is the perfect matured CI solution for GitHub projects.&lt;/p&gt;
+
+&lt;p&gt;I created and logged into &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis&lt;/a&gt; using my GitHub account and &lt;a href=&quot;https://travis-ci.org/getting_started&quot;&gt;activated it&lt;/a&gt; for my repository.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-2---create-an-account-in-sonarqubecom&quot;&gt;Step 2 - Create an account in sonarqube.com&lt;/h4&gt;
+
+&lt;p&gt;Then I created and logged into &lt;a href=&quot;https://sonarqube.com&quot;&gt;SonarQube&lt;/a&gt; using the same GitHub account.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-3---create-travis-ci-configuration-file&quot;&gt;Step 3 - Create Travis-CI configuration file&lt;/h4&gt;
+
+&lt;p&gt;Next step was to create a configuration file for Travis-CI to instruct it to how to run the sonar-scanner as known as sonar-runner.
+To do that I created a &lt;code&gt;.travis.yml&lt;/code&gt;, A YAML file in my project’s root directory.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;dist: trusty &lt;span class=&quot;c1&quot;&gt;# chose ubuntu trusty as the worker&lt;/span&gt;
+
+sudo: required
+
+addons:
+  sonarqube:
+    organization: lpsandaruwan-github &lt;span class=&quot;c1&quot;&gt;# organization token from https://sonarqube.com/account/organizations&lt;/span&gt;
+
+jdk:
+- oraclejdk8
+
+script:
+- mvn clean install -DskipTests &lt;span class=&quot;c1&quot;&gt;# skipped tests because I have not written.&lt;/span&gt;
+- sonar-scanner &lt;span class=&quot;c1&quot;&gt;# tell travis to run sonar scanner&lt;/span&gt;
+
+cache:
+  directories:
+  - &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.sonar/cache&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-4---create-a-sonarqube-token&quot;&gt;step 4 - Create a SonarQube token&lt;/h4&gt;
+
+&lt;p&gt;After creating a Travis configuration file I generated a &lt;a href=&quot;https://docs.sonarqube.org/display/SONAR/User+Token&quot;&gt;security token&lt;/a&gt; and copied it to clipboard,
+for Travis to use when updating SonarQube database.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-5---encrypt-sonarqube-token&quot;&gt;Step 5 - Encrypt SonarQube token&lt;/h4&gt;
+&lt;p&gt;Public access to a security token is a bad thing. So I had to encrypt the SonarQube token when inserting it to Travis configuration file.
+To achieve that I used &lt;a href=&quot;https://rubygems.org/gems/travis&quot;&gt;&lt;code&gt;travis&lt;/code&gt;&lt;/a&gt; from ruby gems.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /path/to/my/project/root
+travis encrypt MY_SONARQUBE_TOKEN --add addons.sonarqube.token&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-6---create-a-sonarqube-configuration-file&quot;&gt;Step 6 - Create a SonarQube configuration file&lt;/h4&gt;
+&lt;p&gt;A metadata file including project details is required for SonarQube. So I created &lt;code&gt;sonar-project.properties&lt;/code&gt; in my project’s root.
+Here &lt;code&gt;sonar.sources&lt;/code&gt; is the place where sonar-scanner starts to analyze.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;sonar.projectKey&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;com.sonarqube.lpsandaruwan.depli
+sonar.projectName&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Depli - JVM Monitoring Dashboard
+sonar.projectVersion&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.2.0-SNAPSHOT
+
+sonar.links.homepage&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://lahiru.site/depli
+sonar.links.ci&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://travis-ci.org/lpsandaruwan/depli
+sonar.links.scm&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://github.com/lpsandaruwan/depli
+sonar.links.issue&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://github.com/lpsandaruwan/depli/issues
+
+sonar.sources&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;src/main&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-7---add-status-to-read-me&quot;&gt;Step 7 - Add status to read me&lt;/h4&gt;
+&lt;p&gt;Now to display the project status on readme, I added labels from Travis and SonarQube on &lt;code&gt;README.md&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;!&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Build Status&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;https://travis-ci.org/USERNAME/PROJECT_NAME.png&lt;span class=&quot;o&quot;&gt;)](&lt;/span&gt;https://travis-ci.org/USERNAME/PROJECT_NAME&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;!&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Quality Gate&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;https://sonarqube.com/api/badges/gate?key&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;SONAR_PROJECT_KEY&lt;span class=&quot;o&quot;&gt;)](&lt;/span&gt;https://sonarqube.com/dashboard/index/SONAR_PROJECT_KEY&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;bravo&quot;&gt;Bravo!&lt;/h3&gt;
+&lt;p&gt;After following above steps I pushed all changes to GitHub. And waited until Travis sent me a mail confirming that my build has been successful.
+Now the readme is displaying the build status and whether my project has passed the quality gate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/github-sonarqube/readme.png&quot; alt=&quot;readme&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;By clicking on the &lt;code&gt;quality gate&lt;/code&gt; badge, I can access the SonarQube dashboard, detailed analysis of code quality of my repository.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/github-sonarqube/sonarqube_page.png&quot; alt=&quot;readme&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Please refer my open source project, &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;https://github.com/lpsandaruwan/depli&lt;/a&gt; if there is any doubt.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; property=&quot;dct:title&quot;&gt;Continuous Code Quality On My OpenSource Project&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/depli&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;https://github.com/lpsandaruwan/depli&quot; rel=&quot;dct:source&quot;&gt;https://github.com/lpsandaruwan/depli&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Apr 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/github-sonarqube/</link>
+        <guid isPermaLink="true">/blog/2017/github-sonarqube/</guid>
+        
+        <category>code-quality, github, travis-ci, sonarqube</category>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>Log Tracker</title>
+        <description>&lt;p&gt;Log Tracker is a simple wrapper around Python &lt;strong&gt;paramiko&lt;/strong&gt; to track text files using SSH.
+It gives you the ability to create custom python functions to track and analyze log files the way you want.
+A user can access the contents in multiple log files at the same time also.
+Using a custom function a user can display a log content in a web interface using Flask like lightweight web service,
+so then anyone can analyze contents easily, without wasting time to login into servers and download contents.
+For more information please refer below links.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Website: &lt;a href=&quot;http://lahiru.site/log-tracker&quot;&gt;http://lahiru.site/log-tracker&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Wiki: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker/wiki&quot;&gt;https://github.com/lpsandaruwan/log-tracker/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;License: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker/blob/master/README.md&quot;&gt;GPLv3 or later&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Source code: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker&quot;&gt;https://github.com/lpsandaruwan/log-tracker&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker/releases&quot;&gt;https://github.com/lpsandaruwan/log-tracker/releases&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/log-tracker/</link>
+        <guid isPermaLink="true">/blog/2017/log-tracker/</guid>
+        
+        <category>python, log files, paramiko, wrapper application</category>
+        
+        
+        <category>project</category>
+        
+      </item>
+    
+      <item>
+        <title>Depli</title>
+        <description>&lt;p&gt;Depli provides you the 10-second solution for monitoring JVMs. Just add a JMX remote connection using webUI and see how it works.
+Depli provides you a rich UI, you can even search for running threads, classpaths etc.
+This handsome tool has been released under GPL license on GitHub.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/portfolio/depli.png&quot; alt=&quot;depli&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Website: &lt;a href=&quot;http://lahiru.site/depli&quot;&gt;http://lahiru.site/depli&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Wiki: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/wiki&quot;&gt;https://github.com/lpsandaruwan/depli/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;License: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/blob/master/README.md&quot;&gt;GPLv3 or later&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Source code: &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;https://github.com/lpsandaruwan/depli&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/releases&quot;&gt;https://github.com/lpsandaruwan/depli/releases&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 03 Apr 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/depli/</link>
+        <guid isPermaLink="true">/blog/2017/depli/</guid>
+        
+        <category>java, spring-boot, angularjs, jvm performance</category>
+        
+        
+        <category>project</category>
+        
+      </item>
+    
+      <item>
+        <title>JVM CPU usage using Java MXBeans</title>
+        <description>&lt;p&gt;This is a solution to a problem, occurred to me while developing &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;Depli&lt;/a&gt; a JVM monitoring dashboard which uses JMX remote connections.
+There is no way to get the JVM CPU usage directly using MXBeans in JDKs older than version 7. For my application I wanted a universal method.
+Finally, I got it working thanks to &lt;a href=&quot;http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8-b132/sun/tools/jconsole/SummaryTab.java?av=f&quot;&gt;source code of jconsole&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;explanation&quot;&gt;Explanation&lt;/h5&gt;
+
+&lt;p&gt;Ideal solution to calculate CPU usage is periodically look at the idle time and get the time that JVM is not idle.
+But there is no method to expose idle time in MXBeans. So here, JVM CPU usage is calculated using getting the
+ratio of how much discrete time slices JVM used and how long JVM was up while using those time slices(total JVM uptime in all the available threads for JVM),
+in a particular time period. Below algorithm will explain it better.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCpuUsagePercentage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;elapsedJvmCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentJvmCputime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;elapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// total jvm uptime&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;totalElapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;availableNumberOfCpusForJvm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// calculate cpu usage ratio&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cpuUsage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elapsedJvmCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;totalElapsedJvmUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentJvmCputime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentJvmUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// return as a percentage&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpuUsage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;get-it-working&quot;&gt;Get it working&lt;/h5&gt;
+
+&lt;p&gt;We will be using remote method invocation(RMI) to connect and call methods in remote MXBean interfaces.
+First we have to connect to a JMX remote connection and have to initiate a managed beans server connection.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// hardcoded connection parameters&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOSTNAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PORT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9999&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// initiate address of the JMX API connector server&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;service:jmx:rmi:///jndi/rmi://&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOSTNAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;:&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PORT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/jmxrmi&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;JMXServiceURL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jmxServiceURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JMXServiceURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// initiate client side JMX API connector&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// here we set environment attributes to null, since I am not using any authentication method connect to JMX remote&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;JMXConnector&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jmxConnector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JMXConnectorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jmxServiceURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// initiate managed bean server connection&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MBeanServerConnection&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mBeanServerConnection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jmxConnector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMBeanServerConnection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we can create proxy connections to MXBean interfaces to forward method calls though the managed bean server
+connection that we have created above. We will be using runtime MXBean, operating system MXBean and operating system
+MXBean from platform extension.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sun&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;management&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OperatingSystemMXBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peOperatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;management&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OperatingSystemMXBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;management&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RuntimeMXBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runtimeMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// initiate proxy connections&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;peOperatingSystemMXBean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newPlatformMXBeanProxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mBeanServerConnection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OPERATING_SYSTEM_MXBEAN_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sun&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;management&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OperatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;operatingSystemMXBean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newPlatformMXBeanProxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mBeanServerConnection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OPERATING_SYSTEM_MXBEAN_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;OperatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;runtimeMXBean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newPlatformMXBeanProxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mBeanServerConnection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ManagementFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME_MXBEAN_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;RuntimeMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can call the appropriate methods to get required data now. We need data on how long JVM processes used the CPU, JVM uptime and
+how much processors allowed for the JVM in a paticular time period.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// keeping previous timestamp&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Get JVM CPU usage&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getJvmCpuUsage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// elapsed process time is in nanoseconds&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elapsedProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peOperatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProcessCpuTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// elapsed uptime is in milliseconds&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runtimeMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// total jvm uptime on all the available processors&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;totalElapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAvailableProcessors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// calculate cpu usage as a percentage value&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// to convert nanoseconds to milliseconds divide it by 1000000 and to get a percentage multiply it by 100&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpuUsage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elapsedProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;totalElapsedJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// set old timestamp values&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;previousJvmProcessCpuTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peOperatingSystemMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProcessCpuTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;previousJvmUptime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runtimeMXBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUptime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpuUsage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we can get JVM CPU usage by calling the &lt;code&gt;getJvmCpuUsage&lt;/code&gt; periodically. You can obtain the complete Java code from &lt;a href=&quot;https://gist.github.com/lpsandaruwan/f2cef0aa91ae68cb041c7ecda04a0724&quot;&gt;this Gist&lt;/a&gt;.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; property=&quot;dct:title&quot;&gt;Calculate JVM CPU Usage Using MXBeans&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/blog/2017/JVMCpuUsage&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;http://lahiru.site/blog/2017/JVMCpuUsage&quot; rel=&quot;dct:source&quot;&gt;http://lahiru.site/blog/2017/JVMCpuUsage&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 26 Feb 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/jvm-cpu-usage/</link>
+        <guid isPermaLink="true">/blog/2017/jvm-cpu-usage/</guid>
+        
+        <category>java, jvm cpu utilization, mxbeans, devops</category>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>Savior Ship</title>
+        <description>&lt;p&gt;Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer version 2(SDL2),
+This is the way I attempted to refresh my skills on C++. Savior ship has been released under GPL license in GitHub for the purpose
+of helping out the people who seek SDL2 beginner level applications to learn.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/portfolio/savior_ship.png&quot; alt=&quot;savior-ship&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Website: &lt;a href=&quot;http://lahiru.site/savior-ship&quot;&gt;http://lahiru.site/savior-ship&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;License: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship/blob/master/LICENSE.md&quot;&gt;GPLv3 or later&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Source code: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship&quot;&gt;https://github.com/lpsandaruwan/savior-ship&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship/releases&quot;&gt;https://github.com/lpsandaruwan/savior-ship/releases&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/savior-ship/</link>
+        <guid isPermaLink="true">/blog/2017/savior-ship/</guid>
+        
+        <category>c++, sdl2, game, 2d</category>
+        
+        
+        <category>project</category>
+        
+      </item>
+    
+      <item>
+        <title>Surgeon Tux</title>
+        <description>&lt;p&gt;Surgeon Tux is a GPL(v3) licensed free Jekyll template meant for terminal lovers.
+I tried my best to give it the appearance of a terminal.&lt;/p&gt;
+
+&lt;p&gt;#####Where can I find the source code?
+Surgeon Tux code is hosted in a github repository, you can obtain it from &lt;a href=&quot;https://github.com/lpsandaruwan/surgeon-tux&quot; target=&quot;_blank&quot;&gt;https://github.com/lpsandaruwan/surgeon-tux&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;#####How to use it?&lt;/p&gt;
+
+&lt;p&gt;First clone the surgeon tux,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;git clone https://github.com/lpsandaruwan/surgeon-tux.git
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; surgeon-tux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Make sure you have installed RubyGems package manager,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;gem install jekyll
+gem install jekyll-paginate&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Before running Jekyll, consider changing the configurations listed in &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To run Surgeon Tux,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now log into http://localhost:4000 from your web browser.&lt;/p&gt;
+
+&lt;p&gt;You can refer the demo here, &lt;a href=&quot;http://lahiru.site/surgeon-tux&quot; target=&quot;_blank&quot;&gt;http://lahiru.site/surgeon-tux&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/surgeon-tux/</link>
+        <guid isPermaLink="true">/blog/2017/surgeon-tux/</guid>
+        
+        <category>jekyll, template, monospace, dark</category>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>KalaGola</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://github.com/lpsandaruwan/kalagola&quot;&gt;&lt;strong&gt;KalaGola&lt;/strong&gt;&lt;/a&gt; is a cross platform &lt;strong&gt;Pythonic tool&lt;/strong&gt; to traverse through the timeline of your &lt;strong&gt;GitHub hosted font&lt;/strong&gt; repository,
+and &lt;strong&gt;generate a video file&lt;/strong&gt; to show how your font evolved through time. Just provide your custom &lt;strong&gt;web template&lt;/strong&gt; and
+&lt;strong&gt;repository information&lt;/strong&gt; as a &lt;strong&gt;YAML file&lt;/strong&gt; or as &lt;strong&gt;command line&lt;/strong&gt; arguments, KalaGola will serve you your video.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;How does it work?&lt;/h4&gt;
+&lt;p&gt;KalaGola uses &lt;a href=&quot;http://weasyprint.org/&quot;&gt;&lt;strong&gt;weasyprint&lt;/strong&gt;&lt;/a&gt; to &lt;strong&gt;capture html snapshots&lt;/strong&gt; after checking out each and every commit made on a &lt;strong&gt;specific
+font file&lt;/strong&gt; and copying the font file on that state to the assets directory which html template uses. As soon as possible KalaGola finished capturing images,
+using &lt;a href=&quot;http://pypi.python.org/pypi/opencv-python&quot;&gt;&lt;strong&gt;OpenCV&lt;/strong&gt;&lt;/a&gt; bindings for Python, KalaGola converts captured images to frames and then frames to a video file.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;How can I use it?&lt;/h4&gt;
+&lt;p&gt;Like mentioned above, KalaGola configurations can be given as a YAML file or as command line arguments. If no argument has been provided
+KalaGola uses &lt;code&gt;config.yml&lt;/code&gt; file by default.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Contents of config.yml file&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;name: myfont
+assets_dir: template/assets
+branch: gh-pages
+font_file: fonts/AbhayaLibre-Regular.otf
+index_file: template/index.html
+interval: &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;
+repository: abhaya-libre-font
+stylesheet: template/assets/stylesheet.css
+user: mooniak&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;name&lt;/code&gt; - For &lt;code&gt;name&lt;/code&gt;, provide any name you like(&lt;strong&gt;do not use spaces&lt;/strong&gt;), once KalaGola has finished, you will find &lt;strong&gt;name.avi&lt;/strong&gt; video file in the &lt;strong&gt;videos&lt;/strong&gt; directory from KalaGola  home.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;assets_dir&lt;/code&gt; - This is where you are going &lt;strong&gt;put your font&lt;/strong&gt; while traversing commits. The font file copied to assets directory will be named as &lt;strong&gt;myFont&lt;/strong&gt; and you should
+use it in your stylesheet like this or in a better way,&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;font-face&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;font-family&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;My Font&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;assets/myfont&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;woff&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;index_file&lt;/code&gt; - This is the template html file which contains the layout designs, &lt;strong&gt;designed using your font file&lt;/strong&gt;,
+ which is to be captured while changing the state of font file.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;stylesheet&lt;/code&gt; - The stylesheet can be embedded into &lt;strong&gt;html file’s header&lt;/strong&gt; or YAML file’s &lt;code&gt;stylesheet&lt;/code&gt; field.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;repository&lt;/code&gt; - This one stands for GitHub repository name.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;user&lt;/code&gt; - Consider puttting GitHub user name or organization here.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;branch&lt;/code&gt; - This is the branch of the repository which contains font files, which is affected by &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous_integration&quot;&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;&lt;/a&gt; process, where font files,
+ ttf or otf files have been automatically built or updated, or simply have been built manually and pushed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;font_file&lt;/code&gt; - This is the path to the font file in the &lt;code&gt;branch&lt;/code&gt;, which KalaGola refers to load the templates and capture images.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;interval&lt;/code&gt; - This field is used to reduce the CPU utilization while KalaGola capturing snapshot, by default it is 100, which means for every 100 of captures,
+KalaGola sleeps for a second. For older PCs reduce the &lt;code&gt;interval&lt;/code&gt; number so they won’t get heat up.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To get an idea about the project structure, please refer &lt;a href=&quot;https://github.com/mooniak/abhaya-libre-font&quot;&gt;Abhaya Libre Font&lt;/a&gt;,
+ which is mentioned in the default &lt;code&gt;config.yml&lt;/code&gt; file of KalaGola.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Command line arguments&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+Simply use command line arguments to &lt;strong&gt;override default settings&lt;/strong&gt; in runtime. They are the same as the YAML config file’s options.
+Prefer &lt;code&gt;kalagola -h&lt;/code&gt; for more information,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;usage: kalagola.py &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-h&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-a ADIR&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-b BRANCH&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-f FONT&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-i INDEX&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-n NAME&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+                   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-r REPO&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-s STYLESHEET&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-t INTERVAL&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-u USER&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-y YAML&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+optional arguments:
+  -h, --help            show this &lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt; message and &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;
+  -a ADIR, --adir ADIR  Directory to put font file dynamically
+  -b BRANCH, --branch BRANCH
+                        Branch containing font files
+  -f FONT, --font FONT  Font file &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;
+  -i INDEX, --index INDEX
+                        Custom index html file
+  -n NAME, --name NAME  Output file name
+  -r REPO, --repo REPO  GitHub user repository
+  -s STYLESHEET, --stylesheet STYLESHEET
+                        Custom CSS style sheet
+  -t INTERVAL, --interval INTERVAL
+                        Refresh intervals to increase CPU usage
+  -u USER, --user USER  GitHub username/organization name
+  -y YAML, --yaml YAML  Read settings from yaml file&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;How can I get KalaGola?&lt;/h4&gt;
+&lt;p&gt;Download KalaGola releases from here, &lt;a href=&quot;https://github.com/lpsandaruwan/kalagola/releases&quot;&gt;https://github.com/lpsandaruwan/kalagola/releases&lt;/a&gt;&lt;br /&gt;
+You also can obtain the source code from here, &lt;a href=&quot;https://github.com/lpsandaruwan/kalagola&quot;&gt;https://github.com/lpsandaruwan/kalagola&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;I have an issue. What can I do?&lt;/h4&gt;
+&lt;p&gt;Please feel free to report issues here, &lt;a href=&quot;https://github.com/pathumego/kalagola/issues&quot;&gt;https://github.com/pathumego/kalagola/issues&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;Credits and contributors&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://github.com/pathumego&quot;&gt;Pathum Egodawatta&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://github.com/lpsandaruwan&quot;&gt;Lahiru Pathirage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4&gt;License&lt;/h4&gt;
+&lt;p&gt;KalaGola is relased under &lt;a href=&quot;http://gplv3.fsf.org/&quot;&gt;GPLv3&lt;/a&gt;. Anyone is permitted to do copy, edit or redistribute.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 26 Jan 2017 00:00:00 +0530</pubDate>
+        <link>/blog/2017/kalagola/</link>
+        <guid isPermaLink="true">/blog/2017/kalagola/</guid>
+        
+        <category>python, cli app, font design</category>
+        
+        
+        <category>project</category>
+        
+      </item>
+    
+  </channel>
+</rss>
