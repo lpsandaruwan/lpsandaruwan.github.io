@@ -5,7 +5,7 @@ comments: true
 date:   2017-05-11
 keywords: USB DAC, Creative Labs XFi, Linux
 layout: post
-summary: Continuous code quality on my GitHub project.
+summary: Configure volume control knob of Creative SBS1095 USB sound card to adjust volume in Linux.
 tags:
 - usb dac, creative labs, sb1095, linux, volume knob
 title: "Setting Up Creative Labs USB DAC Volume Knob On Linux"

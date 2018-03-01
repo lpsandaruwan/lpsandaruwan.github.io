@@ -6,7 +6,7 @@ date:   2017-02-23
 image: /images/portfolio/surgeon-tux.png
 keywords: Surgeon Tux, Jekyll, theme, template, terminal
 layout: post
-summary: A fast jekyll theme designed for people who work with terminal.
+summary: A jekyll theme designed for people who love to work with terminal.
 tags:
 - jekyll, template, monospace, dark
 title:  "Surgeon Tux"

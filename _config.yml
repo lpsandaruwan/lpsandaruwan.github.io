@@ -16,7 +16,7 @@ sass:
 
 # SEO settings
 title: LAHIRU SANDARUWAN PATHIRAGE
-description: "SOFTWARE ENGINEER - LINUX ENTHUSIAST - FOSS LOVER"
+description: "SOFTWARE ENGINEER - LINUX ENTHUSIAST - OPEN SOURCE CONTRIBUTOR"
 keywords: "Lahiru Pathirage, lpsandaruwan, blog, technology, Linux"
 url: ""
 baseurl: ""
@@ -42,7 +42,5 @@ navbar:
     title: Projects
   - slug: blog
     title: Blog
-  - slug: resume
-    title: Resume
 
 exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]

@@ -5,10 +5,10 @@ comments: true
 date:   2017-02-26
 keywords: JVM performance, MBeans, CPU usage
 layout: post
-summary: Calculate JVM CPU usage on old JDKs using Java MXBeans.
+summary: Calculate JVM CPU usage using Java management extension beans.
 tags:
 - java, jvm cpu utilization, mxbeans, devops
-title:  "Calculate JVM CPU Usage On Old JDKs Using MXBeans"
+title:  "JVM CPU usage using Java MXBeans"
 ---
 
 This is a solution to a problem, occurred to me while developing [Depli](https://github.com/lpsandaruwan/depli) a JVM monitoring dashboard which uses JMX remote connections.

@@ -5,7 +5,7 @@ comments: true
 date:   2017-04-20
 keywords: GitHub, TravisCI, SonarQube, Code quality
 layout: post
-summary: Continuous code quality on my GitHub project.
+summary: SonarQube analysis on a GitHub project with the help of TravisCI.
 tags:
 - code-quality, github, travis-ci, sonarqube
 title: "Continuous Code Quality On My OpenSource Project"
@@ -109,13 +109,13 @@ Now to display the project status on readme, I added labels from Travis and Sona
 After following above steps I pushed all changes to GitHub. And waited until Travis sent me a mail confirming that my build has been successful.
 Now the readme is displaying the build status and whether my project has passed the quality gate.
 
-![readme](/images/posts/GitHubSonarQube/readme.png)
+![readme](/images/posts/github-sonarqube/readme.png)
 <br><br>
 
 By clicking on the `quality gate` badge, I can access the SonarQube dashboard, detailed analysis of code quality of my repository.
 
 
-![readme](/images/posts/GitHubSonarQube/sonarqube_page.png)
+![readme](/images/posts/github-sonarqube/sonarqube_page.png)
 <br><br>
 
 Please refer my open source project, [https://github.com/lpsandaruwan/depli](https://github.com/lpsandaruwan/depli) if there is any doubt.
