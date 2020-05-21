@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <title>Traverse through font design timeline - Lahiru's dev journal</title>
+    <meta name="author" content="Lahiru Pathirage"/>
+    <meta name="description" content="Traverse through font design timeline"/>
+    <meta name="keywords"
+          content="Traverse through font design timeline, Lahiru's dev journal, project"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="Lahiru's dev journal" property="og:site_name">
+
+    
+
+    
+    <meta content="Traverse through font design timeline" property="og:title">
+    <meta content="article" property="og:type">
+    
+
+    
+    <meta content="Analyze, design, engineer & success" property="og:description">
+    
+
+    
+    <meta content="https://lahiru.io/project/2017/01/26/kalagola.html" property="og:url">
+    
+
+    
+    <meta content="2017-01-26T00:00:00+05:30" property="article:published_time">
+    <meta content="https://lahiru.io/about/" property="article:author">
+    
+
+    
+    <meta content="https://lahiru.io/static/img/posts//images/portfolio/kalagola.png" property="og:image">
+    
+
+    
+    
+    <meta content="project" property="article:section">
+    
+    
+
+    
+    
+    <meta content="python, cli, fonts" property="article:tag">
+    
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@lpsandaruwan">
+    <meta name="twitter:creator" content="@lpsandaruwan">
+
+    
+    <meta name="twitter:title" content="Traverse through font design timeline">
+    
+
+    
+    <meta name="twitter:url" content="https://lahiru.io/project/2017/01/26/kalagola.html">
+    
+
+    
+    <meta name="twitter:description" content="Analyze, design, engineer & success">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,400italic,700&amp;subset=latin,latin-ext"
+          rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+</head>
+<body>
+
+<div class="container">
+    <script src="/static/js/three.r95.min.js"></script>
+    <script src="/static/js/vanta.globe.min.js"></script>
+    <script>
+        VANTA.GLOBE({
+            el: "#your-element-selector",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0xc83567
+        })
+    </script>
+    <div class="col-sm-3">
+        <div class="fixed-condition">
+            <img width="130" src="../static/img/prof.jpg" alt="">
+            <h1 class="author-name"><a href="/">Lahiru Pathirage</a></h1>
+            
+            <div class="profile-about">
+                A technology enthusiast who believes in good design combining with good engineering thus seeing their importance more than ever when reaching high-quality products.
+            </div>
+            
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="http://facebook.com/lpsandaruwan1" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    
+                    <li><a href="http://twitter.com/lpsandaruwan" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    
+                    <li><a href="https://linkedin.com/in/lpsandaruwan" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    
+                    <li><a href="https://stackoverflow.com/users/2443322/lpsandaruwan" target="_blank"><i class="fa fa-stack-exchange"></i></a></li>
+                    
+                    <li><a href="https://github.com/lpsandaruwan" target="_blank"><i class="fa fa-github"></i></a></li>
+                    
+                </ul>
+            </div>
+            <div class="search" id="js-search">
+                <input type="text" placeholder="(sitemap)~$ type to search" class="search__input form-control"
+                       id="js-search__input">
+                <ul class="search__results" id="js-search__results"></ul>
+            </div>
+            <ul class="sidebar-nav">
+                <strong>Navigation</strong>
+                <li><a href="/">Home</a></li>
+                
+                <li><a class="about" href="/about/">About Me</a></li>
+                
+                <li><a class="about" href="/feed.xml">XML Feed</a></li>
+                
+            </ul>
+        </div>
+
+        <!-- end /.fixed-condition -->
+    </div>
+    <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Traverse through font design timeline</h1>
+</header>
+
+<span class="time">26 Jan 2017</span>
+
+  <span class="categories">
+    &raquo; <a href="/">project</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><p><a href="http://github.com/lpsandaruwan/kalagola"><strong>KalaGola</strong></a> is a cross platform <strong>Pythonic tool</strong> to traverse through the timeline of your <strong>GitHub hosted font</strong> repository,
+and <strong>generate a video file</strong> to show how your font evolved through time. Just provide your custom <strong>web template</strong> and
+<strong>repository information</strong> as a <strong>YAML file</strong> or as <strong>command line</strong> arguments, KalaGola will serve you your video.
+<br />
+<br /></p>
+
+<h4>How does it work?</h4>
+<p>KalaGola uses <a href="http://weasyprint.org/"><strong>weasyprint</strong></a> to <strong>capture html snapshots</strong> after checking out each and every commit made on a <strong>specific
+font file</strong> and copying the font file on that state to the assets directory which html template uses. As soon as possible KalaGola finished capturing images,
+using <a href="http://pypi.python.org/pypi/opencv-python"><strong>OpenCV</strong></a> bindings for Python, KalaGola converts captured images to frames and then frames to a video file.
+<br />
+<br /></p>
+
+<h4>How can I use it?</h4>
+<p>Like mentioned above, KalaGola configurations can be given as a YAML file or as command line arguments. If no argument has been provided
+KalaGola uses <code class="language-plaintext highlighter-rouge">config.yml</code> file by default.
+<br /></p>
+
+<p><strong><em>Contents of config.yml file</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">name: myfont
+assets_dir: template/assets
+branch: gh-pages
+font_file: fonts/AbhayaLibre-Regular.otf
+index_file: template/index.html
+interval: 100
+repository: abhaya-libre-font
+stylesheet: template/assets/stylesheet.css
+user: mooniak</code></pre></figure>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">name</code> - For <code class="language-plaintext highlighter-rouge">name</code>, provide any name you like(<strong>do not use spaces</strong>), once KalaGola has finished, you will find <strong>name.avi</strong> video file in the <strong>videos</strong> directory from KalaGola  home.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assets_dir</code> - This is where you are going <strong>put your font</strong> while traversing commits. The font file copied to assets directory will be named as <strong>myFont</strong> and you should
+use it in your stylesheet like this or in a better way,</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@font-face</span> <span class="p">{</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"My Font"</span><span class="p">;</span>
+    <span class="nl">src</span><span class="p">:</span> <span class="sx">url('assets/myfont')</span> <span class="n">format</span><span class="p">(</span><span class="s1">"woff"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">index_file</code> - This is the template html file which contains the layout designs, <strong>designed using your font file</strong>,
+ which is to be captured while changing the state of font file.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">stylesheet</code> - The stylesheet can be embedded into <strong>html file’s header</strong> or YAML file’s <code class="language-plaintext highlighter-rouge">stylesheet</code> field.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">repository</code> - This one stands for GitHub repository name.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">user</code> - Consider puttting GitHub user name or organization here.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">branch</code> - This is the branch of the repository which contains font files, which is affected by <a href="https://en.wikipedia.org/wiki/Continuous_integration"><strong>continuous integration</strong></a> process, where font files,
+ ttf or otf files have been automatically built or updated, or simply have been built manually and pushed.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">font_file</code> - This is the path to the font file in the <code class="language-plaintext highlighter-rouge">branch</code>, which KalaGola refers to load the templates and capture images.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">interval</code> - This field is used to reduce the CPU utilization while KalaGola capturing snapshot, by default it is 100, which means for every 100 of captures,
+KalaGola sleeps for a second. For older PCs reduce the <code class="language-plaintext highlighter-rouge">interval</code> number so they won’t get heat up.</p>
+  </li>
+</ul>
+
+<p>To get an idea about the project structure, please refer <a href="https://github.com/mooniak/abhaya-libre-font">Abhaya Libre Font</a>,
+ which is mentioned in the default <code class="language-plaintext highlighter-rouge">config.yml</code> file of KalaGola.
+<br /></p>
+
+<p><strong><em>Command line arguments</em></strong><br />
+Simply use command line arguments to <strong>override default settings</strong> in runtime. They are the same as the YAML config file’s options.
+Prefer <code class="language-plaintext highlighter-rouge">kalagola -h</code> for more information,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">usage: kalagola.py <span class="o">[</span><span class="nt">-h</span><span class="o">]</span> <span class="o">[</span><span class="nt">-a</span> ADIR] <span class="o">[</span><span class="nt">-b</span> BRANCH] <span class="o">[</span><span class="nt">-f</span> FONT] <span class="o">[</span><span class="nt">-i</span> INDEX] <span class="o">[</span><span class="nt">-n</span> NAME]
+                   <span class="o">[</span><span class="nt">-r</span> REPO] <span class="o">[</span><span class="nt">-s</span> STYLESHEET] <span class="o">[</span><span class="nt">-t</span> INTERVAL] <span class="o">[</span><span class="nt">-u</span> USER] <span class="o">[</span><span class="nt">-y</span> YAML]
+
+optional arguments:
+  <span class="nt">-h</span>, <span class="nt">--help</span>            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  <span class="nt">-a</span> ADIR, <span class="nt">--adir</span> ADIR  Directory to put font file dynamically
+  <span class="nt">-b</span> BRANCH, <span class="nt">--branch</span> BRANCH
+                        Branch containing font files
+  <span class="nt">-f</span> FONT, <span class="nt">--font</span> FONT  Font file <span class="nb">source</span>
+  <span class="nt">-i</span> INDEX, <span class="nt">--index</span> INDEX
+                        Custom index html file
+  <span class="nt">-n</span> NAME, <span class="nt">--name</span> NAME  Output file name
+  <span class="nt">-r</span> REPO, <span class="nt">--repo</span> REPO  GitHub user repository
+  <span class="nt">-s</span> STYLESHEET, <span class="nt">--stylesheet</span> STYLESHEET
+                        Custom CSS style sheet
+  <span class="nt">-t</span> INTERVAL, <span class="nt">--interval</span> INTERVAL
+                        Refresh intervals to increase CPU usage
+  <span class="nt">-u</span> USER, <span class="nt">--user</span> USER  GitHub username/organization name
+  <span class="nt">-y</span> YAML, <span class="nt">--yaml</span> YAML  Read settings from yaml file</code></pre></figure>
+
+<p><br /></p>
+
+<h4>How can I get KalaGola?</h4>
+<p>Download KalaGola releases from here, <a href="https://github.com/lpsandaruwan/kalagola/releases">https://github.com/lpsandaruwan/kalagola/releases</a><br />
+You also can obtain the source code from here, <a href="https://github.com/lpsandaruwan/kalagola">https://github.com/lpsandaruwan/kalagola</a></p>
+
+<p><br /></p>
+
+<h4>I have an issue. What can I do?</h4>
+<p>Please feel free to report issues here, <a href="https://github.com/pathumego/kalagola/issues">https://github.com/pathumego/kalagola/issues</a></p>
+
+<p><br /></p>
+
+<h4>Credits and contributors</h4>
+<ul>
+  <li><a href="http://github.com/pathumego">Pathum Egodawatta</a></li>
+  <li><a href="http://github.com/lpsandaruwan">Lahiru Pathirage</a></li>
+</ul>
+
+<p><br /></p>
+
+<h4>License</h4>
+<p>KalaGola is relased under <a href="http://gplv3.fsf.org/">GPLv3</a>. Anyone is permitted to do copy, edit or redistribute.</p>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="lpsandaruwan">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="https://lahiru.io/project/2017/01/26/kalagola.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>More reads</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/project/2017/04/14/log-tracker.html">Continuous listening to remote text files using python</a>
+                  
+                    (Categories: <a href="/category/project">project</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/project/2017/04/03/depli.html">Depli - A JVM monitor application</a>
+                  
+                    (Categories: <a href="/category/project">project</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/project/2017/02/23/savior-ship.html">Savior ship - A cross flatform C++ game</a>
+                  
+                    (Categories: <a href="/category/project">project</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+  
+  </ul>
+</div>
+
+
+<div class="PageNavigation">
+  
+  
+    <a class="next" href="/post/2017/02/23/surgeon-tux.html">Surgeon Tux - A Jekyll template &raquo;</a>
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script>
+      var disqus_config = function () {
+          this.page.url = 'https://lahiru.io/project/2017/01/26/kalagola.html';
+          this.page.identifier = 'https://lahiru.io/project/2017/01/26/kalagola.html';
+      };
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://lpsandaruwan.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        <footer>
+            &copy; Lahiru Pathirage
+            
+            - <a href="https://github.com/lpsandaruwan">https://github.com/lpsandaruwan</a> - Powered by Jekyll.
+            
+        </footer>
+    </div>
+</div>
+<!-- end /.container -->
+
+<!-- Bootstrap core JavaScript -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/super-search.js"></script>
+<script src="/static/js/thickbox-compressed.js"></script>
+<script src="/static/js/projects.js"></script>
+</body>
+</html>
+

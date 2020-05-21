@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <title>Continuous Code Quality On My OpenSource Project - Lahiru's dev journal</title>
+    <meta name="author" content="Lahiru Pathirage"/>
+    <meta name="description" content="Continuous Code Quality On My OpenSource Project"/>
+    <meta name="keywords"
+          content="Continuous Code Quality On My OpenSource Project, Lahiru's dev journal, post"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="Lahiru's dev journal" property="og:site_name">
+
+    
+
+    
+    <meta content="Continuous Code Quality On My OpenSource Project" property="og:title">
+    <meta content="article" property="og:type">
+    
+
+    
+    <meta content="Analyze, design, engineer & success" property="og:description">
+    
+
+    
+    <meta content="https://lahiru.io/post/2017/04/20/github-sonarqube.html" property="og:url">
+    
+
+    
+    <meta content="2017-04-20T00:00:00+05:30" property="article:published_time">
+    <meta content="https://lahiru.io/about/" property="article:author">
+    
+
+    
+
+    
+    
+    <meta content="post" property="article:section">
+    
+    
+
+    
+    
+    <meta content="code-quality, github, travis-ci, sonarqube" property="article:tag">
+    
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@lpsandaruwan">
+    <meta name="twitter:creator" content="@lpsandaruwan">
+
+    
+    <meta name="twitter:title" content="Continuous Code Quality On My OpenSource Project">
+    
+
+    
+    <meta name="twitter:url" content="https://lahiru.io/post/2017/04/20/github-sonarqube.html">
+    
+
+    
+    <meta name="twitter:description" content="Analyze, design, engineer & success">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,400italic,700&amp;subset=latin,latin-ext"
+          rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+</head>
+<body>
+
+<div class="container">
+    <script src="/static/js/three.r95.min.js"></script>
+    <script src="/static/js/vanta.globe.min.js"></script>
+    <script>
+        VANTA.GLOBE({
+            el: "#your-element-selector",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0xc83567
+        })
+    </script>
+    <div class="col-sm-3">
+        <div class="fixed-condition">
+            <img width="130" src="../static/img/prof.jpg" alt="">
+            <h1 class="author-name"><a href="/">Lahiru Pathirage</a></h1>
+            
+            <div class="profile-about">
+                A technology enthusiast who believes in good design combining with good engineering thus seeing their importance more than ever when reaching high-quality products.
+            </div>
+            
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="http://facebook.com/lpsandaruwan1" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    
+                    <li><a href="http://twitter.com/lpsandaruwan" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    
+                    <li><a href="https://linkedin.com/in/lpsandaruwan" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    
+                    <li><a href="https://stackoverflow.com/users/2443322/lpsandaruwan" target="_blank"><i class="fa fa-stack-exchange"></i></a></li>
+                    
+                    <li><a href="https://github.com/lpsandaruwan" target="_blank"><i class="fa fa-github"></i></a></li>
+                    
+                </ul>
+            </div>
+            <div class="search" id="js-search">
+                <input type="text" placeholder="(sitemap)~$ type to search" class="search__input form-control"
+                       id="js-search__input">
+                <ul class="search__results" id="js-search__results"></ul>
+            </div>
+            <ul class="sidebar-nav">
+                <strong>Navigation</strong>
+                <li><a href="/">Home</a></li>
+                
+                <li><a class="about" href="/about/">About Me</a></li>
+                
+                <li><a class="about" href="/feed.xml">XML Feed</a></li>
+                
+            </ul>
+        </div>
+
+        <!-- end /.fixed-condition -->
+    </div>
+    <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Continuous Code Quality On My OpenSource Project</h1>
+</header>
+
+<span class="time">20 Apr 2017</span>
+
+  <span class="categories">
+    &raquo; <a href="/">post</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><p>Good quality in code plays an essential role when it comes to software,
+thus it assets efficiency, reliability, robustness, portability, maintainability and readability like essential factors.
+Considering a GitHub project, there are plenty of options to measure code quality.
+Considering options I would like to chose <a href="https://www.sonarqube.org/">SonarQube</a> for this particular purpose.
+Let me take down the steps, how I used SonarQube to measure code quality using a Java project, one of my GitHub hosted projects, <a href="https://github.com/lpsandaruwan/depli">Depli</a>.</p>
+
+<p>NB: The best way to analyze a maven project is to use the maven sonar plugin <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven">as the SonarQube docs says</a>.
+You do not require a <code class="language-plaintext highlighter-rouge">sonar-project.properties</code> in that case.
+<br /><br /></p>
+
+<h4 id="step-1---create-an-account-in-travis-ciorg">Step 1 - Create an account in travis-ci.org</h4>
+
+<p>SonarQube needs <a href="https://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code">sonar-runner</a> to analyze the code.
+To run the analysis process using sonar-runner on code changes continuously, the ideal solution is using a CI server.
+Here I had to use <a href="https://travis-ci.org/">Travis-CI</a> since it is the perfect matured CI solution for GitHub projects.</p>
+
+<p>I created and logged into <a href="https://travis-ci.org/">Travis</a> using my GitHub account and <a href="https://travis-ci.org/getting_started">activated it</a> for my repository.
+<br /><br /></p>
+
+<h4 id="step-2---create-an-account-in-sonarqubecom">Step 2 - Create an account in sonarqube.com</h4>
+
+<p>Then I created and logged into <a href="https://sonarqube.com">SonarQube</a> using the same GitHub account.
+<br /><br /></p>
+
+<h4 id="step-3---create-travis-ci-configuration-file">Step 3 - Create Travis-CI configuration file</h4>
+
+<p>Next step was to create a configuration file for Travis-CI to instruct it to how to run the sonar-scanner as known as sonar-runner.
+To do that I created a <code class="language-plaintext highlighter-rouge">.travis.yml</code>, A YAML file in my project’s root directory.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">dist: trusty <span class="c"># chose ubuntu trusty as the worker</span>
+
+<span class="nb">sudo</span>: required
+
+addons:
+  sonarqube:
+    organization: lpsandaruwan-github <span class="c"># organization token from https://sonarqube.com/account/organizations</span>
+
+jdk:
+- oraclejdk8
+
+script:
+- mvn clean <span class="nb">install</span> <span class="nt">-DskipTests</span> <span class="c"># skipped tests because I have not written.</span>
+- sonar-scanner <span class="c"># tell travis to run sonar scanner</span>
+
+cache:
+  directories:
+  - <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.sonar/cache"</span></code></pre></figure>
+
+<p><br /></p>
+
+<h4 id="step-4---create-a-sonarqube-token">step 4 - Create a SonarQube token</h4>
+
+<p>After creating a Travis configuration file I generated a <a href="https://docs.sonarqube.org/display/SONAR/User+Token">security token</a> and copied it to clipboard,
+for Travis to use when updating SonarQube database.
+<br /><br /></p>
+
+<h4 id="step-5---encrypt-sonarqube-token">Step 5 - Encrypt SonarQube token</h4>
+<p>Public access to a security token is a bad thing. So I had to encrypt the SonarQube token when inserting it to Travis configuration file.
+To achieve that I used <a href="https://rubygems.org/gems/travis"><code class="language-plaintext highlighter-rouge">travis</code></a> from ruby gems.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/my/project/root
+travis encrypt MY_SONARQUBE_TOKEN <span class="nt">--add</span> addons.sonarqube.token</code></pre></figure>
+
+<p><br /></p>
+
+<h4 id="step-6---create-a-sonarqube-configuration-file">Step 6 - Create a SonarQube configuration file</h4>
+<p>A metadata file including project details is required for SonarQube. So I created <code class="language-plaintext highlighter-rouge">sonar-project.properties</code> in my project’s root.
+Here <code class="language-plaintext highlighter-rouge">sonar.sources</code> is the place where sonar-scanner starts to analyze.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sonar.projectKey<span class="o">=</span>com.sonarqube.lpsandaruwan.depli
+sonar.projectName<span class="o">=</span>Depli - JVM Monitoring Dashboard
+sonar.projectVersion<span class="o">=</span>0.2.0-SNAPSHOT
+
+sonar.links.homepage<span class="o">=</span>https://lahiru.io/depli
+sonar.links.ci<span class="o">=</span>https://travis-ci.org/lpsandaruwan/depli
+sonar.links.scm<span class="o">=</span>https://github.com/lpsandaruwan/depli
+sonar.links.issue<span class="o">=</span>https://github.com/lpsandaruwan/depli/issues
+
+sonar.sources<span class="o">=</span>src/main</code></pre></figure>
+
+<p><br /></p>
+
+<h4 id="step-7---add-status-to-read-me">Step 7 - Add status to read me</h4>
+<p>Now to display the project status on readme, I added labels from Travis and SonarQube on <code class="language-plaintext highlighter-rouge">README.md</code> file.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[![</span>Build Status]<span class="o">(</span>https://travis-ci.org/USERNAME/PROJECT_NAME.png<span class="o">)](</span>https://travis-ci.org/USERNAME/PROJECT_NAME<span class="o">)</span>
+<span class="o">[![</span>Quality Gate]<span class="o">(</span>https://sonarqube.com/api/badges/gate?key<span class="o">=</span>SONAR_PROJECT_KEY<span class="o">)](</span>https://sonarqube.com/dashboard/index/SONAR_PROJECT_KEY<span class="o">)</span></code></pre></figure>
+
+<p><br /></p>
+
+<h3 id="bravo">Bravo!</h3>
+<p>After following above steps I pushed all changes to GitHub. And waited until Travis sent me a mail confirming that my build has been successful.
+Now the readme is displaying the build status and whether my project has passed the quality gate.</p>
+
+<p><img src="/static/img/posts/github-sonarqube/readme.png" alt="readme" />
+<br /><br /></p>
+
+<p>By clicking on the <code class="language-plaintext highlighter-rouge">quality gate</code> badge, I can access the SonarQube dashboard, detailed analysis of code quality of my repository.</p>
+
+<p><img src="/static/img/posts/github-sonarqube/sonarqube_page.png" alt="readme" />
+<br /><br /></p>
+
+<p>Please refer my open source project, <a href="https://github.com/lpsandaruwan/depli">https://github.com/lpsandaruwan/depli</a> if there is any doubt.
+<br /><br /></p>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="lpsandaruwan">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="https://lahiru.io/post/2017/04/20/github-sonarqube.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>More reads</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/post/2018/03/01/tomcat-gce-ansible-demo.html">Application Deployment in Apache Tomcat on GCE Using Ansible</a>
+                  
+                    (Categories: <a href="/category/post">post</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/post/2017/05/11/sb1095-volume-knob-linux.html">Setting up Creative Labs USB DAC volume knob on Linux</a>
+                  
+                    (Categories: <a href="/category/post">post</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/post/2017/02/26/jvm-cpu-usage.html">JVM CPU usage using Java MXBeans</a>
+                  
+                    (Categories: <a href="/category/post">post</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://lahiru.io/post/2017/02/23/surgeon-tux.html">Surgeon Tux - A Jekyll template</a>
+                  
+                    (Categories: <a href="/category/post">post</a>)
+                  
+                </li>
+          
+          
+        
+      
+    
+  
+    
+      
+        
+          
+      
+    
+  
+  
+  </ul>
+</div>
+
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/project/2017/04/14/log-tracker.html">&laquo; Continuous listening to remote text files using python</a>
+  
+  
+    <a class="next" href="/post/2017/05/11/sb1095-volume-knob-linux.html">Setting up Creative Labs USB DAC volume knob on Linux &raquo;</a>
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script>
+      var disqus_config = function () {
+          this.page.url = 'https://lahiru.io/post/2017/04/20/github-sonarqube.html';
+          this.page.identifier = 'https://lahiru.io/post/2017/04/20/github-sonarqube.html';
+      };
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://lpsandaruwan.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        <footer>
+            &copy; Lahiru Pathirage
+            
+            - <a href="https://github.com/lpsandaruwan">https://github.com/lpsandaruwan</a> - Powered by Jekyll.
+            
+        </footer>
+    </div>
+</div>
+<!-- end /.container -->
+
+<!-- Bootstrap core JavaScript -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/super-search.js"></script>
+<script src="/static/js/thickbox-compressed.js"></script>
+<script src="/static/js/projects.js"></script>
+</body>
+</html>
+
