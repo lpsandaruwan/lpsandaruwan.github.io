@@ -1,46 +1,56 @@
-# Build settings
-permalink   : /blog/:year/:title/
-markdown    : kramdown
-highlighter : pygments
-gems: [jekyll-paginate]
-
-paginate: 10
-paginate_path: "/blog/page/:num/"
-comments: true
-
-source: source
-destination: _site
-sass:
-  sass_dir: _scss
-  style: compressed # expanded
-
-# SEO settings
-title: LAHIRU SANDARUWAN PATHIRAGE
-description: "SOFTWARE ENGINEER - LINUX ENTHUSIAST - OPEN SOURCE CONTRIBUTOR"
-keywords: "Lahiru Pathirage, lpsandaruwan, blog, technology, Linux"
-url: ""
-baseurl: ""
-# baseurl: ""
-
-disqus_shortname: "lpsandaruwan"
+title: Lahiru's dev journal
+author: Lahiru Pathirage
+github: https://github.com/lpsandaruwan
+repository: lpsandaruwan/lpsandaruwan.github.io
+description: "Analyze, design, engineer & success"
+about: "A technology enthusiast who believes in good design combining with good engineering thus seeing their importance more than ever when reaching high-quality products."
+disqus_shoname: "lpsandaruwan"
 disqus_site_shortname: "lpsandaruwan"
+google_analytics: UA-167199035-1
 
-# Author settings
-author:
-  name      : Lahiru Pathirage
-  thumb     : /images/author.jpg
-  email     : lpsandaruwan@gmail.com
-  url       : http://lahiru.site
-  github    : http://github.com/lpsandaruwan
-  twitter   : http://twitter.com/lpsandaruwan
-  facebook  : http://facebook.com/lpsandaruwan1
-  linkedin  : http://linkedin.com/in/lpsandaruwan
+enableTags: true
+tagarray: []
 
-# navbar pages
-navbar:
-  - slug: projects
-    title: Projects
-  - slug: blog
-    title: Blog
+collections:
+  project:
+    output: true
+    permalink: /project/:path/
 
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
+social:
+    - icon: fa-facebook
+      link: "http://facebook.com/lpsandaruwan1"
+    - icon: fa-twitter
+      link: "http://twitter.com/lpsandaruwan"
+    - icon: fa-linkedin
+      link: "https://linkedin.com/in/lpsandaruwan"
+    - icon: fa-stack-exchange
+      link: "https://stackoverflow.com/users/2443322/lpsandaruwan"
+    - icon: fa-github
+      link: "https://github.com/lpsandaruwan"
+
+share:
+  twitter_username: lpsandaruwan
+  fb_appid: 1749788565247320
+
+urls:
+    - text: About Me
+      url: /about/
+    - text: XML Feed
+      url: /feed.xml
+
+url: "https://lahiru.io"
+baseurl: ""
+paginate: 20
+per_page: 20
+paginate_path: "/page/:num/"
+markdown: kramdown
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  ignore:
+    envs: ['development']
