@@ -1,5 +1,5 @@
 body {
-  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-family: "Rubik", Arial, sans-serif;
   line-height: 1.5em;
   font-weight: 400;
   font-size: 14px;
@@ -85,7 +85,7 @@ div.post-content .btn-tags {
 /* Left column */
 div.col-sm-3 {
   margin-top: 20px;
-  font-size: 11px;
+  font-size: 12px;
   color: #111111;
 }
 div.col-sm-3 strong {

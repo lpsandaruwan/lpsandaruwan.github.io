@@ -3,10 +3,10 @@
   <channel>
     <title>Lahiru's dev journal</title>
     <description>Analyze, design, engineer &amp; success</description>
-    <link>https://lahiru.io/</link>
-    <atom:link href="https://lahiru.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 May 2020 19:17:43 +0530</pubDate>
-    <lastBuildDate>Thu, 21 May 2020 19:17:43 +0530</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 22 May 2020 12:11:37 -0700</pubDate>
+    <lastBuildDate>Fri, 22 May 2020 12:11:37 -0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -164,9 +164,9 @@ configure main.yml in defaults directory in roles. They contain configuration va
 &lt;p&gt;&lt;br /&gt;
 &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;http://purl.org/dc/dcmitype/Text&quot; property=&quot;dct:title&quot; rel=&quot;dct:type&quot;&gt;gce-tomcat-ansible-demo post&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/blog/2018/tomcat-gce-ansible-demo/&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot; rel=&quot;dct:source&quot;&gt;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&lt;/a&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 01 Mar 2018 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/post/2018/03/01/tomcat-gce-ansible-demo.html</link>
-        <guid isPermaLink="true">https://lahiru.io/post/2018/03/01/tomcat-gce-ansible-demo.html</guid>
+        <pubDate>Thu, 01 Mar 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</guid>
         
         <category>tomcat, gce, ansible, configuration-management</category>
         
@@ -254,9 +254,9 @@ irexec &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;c&q
 &lt;br /&gt;&lt;a href=&quot;http://www.lirc.org/html/configure.html&quot;&gt;http://www.lirc.org/html/configure.html&lt;/a&gt;
 &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 11 May 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/post/2017/05/11/sb1095-volume-knob-linux.html</link>
-        <guid isPermaLink="true">https://lahiru.io/post/2017/05/11/sb1095-volume-knob-linux.html</guid>
+        <pubDate>Thu, 11 May 2017 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</guid>
         
         <category>usb dac, creative labs, sb1095, linux, volume knob</category>
         
@@ -372,9 +372,9 @@ Now the readme is displaying the build status and whether my project has passed 
 &lt;p&gt;Please refer my open source project, &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;https://github.com/lpsandaruwan/depli&lt;/a&gt; if there is any doubt.
 &lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 20 Apr 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/post/2017/04/20/github-sonarqube.html</link>
-        <guid isPermaLink="true">https://lahiru.io/post/2017/04/20/github-sonarqube.html</guid>
+        <pubDate>Thu, 20 Apr 2017 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/post/2017/04/20/github-sonarqube.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2017/04/20/github-sonarqube.html</guid>
         
         <category>code-quality, github, travis-ci, sonarqube</category>
         
@@ -404,9 +404,9 @@ For more information please refer below links.
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker/releases&quot;&gt;https://github.com/lpsandaruwan/log-tracker/releases&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 14 Apr 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/project/2017/04/14/log-tracker.html</link>
-        <guid isPermaLink="true">https://lahiru.io/project/2017/04/14/log-tracker.html</guid>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/project/2017/04/14/log-tracker.html</link>
+        <guid isPermaLink="true">http://localhost:4000/project/2017/04/14/log-tracker.html</guid>
         
         <category>python, log files, paramiko, wrapper application</category>
         
@@ -433,9 +433,9 @@ This handsome tool has been released under GPL license on GitHub.&lt;/p&gt;
 
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/releases&quot;&gt;https://github.com/lpsandaruwan/depli/releases&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 03 Apr 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/project/2017/04/03/depli.html</link>
-        <guid isPermaLink="true">https://lahiru.io/project/2017/04/03/depli.html</guid>
+        <pubDate>Mon, 03 Apr 2017 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/project/2017/04/03/depli.html</link>
+        <guid isPermaLink="true">http://localhost:4000/project/2017/04/03/depli.html</guid>
         
         <category>java, spring-boot, angularjs, jvm performance</category>
         
@@ -553,9 +553,9 @@ how much processors allowed for the JVM in a paticular time period.&lt;/p&gt;
 &lt;p&gt;Now we can get JVM CPU usage by calling the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getJvmCpuUsage&lt;/code&gt; periodically. You can obtain the complete Java code from &lt;a href=&quot;https://gist.github.com/lpsandaruwan/f2cef0aa91ae68cb041c7ecda04a0724&quot;&gt;this Gist&lt;/a&gt;.
 &lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sun, 26 Feb 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/post/2017/02/26/jvm-cpu-usage.html</link>
-        <guid isPermaLink="true">https://lahiru.io/post/2017/02/26/jvm-cpu-usage.html</guid>
+        <pubDate>Sun, 26 Feb 2017 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</guid>
         
         <category>java, jvm cpu utilization, mxbeans, devops</category>
         
@@ -580,9 +580,9 @@ of helping out the people who seek SDL2 beginner level applications to learn.&lt
 
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship/releases&quot;&gt;https://github.com/lpsandaruwan/savior-ship/releases&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/project/2017/02/23/savior-ship.html</link>
-        <guid isPermaLink="true">https://lahiru.io/project/2017/02/23/savior-ship.html</guid>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/project/2017/02/23/savior-ship.html</link>
+        <guid isPermaLink="true">http://localhost:4000/project/2017/02/23/savior-ship.html</guid>
         
         <category>c++, sdl2, game, 2d</category>
         
@@ -621,9 +621,9 @@ gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jekyll-paginate&lt;/co
 
 &lt;p&gt;You can refer the demo here, &lt;a href=&quot;https://lahiru.io/surgeon-tux&quot; target=&quot;_blank&quot;&gt;https://lahiru.io/surgeon-tux&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/post/2017/02/23/surgeon-tux.html</link>
-        <guid isPermaLink="true">https://lahiru.io/post/2017/02/23/surgeon-tux.html</guid>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/post/2017/02/23/surgeon-tux.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2017/02/23/surgeon-tux.html</guid>
         
         <category>jekyll, template, monospace, dark</category>
         
@@ -758,9 +758,9 @@ You also can obtain the source code from here, &lt;a href=&quot;https://github.c
 &lt;h4&gt;License&lt;/h4&gt;
 &lt;p&gt;KalaGola is relased under &lt;a href=&quot;http://gplv3.fsf.org/&quot;&gt;GPLv3&lt;/a&gt;. Anyone is permitted to do copy, edit or redistribute.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 26 Jan 2017 00:00:00 +0530</pubDate>
-        <link>https://lahiru.io/project/2017/01/26/kalagola.html</link>
-        <guid isPermaLink="true">https://lahiru.io/project/2017/01/26/kalagola.html</guid>
+        <pubDate>Thu, 26 Jan 2017 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/project/2017/01/26/kalagola.html</link>
+        <guid isPermaLink="true">http://localhost:4000/project/2017/01/26/kalagola.html</guid>
         
         <category>python, cli, fonts</category>
         
