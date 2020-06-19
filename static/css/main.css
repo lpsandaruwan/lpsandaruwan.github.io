@@ -1,8 +1,8 @@
 body {
   font-family: "Roboto Condensed", Arial, sans-serif;
-  line-height: 1.5em;
+  line-height: 1.6em;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   color: #565656;
   background: url("/static/img/subtle_dots.png")
 }
