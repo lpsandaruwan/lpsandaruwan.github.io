@@ -5,8 +5,8 @@
     <description>Analyze, design, engineer &amp; success</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Jun 2020 22:20:24 +0530</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2020 22:20:24 +0530</lastBuildDate>
+    <pubDate>Fri, 19 Jun 2020 22:50:45 +0530</pubDate>
+    <lastBuildDate>Fri, 19 Jun 2020 22:50:45 +0530</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -21,10 +21,10 @@ When developing a microservices project with cloud functions, managing the clust
 &lt;h3 id=&quot;first-of-all&quot;&gt;First of all…&lt;/h3&gt;
 &lt;p&gt;You need to have installed below components to use gostep cli.&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/)&lt;/li&gt;
-  &lt;li&gt;Gcloud sdk(https://cloud.google.com/sdk)&lt;/li&gt;
-  &lt;li&gt;subversion(https://subversion.apache.org)&lt;/li&gt;
-  &lt;li&gt;gostep(https://github.com/codimite/gostep)&lt;/li&gt;
+  &lt;li&gt;Python version 3.x with PyPI a.k.a pip(&lt;a href=&quot;https://www.python.org/download/releases/3.0/&quot;&gt;https://www.python.org/download/releases/3.0&lt;/a&gt;, &lt;a href=&quot;https://pypi.org/project/pip/&quot;&gt;https://pypi.org/project/pip&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Gcloud sdk(&lt;a href=&quot;https://cloud.google.com/sdk&quot;&gt;https://cloud.google.com/sdk&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;subversion(&lt;a href=&quot;https://subversion.apache.org&quot;&gt;https://subversion.apache.org&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;gostep(&lt;a href=&quot;https://github.com/codimite/gostep&quot;&gt;https://github.com/codimite/gostep&lt;/a&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;next-steps&quot;&gt;Next steps…&lt;/h3&gt;
@@ -86,7 +86,7 @@ Aight… Let’s do,&lt;/p&gt;
   &lt;li&gt;Run cloud functions cluster in local environment, so developers can benefit debugging.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Please find the source code in https://github.com/codimite/gostep.&lt;/p&gt;
+&lt;p&gt;Please find the source code in &lt;a href=&quot;https://github.com/codimite/gostep&quot;&gt;https://github.com/codimite/gostep&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Fri, 19 Jun 2020 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2020/06/19/gostep-intro.html</link>
