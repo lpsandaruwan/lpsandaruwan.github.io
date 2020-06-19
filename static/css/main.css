@@ -1,8 +1,8 @@
 body {
-  font-family: "Rubik", Arial, sans-serif;
-  line-height: 1.5em;
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  line-height: 1.6em;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   color: #565656;
   background: url("/static/img/subtle_dots.png")
 }
@@ -85,7 +85,7 @@ div.post-content .btn-tags {
 /* Left column */
 div.col-sm-3 {
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 11px;
   color: #111111;
 }
 div.col-sm-3 strong {

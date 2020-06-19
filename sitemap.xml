@@ -5,9 +5,99 @@
     <description>Analyze, design, engineer &amp; success</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 22 May 2020 12:11:37 -0700</pubDate>
-    <lastBuildDate>Fri, 22 May 2020 12:11:37 -0700</lastBuildDate>
+    <pubDate>Fri, 19 Jun 2020 22:20:24 +0530</pubDate>
+    <lastBuildDate>Fri, 19 Jun 2020 22:20:24 +0530</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Super charge a Google cloud functions project</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process.&lt;/p&gt;
+
+&lt;p&gt;I named this little Pythonic tool as &lt;strong&gt;gostep&lt;/strong&gt; a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases.&lt;/p&gt;
+
+&lt;p&gt;I would like to show you how it works up to now.&lt;/p&gt;
+
+&lt;h3 id=&quot;first-of-all&quot;&gt;First of all…&lt;/h3&gt;
+&lt;p&gt;You need to have installed below components to use gostep cli.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/)&lt;/li&gt;
+  &lt;li&gt;Gcloud sdk(https://cloud.google.com/sdk)&lt;/li&gt;
+  &lt;li&gt;subversion(https://subversion.apache.org)&lt;/li&gt;
+  &lt;li&gt;gostep(https://github.com/codimite/gostep)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;next-steps&quot;&gt;Next steps…&lt;/h3&gt;
+&lt;p&gt;Now simply install gostep cli.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install gostep
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After installing gostep, using gcloud sdk log in to your google cloud platform account.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud auth login
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once you logged in, select the gcloud project that you want to use for your serverless functions.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud config set project {projectId}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Oh! wait, to list down project Ids &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcloud projects list&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep gcloud projects&lt;/code&gt; can be used.&lt;/p&gt;
+
+&lt;h3 id=&quot;all-set&quot;&gt;All set…&lt;/h3&gt;
+&lt;p&gt;Now we are ready build a cloud functions cluster.
+First gostep needs a workspace directory, a gcloud service account and a credentials file for deployment purposes.
+We can initiate them by this command, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep auth init {new_service_account_name} inside {workspace_directory}&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep auth init my-service-account inside ./my-workspace
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now we can see a credentials file has been generated inside the workspace.
+Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep gcloud locations&lt;/code&gt; can be used. Now we can simply do,&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep base init {project_name} location{gcloud_region_id} version &quot;0.1.0&quot; explains {description} inside {workspace_directory}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In our case,&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd my-workspace
+gostep base init my-new-project location asia-east2 version &quot;0.1.0&quot; explains &quot;my sample project&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;It’s geen light now to create cloud functions now. gostep has &lt;a href=&quot;https://github.com/codimite/gostep-templates&quot;&gt;specified template structures&lt;/a&gt; for this.
+Let’s simply bootstrap a python cloud function. For this purpose,&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Since we are in the workspace directory and we already set up a default location Id we won’t be using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;location&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inside&lt;/code&gt; arguments.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep service init my-python-function version &quot;0.1.0&quot; env python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Let’s bootstrap another function with nodeJs.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep service init my-nodejs-function version &quot;0.1.0&quot; env nodejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;We can see source files inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{workspace_directory}/src&lt;/code&gt;. In our case inside, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my-workspace/src/my-nodejs-function&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my-workspace/src/my-python-function&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;great&quot;&gt;Great…!&lt;/h3&gt;
+&lt;p&gt;Now our project is ready to get deployed.
+Aight… Let’s do,&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep deploy diff
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; keyword will only deploy the changes we made for our functions(gostep tracks md5 of the function directory). To deploy a single function it needs to be called by name. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep deploy {function_name}&lt;/code&gt;. In our case,&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep deploy my-nodejs-function
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;bravo&quot;&gt;Bravo…!&lt;/h3&gt;
+&lt;p&gt;Now our functions are deployed and ready to be executed.
+&lt;img src=&quot;/static/img/posts/gostep/functions.png&quot; alt=&quot;cfunctions&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;in-future-releases&quot;&gt;In future releases…&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;More templates, templates for go lang, templates for Spring framework, etc…&lt;/li&gt;
+  &lt;li&gt;Handle function triggers such as pubsub, events, etc…&lt;/li&gt;
+  &lt;li&gt;Run cloud functions cluster in local environment, so developers can benefit debugging.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Please find the source code in https://github.com/codimite/gostep.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 19 Jun 2020 00:00:00 +0530</pubDate>
+        <link>http://localhost:4000/post/2020/06/19/gostep-intro.html</link>
+        <guid isPermaLink="true">http://localhost:4000/post/2020/06/19/gostep-intro.html</guid>
+        
+        <category>gcp, serverless, gostep, python, cli</category>
+        
+        
+        <category>post</category>
+        
+      </item>
     
       <item>
         <title>Application Deployment in Apache Tomcat on GCE Using Ansible</title>
@@ -164,7 +254,7 @@ configure main.yml in defaults directory in roles. They contain configuration va
 &lt;p&gt;&lt;br /&gt;
 &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;http://purl.org/dc/dcmitype/Text&quot; property=&quot;dct:title&quot; rel=&quot;dct:type&quot;&gt;gce-tomcat-ansible-demo post&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/blog/2018/tomcat-gce-ansible-demo/&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot; rel=&quot;dct:source&quot;&gt;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&lt;/a&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 01 Mar 2018 00:00:00 -0800</pubDate>
+        <pubDate>Thu, 01 Mar 2018 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</link>
         <guid isPermaLink="true">http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</guid>
         
@@ -254,7 +344,7 @@ irexec &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;c&q
 &lt;br /&gt;&lt;a href=&quot;http://www.lirc.org/html/configure.html&quot;&gt;http://www.lirc.org/html/configure.html&lt;/a&gt;
 &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 11 May 2017 00:00:00 -0700</pubDate>
+        <pubDate>Thu, 11 May 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</link>
         <guid isPermaLink="true">http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</guid>
         
@@ -372,7 +462,7 @@ Now the readme is displaying the build status and whether my project has passed 
 &lt;p&gt;Please refer my open source project, &lt;a href=&quot;https://github.com/lpsandaruwan/depli&quot;&gt;https://github.com/lpsandaruwan/depli&lt;/a&gt; if there is any doubt.
 &lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 20 Apr 2017 00:00:00 -0700</pubDate>
+        <pubDate>Thu, 20 Apr 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2017/04/20/github-sonarqube.html</link>
         <guid isPermaLink="true">http://localhost:4000/post/2017/04/20/github-sonarqube.html</guid>
         
@@ -404,7 +494,7 @@ For more information please refer below links.
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/log-tracker/releases&quot;&gt;https://github.com/lpsandaruwan/log-tracker/releases&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 14 Apr 2017 00:00:00 -0700</pubDate>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/project/2017/04/14/log-tracker.html</link>
         <guid isPermaLink="true">http://localhost:4000/project/2017/04/14/log-tracker.html</guid>
         
@@ -433,7 +523,7 @@ This handsome tool has been released under GPL license on GitHub.&lt;/p&gt;
 
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/releases&quot;&gt;https://github.com/lpsandaruwan/depli/releases&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 03 Apr 2017 00:00:00 -0700</pubDate>
+        <pubDate>Mon, 03 Apr 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/project/2017/04/03/depli.html</link>
         <guid isPermaLink="true">http://localhost:4000/project/2017/04/03/depli.html</guid>
         
@@ -553,7 +643,7 @@ how much processors allowed for the JVM in a paticular time period.&lt;/p&gt;
 &lt;p&gt;Now we can get JVM CPU usage by calling the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getJvmCpuUsage&lt;/code&gt; periodically. You can obtain the complete Java code from &lt;a href=&quot;https://gist.github.com/lpsandaruwan/f2cef0aa91ae68cb041c7ecda04a0724&quot;&gt;this Gist&lt;/a&gt;.
 &lt;br /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sun, 26 Feb 2017 00:00:00 -0800</pubDate>
+        <pubDate>Sun, 26 Feb 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</link>
         <guid isPermaLink="true">http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</guid>
         
@@ -580,7 +670,7 @@ of helping out the people who seek SDL2 beginner level applications to learn.&lt
 
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship/releases&quot;&gt;https://github.com/lpsandaruwan/savior-ship/releases&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Feb 2017 00:00:00 -0800</pubDate>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/project/2017/02/23/savior-ship.html</link>
         <guid isPermaLink="true">http://localhost:4000/project/2017/02/23/savior-ship.html</guid>
         
@@ -621,7 +711,7 @@ gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jekyll-paginate&lt;/co
 
 &lt;p&gt;You can refer the demo here, &lt;a href=&quot;https://lahiru.io/surgeon-tux&quot; target=&quot;_blank&quot;&gt;https://lahiru.io/surgeon-tux&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Feb 2017 00:00:00 -0800</pubDate>
+        <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/post/2017/02/23/surgeon-tux.html</link>
         <guid isPermaLink="true">http://localhost:4000/post/2017/02/23/surgeon-tux.html</guid>
         
@@ -758,7 +848,7 @@ You also can obtain the source code from here, &lt;a href=&quot;https://github.c
 &lt;h4&gt;License&lt;/h4&gt;
 &lt;p&gt;KalaGola is relased under &lt;a href=&quot;http://gplv3.fsf.org/&quot;&gt;GPLv3&lt;/a&gt;. Anyone is permitted to do copy, edit or redistribute.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 26 Jan 2017 00:00:00 -0800</pubDate>
+        <pubDate>Thu, 26 Jan 2017 00:00:00 +0530</pubDate>
         <link>http://localhost:4000/project/2017/01/26/kalagola.html</link>
         <guid isPermaLink="true">http://localhost:4000/project/2017/01/26/kalagola.html</guid>
         
