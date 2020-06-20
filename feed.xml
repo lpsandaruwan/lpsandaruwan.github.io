@@ -5,8 +5,8 @@
     <description>Analyze, design, engineer &amp; success</description>
     <link>https://lahiru.io/</link>
     <atom:link href="https://lahiru.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 20 Jun 2020 05:37:58 +0530</pubDate>
-    <lastBuildDate>Sat, 20 Jun 2020 05:37:58 +0530</lastBuildDate>
+    <pubDate>Sat, 20 Jun 2020 05:48:46 +0530</pubDate>
+    <lastBuildDate>Sat, 20 Jun 2020 05:48:46 +0530</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -61,7 +61,7 @@ Let’s simply bootstrap a python cloud function. For this purpose,&lt;/p&gt;
 &lt;p&gt;Since we are in the workspace directory and we already set up a default location Id we won’t be using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;location&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inside&lt;/code&gt; arguments.&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep service init my-python-function version &quot;0.1.0&quot; env python
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Let’s bootstrap another function with nodeJs.&lt;/p&gt;
+&lt;p&gt;Let’s bootstrap another nodeJs function.&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gostep service init my-nodejs-function version &quot;0.1.0&quot; env nodejs
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We can see source files inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{workspace_directory}/src&lt;/code&gt;. In our case inside, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my-workspace/src/my-nodejs-function&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my-workspace/src/my-python-function&lt;/code&gt;.&lt;/p&gt;
