@@ -3,16 +3,16 @@
   <channel>
     <title>Lahiru's dev journal</title>
     <description>Analyze, design, engineer &amp; success</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Jun 2020 22:50:45 +0530</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2020 22:50:45 +0530</lastBuildDate>
+    <link>https://lahiru.io/</link>
+    <atom:link href="https://lahiru.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 20 Jun 2020 05:37:58 +0530</pubDate>
+    <lastBuildDate>Sat, 20 Jun 2020 05:37:58 +0530</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>Super charge a Google cloud functions project</title>
         <description>&lt;p&gt;&lt;br /&gt;
-When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process.&lt;/p&gt;
+When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a scattered and complex scenario. That is why I thought of developing a simple cli tool to super charge the development and deployment process.&lt;/p&gt;
 
 &lt;p&gt;I named this little Pythonic tool as &lt;strong&gt;gostep&lt;/strong&gt; a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases.&lt;/p&gt;
 
@@ -38,7 +38,7 @@ When developing a microservices project with cloud functions, managing the clust
 &lt;p&gt;Once you logged in, select the gcloud project that you want to use for your serverless functions.&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud config set project {projectId}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Oh! wait, to list down project Ids &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcloud projects list&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep gcloud projects&lt;/code&gt; can be used.&lt;/p&gt;
+&lt;p&gt;To list down project Ids &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcloud projects list&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gostep gcloud projects&lt;/code&gt; can be used.&lt;/p&gt;
 
 &lt;h3 id=&quot;all-set&quot;&gt;All set…&lt;/h3&gt;
 &lt;p&gt;Now we are ready build a cloud functions cluster.
@@ -89,8 +89,8 @@ Aight… Let’s do,&lt;/p&gt;
 &lt;p&gt;Please find the source code in &lt;a href=&quot;https://github.com/codimite/gostep&quot;&gt;https://github.com/codimite/gostep&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Fri, 19 Jun 2020 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2020/06/19/gostep-intro.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2020/06/19/gostep-intro.html</guid>
+        <link>https://lahiru.io/post/2020/06/19/gostep-intro.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2020/06/19/gostep-intro.html</guid>
         
         <category>gcp, serverless, gostep, python, cli</category>
         
@@ -255,8 +255,8 @@ configure main.yml in defaults directory in roles. They contain configuration va
 &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;http://purl.org/dc/dcmitype/Text&quot; property=&quot;dct:title&quot; rel=&quot;dct:type&quot;&gt;gce-tomcat-ansible-demo post&lt;/span&gt; by &lt;a xmlns:cc=&quot;http://creativecommons.org/ns#&quot; href=&quot;http://lahiru.site/blog/2018/tomcat-gce-ansible-demo/&quot; property=&quot;cc:attributionName&quot; rel=&quot;cc:attributionURL&quot;&gt;Lahiru Pathirage&lt;/a&gt; is licensed under a &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;br /&gt;Based on a work at &lt;a xmlns:dct=&quot;http://purl.org/dc/terms/&quot; href=&quot;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&quot; rel=&quot;dct:source&quot;&gt;https://github.com/lpsandaruwan/gce-tomcat-ansible-demo&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 01 Mar 2018 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2018/03/01/tomcat-gce-ansible-demo.html</guid>
+        <link>https://lahiru.io/post/2018/03/01/tomcat-gce-ansible-demo.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2018/03/01/tomcat-gce-ansible-demo.html</guid>
         
         <category>tomcat, gce, ansible, configuration-management</category>
         
@@ -345,8 +345,8 @@ irexec &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;c&q
 &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 11 May 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2017/05/11/sb1095-volume-knob-linux.html</guid>
+        <link>https://lahiru.io/post/2017/05/11/sb1095-volume-knob-linux.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2017/05/11/sb1095-volume-knob-linux.html</guid>
         
         <category>usb dac, creative labs, sb1095, linux, volume knob</category>
         
@@ -463,8 +463,8 @@ Now the readme is displaying the build status and whether my project has passed 
 &lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 20 Apr 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2017/04/20/github-sonarqube.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2017/04/20/github-sonarqube.html</guid>
+        <link>https://lahiru.io/post/2017/04/20/github-sonarqube.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2017/04/20/github-sonarqube.html</guid>
         
         <category>code-quality, github, travis-ci, sonarqube</category>
         
@@ -495,8 +495,8 @@ For more information please refer below links.
 
 </description>
         <pubDate>Fri, 14 Apr 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/project/2017/04/14/log-tracker.html</link>
-        <guid isPermaLink="true">http://localhost:4000/project/2017/04/14/log-tracker.html</guid>
+        <link>https://lahiru.io/project/2017/04/14/log-tracker.html</link>
+        <guid isPermaLink="true">https://lahiru.io/project/2017/04/14/log-tracker.html</guid>
         
         <category>python, log files, paramiko, wrapper application</category>
         
@@ -524,8 +524,8 @@ This handsome tool has been released under GPL license on GitHub.&lt;/p&gt;
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/depli/releases&quot;&gt;https://github.com/lpsandaruwan/depli/releases&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 03 Apr 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/project/2017/04/03/depli.html</link>
-        <guid isPermaLink="true">http://localhost:4000/project/2017/04/03/depli.html</guid>
+        <link>https://lahiru.io/project/2017/04/03/depli.html</link>
+        <guid isPermaLink="true">https://lahiru.io/project/2017/04/03/depli.html</guid>
         
         <category>java, spring-boot, angularjs, jvm performance</category>
         
@@ -644,8 +644,8 @@ how much processors allowed for the JVM in a paticular time period.&lt;/p&gt;
 &lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Feb 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2017/02/26/jvm-cpu-usage.html</guid>
+        <link>https://lahiru.io/post/2017/02/26/jvm-cpu-usage.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2017/02/26/jvm-cpu-usage.html</guid>
         
         <category>java, jvm cpu utilization, mxbeans, devops</category>
         
@@ -671,8 +671,8 @@ of helping out the people who seek SDL2 beginner level applications to learn.&lt
 &lt;p&gt;Releases: &lt;a href=&quot;https://github.com/lpsandaruwan/savior-ship/releases&quot;&gt;https://github.com/lpsandaruwan/savior-ship/releases&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/project/2017/02/23/savior-ship.html</link>
-        <guid isPermaLink="true">http://localhost:4000/project/2017/02/23/savior-ship.html</guid>
+        <link>https://lahiru.io/project/2017/02/23/savior-ship.html</link>
+        <guid isPermaLink="true">https://lahiru.io/project/2017/02/23/savior-ship.html</guid>
         
         <category>c++, sdl2, game, 2d</category>
         
@@ -712,8 +712,8 @@ gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jekyll-paginate&lt;/co
 &lt;p&gt;You can refer the demo here, &lt;a href=&quot;https://lahiru.io/surgeon-tux&quot; target=&quot;_blank&quot;&gt;https://lahiru.io/surgeon-tux&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Feb 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/post/2017/02/23/surgeon-tux.html</link>
-        <guid isPermaLink="true">http://localhost:4000/post/2017/02/23/surgeon-tux.html</guid>
+        <link>https://lahiru.io/post/2017/02/23/surgeon-tux.html</link>
+        <guid isPermaLink="true">https://lahiru.io/post/2017/02/23/surgeon-tux.html</guid>
         
         <category>jekyll, template, monospace, dark</category>
         
@@ -849,8 +849,8 @@ You also can obtain the source code from here, &lt;a href=&quot;https://github.c
 &lt;p&gt;KalaGola is relased under &lt;a href=&quot;http://gplv3.fsf.org/&quot;&gt;GPLv3&lt;/a&gt;. Anyone is permitted to do copy, edit or redistribute.&lt;/p&gt;
 </description>
         <pubDate>Thu, 26 Jan 2017 00:00:00 +0530</pubDate>
-        <link>http://localhost:4000/project/2017/01/26/kalagola.html</link>
-        <guid isPermaLink="true">http://localhost:4000/project/2017/01/26/kalagola.html</guid>
+        <link>https://lahiru.io/project/2017/01/26/kalagola.html</link>
+        <guid isPermaLink="true">https://lahiru.io/project/2017/01/26/kalagola.html</guid>
         
         <category>python, cli, fonts</category>
         
