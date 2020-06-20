@@ -192,7 +192,7 @@ We can initiate them by this command, <code class="language-plaintext highlighte
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gostep auth init my-service-account inside ./my-workspace
 </code></pre></div></div>
 <p>Now we can see a credentials file has been generated inside the workspace.
-Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project <code class="language-plaintext highlighter-rouge">gostep gcloud locations</code> can be used. Now we can simply do,</p>
+Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a locations list for our gcloud project <code class="language-plaintext highlighter-rouge">gostep gcloud locations</code> can be used. Now we can simply do,</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gostep base init {project_name} location{gcloud_region_id} version "0.1.0" explains {description} inside {workspace_directory}
 </code></pre></div></div>
 <p>In our case,</p>
@@ -221,13 +221,13 @@ Aight… Let’s do,</p>
 </code></pre></div></div>
 
 <h3 id="bravo">Bravo…!</h3>
-<p>Now our functions are deployed and ready to be executed.
+<p>Now functions are deployed and ready for invocations.
 <img src="/static/img/posts/gostep/functions.png" alt="cfunctions" /></p>
 
 <h3 id="in-future-releases">In future releases…</h3>
 <ul>
   <li>More templates, templates for go lang, templates for Spring framework, etc…</li>
-  <li>Handle function triggers such as pubsub, events, etc…</li>
+  <li>Handle function triggers for more types of events, etc…</li>
   <li>Run cloud functions cluster in local environment, so developers can benefit debugging.</li>
 </ul>
 
