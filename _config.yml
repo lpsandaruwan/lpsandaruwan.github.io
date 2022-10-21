@@ -1,0 +1,35 @@
+title: Lahiru's Dev Journal
+description: I am Lahiru Pathirage(BSc in Computer Science), a polyglot software developer, essentially an enthusiast on the topic of "cloud computing". I have been working on enterprise software development and solutions since 2015, and my main interest is to improve my skills in designing and making software systems by combining good software architecture with cloud computing.
+permalink: ':title/'
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://lahirus.com" # the base hostname & protocol for your site, e.g. http://example.com
+site-twitter: lpsandaruwan
+
+# Author Settings
+author: Lahiru's Dev Journal
+author-img: profile_image.jpg
+about-author: I am Lahiru Pathirage(BSc in Computer Science), a polyglot software developer, essentially an enthusiast on the topic of "cloud computing". I have been working on enterprise software development and solutions since 2015, and my main interest is to improve my skills in designing and making software systems by combining good software architecture with cloud computing.
+social-twitter: lpsandaruwan
+social-facebook: lpsandaruwan1
+social-github: lpsandaruwan
+social-linkedin: lpsandaruwan
+social-email: lpsandaruwan@gmail.com
+
+# Disqus
+discus-identifier: lpsandaruwan
+
+# Tracker
+analytics: UA-167199035-1
+
+# Build Settings
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jemoji
+  - jekyll-feed
+
+paginate: 8
+paginate_path: "/page/:num"
+
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]

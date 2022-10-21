@@ -1,1 +1,3 @@
-## Lahiru's blog
+## Lahiru Pathirge's blog
+
+Please visit https://lahirus.com
