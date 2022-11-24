@@ -11,9 +11,6 @@ tags:
 title:  "Saga Pattern with serverless model on Google Cloud Platform - Part 1"
 ---
 
-> Gostep: 👉 [Guide](https://github.com/gostep-cli/gostep/wiki)  
-> Materials: 👉 [Complete source code](https://github.com/lpsandaruwan/saga-gcp)
-
 During the past few years, the microservices architecture(MSA) and serverless model have gained a lot of popularity in the industry. However, these technologies come with their own set of challenges. One substantial challenge is managing data in MSA due to its complexity. Considering common patterns for MSA data management we will be focusing on the Saga pattern in this article.
 
 
@@ -477,5 +474,7 @@ Consuming the message from `reservations.reservationCancellations` this function
 After deploying all the services we can use Google API gateway to secure our `reservations` entrypoint of the transaction.
 Please refer [API gatewey quickstart](https://cloud.google.com/api-gateway/docs/secure-traffic-gcloud).
 
+> Gostep: 👉 [Guide](https://github.com/gostep-cli/gostep/wiki)  
+> Materials: 👉 [Complete source code](https://github.com/lpsandaruwan/saga-gcp)
 
 🦖 Let's look into **Orchestration** based solution in the next article.
