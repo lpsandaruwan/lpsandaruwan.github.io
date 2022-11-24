@@ -23,7 +23,7 @@ You need to have installed below components to use gostep cli.
 1. Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/)
 2. Gcloud sdk(https://cloud.google.com/sdk)
 3. subversion(https://subversion.apache.org)
-4. gostep(https://github.com/codimite/gostep)
+4. gostep(https://github.com/gostep-cli/gostep)
 
 ### Next steps...
 Now simply install gostep cli.
@@ -58,7 +58,7 @@ In our case,
 cd my-workspace
 gostep base init my-new-project location asia-east2 version "0.1.0" explains "my sample project"
 ```
-It's geen light now to create cloud functions now. gostep has [specified template structures](https://github.com/codimite/gostep-templates) for this.
+It's geen light now to create cloud functions now. gostep has [specified template structures](https://github.com/gostep-cli/gostep-templates) for this.
 Let's simply bootstrap a python cloud function. For this purpose, 
 ```
 gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory}
@@ -93,4 +93,4 @@ Now our functions are deployed and ready to be executed.
 * Handle function triggers such as pubsub, events, etc...
 * Run cloud functions cluster in local environment, so developers can benefit debugging.
 
-Please find the source code in https://github.com/lpsandaruwan/gostep.
+Please find the source code in https://github.com/gostep-cli/gostep.
