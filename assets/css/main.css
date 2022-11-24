@@ -439,18 +439,18 @@ template {
 
 .highlight {
   color: white;
-  background-color: rgb(62, 78, 85);
+  background-color: rgb(31, 32, 32);
   -webkit-border-radius: 3px;
           border-radius: 3px;
   margin: 0;
 }
 
 .highlighter-rouge {
-  background-color: #e7e7e7;
+  background-color: rgb(243, 243, 243);;
   font-weight: 400;
   -webkit-border-radius: 3px;
           border-radius: 3px;
-  padding: 0.1rem 0.5rem;
+ 
 }
 
 .highlight .hll {
@@ -458,7 +458,7 @@ template {
 }
 
 .highlight .c {
-  color: #999;
+  color: rgb(102, 102, 102);
 }
 
 /* Comment */
@@ -469,7 +469,7 @@ template {
 
 /* Error */
 .highlight .k {
-  color: #069;
+  color: rgb(80, 137, 165);
 }
 
 /* Keyword */
@@ -553,7 +553,7 @@ template {
 
 /* Keyword.Constant */
 .highlight .kd {
-  color: #069;
+  color: rgb(34, 153, 212);
 }
 
 /* Keyword.Declaration */
@@ -646,6 +646,10 @@ template {
   color: rgb(0, 143, 143);
 }
 
+.highlight .nx {
+  color: rgb(212, 212, 212);
+}
+
 /* Name.Variable */
 .highlight .ow {
   color: #000;
@@ -694,7 +698,7 @@ template {
 
 /* Literal.String.Doc */
 .highlight .s2 {
-  color: #c30;
+  color: rgb(236, 146, 116);
 }
 
 /* Literal.String.Double */
