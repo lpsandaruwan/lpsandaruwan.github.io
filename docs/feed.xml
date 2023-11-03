@@ -1,0 +1,176 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>/</id>
+  <title>Lahiru's dev journal</title>
+  <subtitle>I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.</subtitle>
+  <updated>2023-11-03T22:08:20+05:30</updated>
+  <author>
+    <name>Lahiru Sandaruwan Pathirage</name>
+    <uri>/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="/"/>
+  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <rights> © 2023 Lahiru Sandaruwan Pathirage </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>Saga Pattern with serverless model on Google Cloud Platform - Part 1</title>
+    <link href="/posts/saga-gcp-choreography/" rel="alternate" type="text/html" title="Saga Pattern with serverless model on Google Cloud Platform - Part 1" />
+    <published>2022-11-20T00:00:00+05:30</published>
+  
+    <updated>2023-11-03T21:56:02+05:30</updated>
+  
+    <id>/posts/saga-gcp-choreography/</id>
+    <content src="/posts/saga-gcp-choreography/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="Serverless" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      
+  Gostep: 👉 Guide
+Materials: 👉 Complete source code
+
+
+During the past few years, the microservices architecture(MSA) and serverless model have gained a lot of popularity in the industry. However, these technologies come with their own set of challenges. One substantial challenge is managing data in MSA due to its complexity. Considering common patterns for MSA data management we will be focusi...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Super charge a Google cloud functions project</title>
+    <link href="/posts/gostep-intro/" rel="alternate" type="text/html" title="Super charge a Google cloud functions project" />
+    <published>2020-06-19T00:00:00+05:30</published>
+  
+    <updated>2023-11-03T21:56:02+05:30</updated>
+  
+    <id>/posts/gostep-intro/</id>
+    <content src="/posts/gostep-intro/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Projects" />
+    
+    <category term="DevOps" />
+    
+  
+
+  
+    <summary>Bootstrap a micro services project with Google cloud functions quickly.</summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Application Deployment in Apache Tomcat on GCE Using Ansible</title>
+    <link href="/posts/tomcat-gce-ansible-demo/" rel="alternate" type="text/html" title="Application Deployment in Apache Tomcat on GCE Using Ansible" />
+    <published>2018-03-01T00:00:00+05:30</published>
+  
+    <updated>2023-11-03T21:56:02+05:30</updated>
+  
+    <id>/posts/tomcat-gce-ansible-demo/</id>
+    <content src="/posts/tomcat-gce-ansible-demo/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="DevOps" />
+    
+  
+
+  
+    <summary>Orchestrating Apache tomcat Tomcat deployments in Google Cloud Platform using Ansible.</summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Setting up Creative Labs USB DAC volume knob on Linux</title>
+    <link href="/posts/sb1095-volume-knob-linux/" rel="alternate" type="text/html" title="Setting up Creative Labs USB DAC volume knob on Linux" />
+    <published>2017-05-11T00:00:00+05:30</published>
+  
+    <updated>2023-11-03T21:56:02+05:30</updated>
+  
+    <id>/posts/sb1095-volume-knob-linux/</id>
+    <content src="/posts/sb1095-volume-knob-linux/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="Linux" />
+    
+  
+
+  
+    <summary>Configure volume control knob of Creative SBS1095 USB sound card to adjust volume in Linux.</summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Continuous Code Quality On My OpenSource Project</title>
+    <link href="/posts/github-sonarqube/" rel="alternate" type="text/html" title="Continuous Code Quality On My OpenSource Project" />
+    <published>2017-04-20T00:00:00+05:30</published>
+  
+    <updated>2023-11-03T21:56:02+05:30</updated>
+  
+    <id>/posts/github-sonarqube/</id>
+    <content src="/posts/github-sonarqube/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="DevOps" />
+    
+  
+
+  
+    <summary>SonarQube analysis on a GitHub project with the help of TravisCI.</summary>
+  
+
+  </entry>
+
+</feed>
+
+
