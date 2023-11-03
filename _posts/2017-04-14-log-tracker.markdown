@@ -1,14 +1,11 @@
 ---
-author: Lahiru Pathirage
-category: project
-comments: true
+author: lpsandaruwan
+category: [Projects, DevOps]
 date:   2017-04-14
 img: log_tracker.png
-keywords: Log Tracker, python, paramiko, devops
 layout: post
 summary: Track log files using SSH, the way you want.
-tags:
-- python, log files, paramiko, wrapper application
+tags: [python, log files, paramiko, wrapper application]
 title:  "Continuous listening to remote text files using python"
 ---
 

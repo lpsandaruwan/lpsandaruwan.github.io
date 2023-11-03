@@ -1,14 +1,10 @@
 ---
-author: Lahiru Pathirage
-category: post
-comments: true
+author: lpsandaruwan
+categories: [Projects, DevOps]
 date:   2020-06-19
 img: posts/gostep/functions.png
-keywords: gcp, serverless, cloud functions, cli
-layout: post
 summary: Bootstrap a micro services project with Google cloud functions quickly.
-tags:
-- gcp, serverless, gostep, python, cli
+tags: [gcp, serverless, gostep, python, cli]
 title: "Super charge a Google cloud functions project"
 ---
 <br>
@@ -86,7 +82,7 @@ gostep deploy my-nodejs-function
 
 ### Bravo...!
 Now our functions are deployed and ready to be executed.
-![cfunctions](/assets/img/posts/gostep/functions.png)
+![cfunctions](/assets/img/content/posts/gostep/functions.png)
 
 ### In future releases...
 * More templates, templates for go lang, templates for Spring framework, etc...

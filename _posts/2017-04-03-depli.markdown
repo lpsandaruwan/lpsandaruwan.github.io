@@ -1,22 +1,18 @@
 ---
-author: Lahiru Pathirage
-category: project
-comments: true
+author: lpsandaruwan
+categories: [Projects, DevOps]
 date:   2017-04-03
 img: depli.png
-keywords: Depli, jvm performance monitor, Java tool
-layout: post
 summary: The 10-second solution to monitor JVM performance.
-tags:
-- java, spring-boot, angularjs, jvm performance
-title:  "Depli - A JVM monitor application"
+tags: [java, spring-boot, angularjs, jvm performance]
+title: "Depli - A JVM monitor application"
 ---
 
 Depli provides you the 10-second solution for monitoring JVMs. Just add a JMX remote connection using webUI and see how it works.
 Depli provides you a rich UI, you can even search for running threads, classpaths etc.
 This handsome tool has been released under GPL license on GitHub.
 
-![depli](/assets/img/depli.png)
+![depli](/assets/img/content/depli.png)
 
 
 Website: [https://lahirus.com/depli](https://lahirus.com/depli)

@@ -1,14 +1,11 @@
 ---
-author: Lahiru Pathirage
-category: post
-comments: true
+author: lpsandaruwan
+category: [Posts, Other]
 date:   2017-02-26
 keywords: JVM performance, MBeans, CPU usage
 img: java-logo.jpg
-layout: post
 summary: Calculate JVM CPU usage using Java management extension beans.
-tags:
-- java, jvm cpu utilization, mxbeans, devops
+tags: [ava, jvm cpu utilization, mxbeans, devops]
 title:  "JVM CPU usage using Java MXBeans"
 ---
 

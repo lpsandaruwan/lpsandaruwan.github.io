@@ -1,15 +1,15 @@
 ---
-author: Lahiru Pathirage
-category: post
-comments: true
-date:   2022-11-20
-keywords: gcp, serverless, saga, choreography, javascript, gostep
-layout: post
-img: posts/gcp-saga/flowchart.png
-tags:
-- gcp, serverless, saga, choreography, gostep
+author: lpsandaruwan
+categories: [Posts, Serverless]
+date: 2022-11-20
+img: /assets/img/content/posts/gcp-saga/flowchart.png
+tags: [gcp, serverless, saga, choreography, gostep]
 title:  "Saga Pattern with serverless model on Google Cloud Platform - Part 1"
 ---
+
+> Gostep: 👉 [Guide](https://github.com/gostep-cli/gostep/wiki)  
+> Materials: 👉 [Complete source code](https://github.com/lpsandaruwan/saga-gcp)
+{: .prompt-info }
 
 During the past few years, the microservices architecture(MSA) and serverless model have gained a lot of popularity in the industry. However, these technologies come with their own set of challenges. One substantial challenge is managing data in MSA due to its complexity. Considering common patterns for MSA data management we will be focusing on the Saga pattern in this article.
 
@@ -28,7 +28,7 @@ Now that we have a basic understanding of Saga pattern, we will discuss how to i
 ## The real world example
 Let’s consider a train ticket booking system.
 
-![flowchart](/assets/img/posts/gcp-saga/flowchart.png)
+![flowchart](/assets/img/content/posts/gcp-saga/flowchart.png)
 
 The workflow consists of,
 
@@ -45,6 +45,7 @@ However if the system encountered any error while running a local transaction, t
 ## Preparing the development environment
 
 > (Please note that we won't be using a real payment gateway or a notification service, beacause the main purpose of this article is to demonstrate how to use severless model for Saga.)
+{: .prompt-warning }
 
 To implement the solution we will be using Google Cloud serverless services, MongoDb and Javascript.
 
@@ -82,7 +83,7 @@ For the demonstration we will be using,
 - Firestore to store event data
 - MongoDb as the transits service database
 
-![saga chor flow](/assets/img/posts/gcp-saga/sagachoreographyflow.png)
+![saga chor flow](/assets/img/content/posts/gcp-saga/sagachoreographyflow.png)
 
 
 ### Transits service
@@ -474,7 +475,5 @@ Consuming the message from `reservations.reservationCancellations` this function
 After deploying all the services we can use Google API gateway to secure our `reservations` entrypoint of the transaction.
 Please refer [API gatewey quickstart](https://cloud.google.com/api-gateway/docs/secure-traffic-gcloud).
 
-> Gostep: 👉 [Guide](https://github.com/gostep-cli/gostep/wiki)  
-> Materials: 👉 [Complete source code](https://github.com/lpsandaruwan/saga-gcp)
 
 🦖 Let's look into **Orchestration** based solution in the next article.

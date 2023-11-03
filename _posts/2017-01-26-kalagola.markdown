@@ -1,14 +1,10 @@
 ---
-author: Lahiru Pathirage
-category: project
-comments: true
+author: lpsandaruwan
+categories: [Projects, Other]
 date:   2017-01-26
 img: kalagola.png
-keywords: python, typeface design, fonts, open source fonts
-layout: post
 summary: Traverse through the timeline of your GitHub hosted font project.
-tags:
-- python, cli, fonts
+tags: [python, cli, fonts]
 title:  "Traverse through font design timeline"
 ---
 

@@ -1,14 +1,10 @@
 ---
-author: Lahiru Pathirage
-category: post
-comments: true
+author: lpsandaruwan
+categories: [Projects, Other]
 date:   2017-02-23
 img: surgeon-tux.png
-keywords: Surgeon Tux, Jekyll, theme, template, terminal
-layout: post
 summary: A jekyll theme designed for people who love to work with terminal.
-tags:
-- jekyll, template, monospace, dark
+tags: [jekyll, template, monospace, dark]
 title:  "Surgeon Tux - A Jekyll template"
 ---
 
