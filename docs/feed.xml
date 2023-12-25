@@ -4,7 +4,7 @@
   <id>/</id>
   <title>Lahiru's dev journal</title>
   <subtitle>I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.</subtitle>
-  <updated>2023-11-03T22:08:20+05:30</updated>
+  <updated>2023-12-26T00:44:48+05:30</updated>
   <author>
     <name>Lahiru Sandaruwan Pathirage</name>
     <uri>/</uri>
@@ -17,6 +17,54 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>GrooveCraft: Building Your Own Amplifier for Next-Level Music Vibes</title>
+    <link href="/posts/crafting-audio-ecosystem/" rel="alternate" type="text/html" title="GrooveCraft: Building Your Own Amplifier for Next-Level Music Vibes" />
+    <published>2023-12-23T00:00:00+05:30</published>
+  
+    <updated>2023-12-23T00:00:00+05:30</updated>
+  
+    <id>/posts/crafting-audio-ecosystem/</id>
+    <content src="/posts/crafting-audio-ecosystem/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="Audio" />
+    
+    <category term="Hobby" />
+    
+    <category term="Music" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      
+  People have different preferences when it comes to how they like to listen to music, and the sound experience can be different for each person. Here, I’ve put together my findings on creating an affordable do-it-yourself sound system that suits my taste.
+
+
+
+
+What Makes Sound Good?
+
+Okay, so everyone’s got their own taste in sound. Some love the deep, thumping bass that makes your heart go bo...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -139,34 +187,6 @@ During the past few years, the microservices architecture(MSA) and serverless mo
 
   
     <summary>Configure volume control knob of Creative SBS1095 USB sound card to adjust volume in Linux.</summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Continuous Code Quality On My OpenSource Project</title>
-    <link href="/posts/github-sonarqube/" rel="alternate" type="text/html" title="Continuous Code Quality On My OpenSource Project" />
-    <published>2017-04-20T00:00:00+05:30</published>
-  
-    <updated>2023-11-03T21:56:02+05:30</updated>
-  
-    <id>/posts/github-sonarqube/</id>
-    <content src="/posts/github-sonarqube/" />
-    <author>
-      <name>lpsandaruwan</name>
-    </author>
-
-  
-    
-    <category term="Posts" />
-    
-    <category term="DevOps" />
-    
-  
-
-  
-    <summary>SonarQube analysis on a GitHub project with the help of TravisCI.</summary>
   
 
   </entry>
