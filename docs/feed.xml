@@ -4,7 +4,7 @@
   <id>/</id>
   <title>Lahiru's dev journal</title>
   <subtitle>I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.</subtitle>
-  <updated>2023-12-26T00:44:48+05:30</updated>
+  <updated>2024-11-05T00:08:09+05:30</updated>
   <author>
     <name>Lahiru Sandaruwan Pathirage</name>
     <uri>/</uri>
@@ -12,11 +12,55 @@
   <link rel="self" type="application/atom+xml" href="/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="en"
     href="/"/>
-  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
-  <rights> © 2023 Lahiru Sandaruwan Pathirage </rights>
+  <generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator>
+  <rights> © 2024 Lahiru Sandaruwan Pathirage </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Arch Linux for Developers: A Step-by-Step Guide to Building Your Ultimate Dev Environment</title>
+    <link href="/posts/archlinux-2024-guide/" rel="alternate" type="text/html" title="Arch Linux for Developers: A Step-by-Step Guide to Building Your Ultimate Dev Environment" />
+    <published>2024-10-27T00:00:00+05:30</published>
+  
+    <updated>2024-10-27T00:00:00+05:30</updated>
+  
+    <id>/posts/archlinux-2024-guide/</id>
+    <content src="/posts/archlinux-2024-guide/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="Linux" />
+    
+    <category term="OS" />
+    
+    <category term="Development" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      
+
+Why Arch Linux? Let’s Jump In!
+
+Hey there, fellow developer community! If you’ve been browsing Linux distributions, you know there are tons of options out there. I’ve tested a few, gone on some Linux adventures, and finally landed on Arch Linux. And, wow, it’s been my go-to for over 11 years now. If you want a powerful development setup and want to learn Linux hands-on, Arch could be your gol...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -159,34 +203,6 @@ During the past few years, the microservices architecture(MSA) and serverless mo
 
   
     <summary>Orchestrating Apache tomcat Tomcat deployments in Google Cloud Platform using Ansible.</summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Setting up Creative Labs USB DAC volume knob on Linux</title>
-    <link href="/posts/sb1095-volume-knob-linux/" rel="alternate" type="text/html" title="Setting up Creative Labs USB DAC volume knob on Linux" />
-    <published>2017-05-11T00:00:00+05:30</published>
-  
-    <updated>2023-11-03T21:56:02+05:30</updated>
-  
-    <id>/posts/sb1095-volume-knob-linux/</id>
-    <content src="/posts/sb1095-volume-knob-linux/" />
-    <author>
-      <name>lpsandaruwan</name>
-    </author>
-
-  
-    
-    <category term="Posts" />
-    
-    <category term="Linux" />
-    
-  
-
-  
-    <summary>Configure volume control knob of Creative SBS1095 USB sound card to adjust volume in Linux.</summary>
   
 
   </entry>
