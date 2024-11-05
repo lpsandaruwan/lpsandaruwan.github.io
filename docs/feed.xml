@@ -4,7 +4,7 @@
   <id>/</id>
   <title>Lahiru's dev journal</title>
   <subtitle>I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.</subtitle>
-  <updated>2024-11-05T11:30:56+05:30</updated>
+  <updated>2024-11-05T11:35:04+05:30</updated>
   <author>
     <name>Lahiru Sandaruwan Pathirage</name>
     <uri>/</uri>
@@ -24,7 +24,7 @@
     <link href="/posts/archlinux-2024-guide/" rel="alternate" type="text/html" title="Arch Linux for Developers: A Step-by-Step Guide to Building Your Ultimate Dev Environment" />
     <published>2024-10-27T00:00:00+05:30</published>
   
-    <updated>2024-10-27T00:00:00+05:30</updated>
+    <updated>2024-11-05T11:31:55+05:30</updated>
   
     <id>/posts/archlinux-2024-guide/</id>
     <content src="/posts/archlinux-2024-guide/" />
