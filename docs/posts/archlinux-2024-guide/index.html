@@ -1840,6 +1840,8 @@ Let’s do a quick test to see if we’re connected:
   </li>
 </ol>
 
+<hr />
+
 <h3 id="step-3-preparing-disk-partitions-️"><span class="me-2">Step 3: Preparing Disk Partitions 🗂️</span><a href="#step-3-preparing-disk-partitions-️" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 <p>Alright, let’s get ready to create some disk partitions! This is super important because a tiny mistake can wipe out your data. We’ll use a tool called <code class="language-plaintext highlighter-rouge">cfdisk</code> that gives us a nice visual interface to manage our disks.</p>
 
@@ -2021,6 +2023,8 @@ nvme0n1     259:10   0 476.9G  0 disk
 
 <p>Congratulations! Your partitions are all set and ready for the Arch Linux installation. 🎊 Let’s move on to the next step!</p>
 
+<hr />
+
 <h3 id="step-4-installing-core-linux-packages-and-configurations-"><span class="me-2">Step 4: Installing Core Linux Packages and Configurations 🐧</span><a href="#step-4-installing-core-linux-packages-and-configurations-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>Now, it’s time to bring your Arch Linux to life! We’ll install the essential core packages that make up the Linux system using the <code class="language-plaintext highlighter-rouge">pacstrap</code> command. This command will set up the Linux kernel and other important tools on your mounted partitions. Let’s get started!</p>
@@ -2150,6 +2154,8 @@ systemctl <span class="nb">enable </span>NetworkManager
 
 <p>Now you’re all set! You’ve installed the core packages and configured your system. Your Arch Linux is well on its way to becoming fully functional! 🎉</p>
 
+<hr />
+
 <h3 id="step-5-install-bootloader-"><span class="me-2">Step 5: Install Bootloader 🚀</span><a href="#step-5-install-bootloader-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>There are many bootloaders out there, but I chose <strong>GRUB</strong>. Why? Because it’s mature and has lots of features!</p>
@@ -2198,6 +2204,8 @@ If you are dual-booting with <strong>Windows</strong>, find the line that says <
   </li>
 </ol>
 
+<hr />
+
 <h3 id="step-6-installing-a-desktop-environment-️"><span class="me-2">Step 6: Installing a Desktop Environment 🖼️</span><a href="#step-6-installing-a-desktop-environment-️" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>A desktop environment (DE) gives you a friendly user interface to interact with your Linux system. There are many DEs to choose from. <strong>KDE</strong> is a complete and feature-rich option. If you prefer something simpler, you might like <strong>GNOME</strong>, <strong>Cinnamon</strong>, or <strong>XFCE</strong>. This setup focuses on <strong>KDE</strong>.</p>
@@ -2234,6 +2242,8 @@ reboot
 <p>When your system boots up, you will be greeted by your new desktop environment!</p>
 
 <p><a href="/assets/img/content/posts/arch/installation_finished.png" class="popup img-link  shimmer"><img src="/assets/img/content/posts/arch/installation_finished.png" alt="after_login" loading="lazy"></a></p>
+
+<hr />
 
 <h3 id="step-7-post-install-packages-️"><span class="me-2">Step 7: Post Install Packages 🛠️</span><a href="#step-7-post-install-packages-️" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2320,6 +2330,8 @@ pacman <span class="nt">-S</span> chromium             <span class="c"># Open-so
 pacman <span class="nt">-S</span> firefox              <span class="c"># Mozilla Firefox</span>
 yay <span class="nt">-S</span> opera                   <span class="c"># Opera browser</span>
 </pre></td></tr></tbody></table></code></div></div>
+
+<hr />
 
 <h3 id="step-8-setting-up-development-environments-"><span class="me-2">Step 8: Setting Up Development Environments 🧑‍💻</span><a href="#step-8-setting-up-development-environments-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -2471,6 +2483,8 @@ yay <span class="nt">-S</span> sql-workbench            <span class="c"># MySQL 
 yay <span class="nt">-S</span> mongodb-compass          <span class="c"># MongoDB management tool</span>
 </pre></td></tr></tbody></table></code></div></div>
 
+<hr />
+
 <h3 id="step-9-install-ides--️"><span class="me-2">Step 9: Install IDEs 💻 🛠️</span><a href="#step-9-install-ides--️" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>Now that you’ve set up the development kits you need, let’s get some awesome IDEs to write code!</p>
@@ -2511,6 +2525,8 @@ yay <span class="nt">-S</span> eclipse-cpp-bin        <span class="c"># Eclipse 
 yay <span class="nt">-S</span> aptana-studio          <span class="c"># Eclipse-based IDE for PHP</span>
 </pre></td></tr></tbody></table></code></div></div>
 
+<hr />
+
 <h3 id="step-10-cloud-cli-tools-️"><span class="me-2">Step 10: Cloud CLI Tools ☁️</span><a href="#step-10-cloud-cli-tools-️" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>Working with cloud services? These CLI tools will make managing them a breeze!</p>
@@ -2524,6 +2540,7 @@ yay <span class="nt">-S</span> aptana-studio          <span class="c"># Eclipse-
 yay <span class="nt">-S</span> google-cloud-cli       <span class="c"># GCP CLI, command: gcloud</span>
 <span class="nb">sudo </span>pacman <span class="nt">-S</span> azure-cli      <span class="c"># Microsoft Azure CLI, command: az</span>
 </pre></td></tr></tbody></table></code></div></div>
+<hr />
 
 <h3 id="step-11-miscellaneous-"><span class="me-2">Step 11: Miscellaneous 🎩</span><a href="#step-11-miscellaneous-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 

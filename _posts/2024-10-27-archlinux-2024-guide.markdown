@@ -173,6 +173,8 @@ ping -c 3 google.com
 ```
 And that’s it! Your network is set up, and we’re ready to install Arch. 🎉
 
+---
+
 ### Step 3: Preparing Disk Partitions 🗂️
 Alright, let’s get ready to create some disk partitions! This is super important because a tiny mistake can wipe out your data. We’ll use a tool called `cfdisk` that gives us a nice visual interface to manage our disks.
 
@@ -293,6 +295,8 @@ nvme0n1     259:10   0 476.9G  0 disk
 
 Congratulations! Your partitions are all set and ready for the Arch Linux installation. 🎊 Let’s move on to the next step!
 
+---
+
 ### Step 4: Installing Core Linux Packages and Configurations 🐧
 
 Now, it's time to bring your Arch Linux to life! We'll install the essential core packages that make up the Linux system using the `pacstrap` command. This command will set up the Linux kernel and other important tools on your mounted partitions. Let’s get started!
@@ -392,6 +396,8 @@ systemctl enable NetworkManager
 
 Now you're all set! You've installed the core packages and configured your system. Your Arch Linux is well on its way to becoming fully functional! 🎉
 
+---
+
 ### Step 5: Install Bootloader 🚀
 
 There are many bootloaders out there, but I chose **GRUB**. Why? Because it's mature and has lots of features!
@@ -425,6 +431,8 @@ There are many bootloaders out there, but I chose **GRUB**. Why? Because it's ma
    grub-mkconfig -o /boot/grub/grub.cfg
    ```
 
+---
+
 ### Step 6: Installing a Desktop Environment 🖼️
 
 A desktop environment (DE) gives you a friendly user interface to interact with your Linux system. There are many DEs to choose from. **KDE** is a complete and feature-rich option. If you prefer something simpler, you might like **GNOME**, **Cinnamon**, or **XFCE**. This setup focuses on **KDE**.
@@ -452,6 +460,7 @@ When your system boots up, you will be greeted by your new desktop environment!
 
 ![after_login](/assets/img/content/posts/arch/installation_finished.png)
 
+---
 
 ### Step 7: Post Install Packages 🛠️
 
@@ -517,6 +526,8 @@ pacman -S chromium             # Open-source version of Chrome
 pacman -S firefox              # Mozilla Firefox
 yay -S opera                   # Opera browser
 ```
+
+---
 
 ### Step 8: Setting Up Development Environments 🧑‍💻
 
@@ -624,6 +635,7 @@ yay -S sql-workbench            # MySQL Workbench
 yay -S mongodb-compass          # MongoDB management tool
 ```
 
+---
 
 ### Step 9: Install IDEs 💻 🛠️
 
@@ -656,6 +668,8 @@ yay -S eclipse-cpp-bin        # Eclipse for C/C++
 yay -S aptana-studio          # Eclipse-based IDE for PHP
 ```
 
+---
+
 ### Step 10: Cloud CLI Tools ☁️
 
 Working with cloud services? These CLI tools will make managing them a breeze!
@@ -665,6 +679,7 @@ yay -S aws-cli-v2-bin         # AWS CLI, command: aws
 yay -S google-cloud-cli       # GCP CLI, command: gcloud
 sudo pacman -S azure-cli      # Microsoft Azure CLI, command: az
 ```
+---
 
 ### Step 11: Miscellaneous 🎩
 
