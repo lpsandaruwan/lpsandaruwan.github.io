@@ -1,0 +1,448 @@
+---
+layout: compress
+---
+
+<!doctype html>
+
+{% include origin-type.html %}
+{% include lang.html %}
+
+<html lang="{{ site.alt_lang | default: site.lang }}" data-mode="plasma">
+  {% include head.html %}
+
+  <body class="plasma-desktop-body">
+    <!-- Desktop Background -->
+    <div id="plasma-desktop">
+      <div class="desktop-wallpaper">
+
+        <!-- Desktop File Manager Area -->
+        <div class="desktop-content">
+          <div class="file-manager-window">
+            <div class="window-titlebar">
+              <div class="window-title">
+                <i class="fas fa-folder"></i>
+                {{ site.title | default: "Blog" }} - File Manager
+              </div>
+            </div>
+            
+            <div class="file-manager-content">
+              <!-- Sidebar -->
+              <div class="fm-sidebar">
+                {% include sidebar.html lang=lang %}
+              </div>
+              
+              <!-- Main Content Area -->
+              <div class="fm-main">
+                <!-- Toolbar -->
+                <div class="fm-toolbar">
+                  <div class="toolbar-left">
+                    <span class="toolbar-title">
+                      {% if page.title %}
+                        <i class="fas {{ page.icon | default: 'fa-folder' }}"></i> {{ page.title }}
+                      {% else %}
+                        <i class="fas fa-list"></i> Posts
+                      {% endif %}
+                    </span>
+                  </div>
+                  <div class="toolbar-right">
+                    <!-- Search Box -->
+                    <div class="search-box">
+                      <input type="text" id="search-input" placeholder="Search posts..." />
+                      <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- File Browser Area -->
+                <div class="file-browser" id="file-browser">
+                  {% if page.layout == 'post' %}
+                    <!-- Post content will be loaded in Konsole automatically -->
+                  {% elsif content and content != empty %}
+                    {{ content }}
+                  {% else %}
+                    {% include lang.html %}
+
+                    {% assign pinned = site.posts | where: 'pin', 'true' %}
+                    {% assign default = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+
+                    {% assign posts = '' | split: '' %}
+
+                    <!-- Get pinned posts -->
+                    {% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
+                    {% assign pinned_num = pinned.size | minus: offset %}
+
+                    {% if pinned_num > 0 %}
+                      {% for i in (offset..pinned.size) limit: pinned_num %}
+                        {% assign posts = posts | push: pinned[i] %}
+                      {% endfor %}
+                    {% else %}
+                      {% assign pinned_num = 0 %}
+                    {% endif %}
+
+                    <!-- Get default posts -->
+                    {% assign default_beg = offset | minus: pinned.size %}
+
+                    {% if default_beg < 0 %}
+                      {% assign default_beg = 0 %}
+                    {% endif %}
+
+                    {% assign default_num = paginator.posts | size | minus: pinned_num %}
+                    {% assign default_end = default_beg | plus: default_num | minus: 1 %}
+
+                    {% if default_num > 0 %}
+                      {% for i in (default_beg..default_end) %}
+                        {% assign posts = posts | push: default[i] %}
+                      {% endfor %}
+                    {% endif %}
+
+                    <div class="folder-view list-view" id="post-list">
+                      {% for post in posts %}
+                        <div class="file-item post-file" 
+                             data-url="{{ post.url | relative_url }}" 
+                             data-title="{{ post.title }}"
+                             data-content="{{ post.content | strip_html | truncate: 500 }}"
+                             onclick="openPost(this)">
+                          <div class="file-icon">
+                            {% if post.categories contains 'Linux' %}
+                              <i class="fab fa-linux"></i>
+                            {% elsif post.categories contains 'Development' %}
+                              <i class="fas fa-code"></i>
+                            {% elsif post.categories contains 'Projects' %}
+                              <i class="fas fa-project-diagram"></i>
+                            {% elsif post.categories contains 'Audio' %}
+                              <i class="fas fa-music"></i>
+                            {% else %}
+                              <i class="fas fa-file-alt"></i>
+                            {% endif %}
+                          </div>
+                          <div class="file-details">
+                            <div class="file-label">{{ post.title }}</div>
+                            <div class="file-description">{{ post.content | strip_html | truncate: 100 }}</div>
+                            <div class="file-meta">
+                              <span class="date">{{ post.date | date: "%B %d, %Y" }}</span>
+                              {% if post.categories.size > 0 %}
+                                <span class="categories">
+                                  {% for category in post.categories %}
+                                    <span class="category-tag">{{ category }}</span>
+                                  {% endfor %}
+                                </span>
+                              {% endif %}
+                            </div>
+                          </div>
+                          {% if post.pin %}
+                            <div class="pin-indicator">
+                              <i class="fas fa-thumbtack"></i>
+                            </div>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+                
+                <!-- Status Bar -->
+                <div class="fm-statusbar">
+                  <div class="status-left">
+                    {{ posts.size }} items
+                  </div>
+                  <div class="status-right">
+                    {% if paginator.total_pages > 1 %}
+                      {% if paginator.previous_page %}
+                        <a href="{{ paginator.previous_page_path | relative_url }}" class="page-nav">
+                          <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                      {% endif %}
+                      <span class="page-info">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+                      {% if paginator.next_page %}
+                        <a href="{{ paginator.next_page_path | relative_url }}" class="page-nav">
+                          Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KDE Plasma Taskbar -->
+      <div class="plasma-taskbar">
+        <div class="taskbar-left">
+          <!-- Application Menu -->
+          <div class="app-menu" onclick="toggleAppMenu()">
+            <div class="menu-icon">
+              <i class="fab fa-linux"></i>
+            </div>
+          </div>
+          
+          <!-- Task Manager -->
+          <div class="task-manager">
+            <div class="task-item active" title="File Manager">
+              <i class="fas fa-folder"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="taskbar-center">
+          <!-- Activities -->
+        </div>
+        
+        <div class="taskbar-right">
+          <!-- System Tray -->
+          <div class="system-tray">
+            <!-- Network -->
+            <div class="tray-icon network-info" title="Network" onclick="toggleNetworkInfo()">
+              <i class="fas fa-wifi"></i>
+            </div>
+            
+            <!-- Theme Toggle -->
+            <div class="tray-icon mode-toggle" title="Theme">
+              <i class="fas fa-adjust"></i>
+            </div>
+          </div>
+          
+          <!-- Clock -->
+          <div class="taskbar-clock" onclick="toggleCalendar()">
+            <div class="clock-time" id="taskbar-time"></div>
+            <div class="clock-date" id="taskbar-date"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Window (Hidden by default) -->
+    <div id="terminal-window" class="terminal-window {% unless page.layout == 'post' %}hidden{% endunless %}">
+      <div class="terminal-titlebar">
+        <div class="terminal-title">
+          <i class="fas fa-terminal"></i>
+          <span id="terminal-title-text">{% if page.layout == 'post' %}Konsole - {{ page.title }}{% else %}Konsole{% endif %}</span>
+        </div>
+        <div class="window-controls">
+          <div class="control minimize" onclick="closeTerminal()">−</div>
+          <div class="control maximize" onclick="maximizeTerminal()">□</div>
+          <div class="control close" onclick="closeTerminal()">×</div>
+        </div>
+      </div>
+      
+      <div class="terminal-content">
+        <div class="terminal-header">
+          <div class="terminal-prompt">
+            <span class="user-host">{{ site.author.name | default: "user" }}@{{ site.title | slugify | default: "blog" }}</span>
+            <span class="separator">:</span>
+            <span class="path">~/posts</span>
+            <span class="prompt-symbol">$</span>
+            <span class="command">cat <span id="current-post-file">{% if page.layout == 'post' %}{{ page.title | slugify }}.md{% endif %}</span></span>
+          </div>
+        </div>
+        
+        <div class="terminal-output" id="terminal-output">
+          {% if page.layout == 'post' %}
+            <!-- Direct post content with proper post layout -->
+            {% include lang.html %}
+            
+            <h1># {{ page.title }}</h1>
+            
+            <!-- Post metadata -->
+            <div class="post-meta text-muted">
+              <span>
+                {{ site.data.locales[lang].post.posted }}
+                {{ page.date | date: "%B %d, %Y" }}
+              </span>
+              {% if page.last_modified_at and page.last_modified_at != page.date %}
+                <span>
+                  {{ site.data.locales[lang].post.updated }}
+                  {{ page.last_modified_at | date: "%B %d, %Y" }}
+                </span>
+              {% endif %}
+              
+              <!-- author info -->
+              <div class="d-flex justify-content-between mt-2">
+                <span>
+                  {% if page.author %}
+                    {% assign authors = page.author %}
+                  {% elsif page.authors %}
+                    {% assign authors = page.authors %}
+                  {% endif %}
+
+                  {{ site.data.locales[lang].post.written_by }}
+
+                  <em>
+                    {% if authors %}
+                      {% for author in authors %}
+                        <a href="{{ site.data.authors[author].url }}">{{ site.data.authors[author].name }}</a>
+                        {% unless forloop.last %}{{ '</em>, <em>' }}{% endunless %}
+                      {% endfor %}
+                    {% else %}
+                      <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>
+                    {% endif %}
+                  </em>
+                </span>
+
+                <!-- read time -->
+                {% include read-time.html content=content prompt=true lang=lang %}
+              </div>
+            </div>
+            
+            <!-- Post content -->
+            <div class="content">
+              {{ content }}
+            </div>
+            
+            <!-- Post metadata and social sharing -->
+            <div class="post-tail-wrapper text-muted">
+              <!-- categories -->
+              {% if page.categories.size > 0 %}
+                <div class="post-meta mb-3">
+                  <i class="far fa-folder-open fa-fw me-1"></i>
+                  {% for category in page.categories %}
+                    <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
+                    {%- unless forloop.last -%},{%- endunless -%}
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <!-- tags -->
+              {% if page.tags.size > 0 %}
+                <div class="post-tags">
+                  <i class="fa fa-tags fa-fw me-1"></i>
+                  {% for tag in page.tags %}
+                    <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/" class="post-tag no-text-decoration">
+                      {{- tag -}}
+                    </a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <div class="post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2">
+                <div class="license-wrapper">
+                  {% include lang.html %}
+                  {% if site.data.locales[lang].copyright.license.template %}
+                    {% capture _replacement %}
+                      <a href="{{ site.data.locales[lang].copyright.license.link }}">
+                        {{ site.data.locales[lang].copyright.license.name }}
+                      </a>
+                    {% endcapture %}
+                    {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
+                  {% endif %}
+                </div>
+
+                {% include post-sharing.html lang=lang %}
+              </div>
+            </div>
+            
+            <!-- Comments section -->
+            {% if site.comments.active and page.comments != false %}
+              <div class="post-comments">
+                {% case site.comments.active %}
+                  {% when 'disqus' %}
+                    {% include comments/disqus.html %}
+                  {% when 'gitalk' %}
+                    {% include comments/gitalk.html %}
+                  {% when 'giscus' %}
+                    {% include comments/giscus.html %}
+                  {% when 'utterances' %}
+                    {% include comments/utterances.html %}
+                {% endcase %}
+              </div>
+            {% endif %}
+          {% else %}
+            <!-- Post content will be loaded here -->
+          {% endif %}
+        </div>
+        
+        <div class="terminal-prompt">
+          <span class="user-host">{{ site.author.name | default: "user" }}@{{ site.title | slugify | default: "blog" }}</span>
+          <span class="separator">:</span>
+          <span class="path">~/posts</span>
+          <span class="prompt-symbol">$</span>
+          <span class="cursor"> </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Menu (Hidden by default) -->
+    <div id="app-menu" class="app-menu-panel hidden">
+      <div class="menu-section">
+        <div class="menu-title">Navigation</div>
+        <a href="{{ '/archives/' | relative_url }}" class="menu-item">
+          <i class="fas fa-file-archive"></i>
+          <span>Ark</span>
+        </a>
+        <a href="{{ '/projects/' | relative_url }}" class="menu-item">
+          <i class="fas fa-chart-area"></i>
+          <span>KSysGuard</span>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- Network Info Panel (Hidden by default) -->
+    <div id="network-info" class="app-menu-panel hidden">
+      <div class="menu-section">
+        <div class="menu-title">Network Information</div>
+        <div class="network-details">
+          <div class="network-item">
+            <i class="fas fa-globe"></i>
+            <span>IP Address: <span id="ip-address">Loading...</span></span>
+          </div>
+          <div class="network-item">
+            <i class="fas fa-wifi"></i>
+            <span>Connection: <span id="connection-type">WiFi</span></span>
+          </div>
+          <div class="network-item">
+            <i class="fas fa-server"></i>
+            <span>Location: <span id="location">Loading...</span></span>
+          </div>
+          <div class="network-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>ISP: <span id="isp">Loading...</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay {% if page.layout == 'post' %}{% else %}hidden{% endif %}" onclick="closeAllPanels()"></div>
+
+    <!-- Search Data -->
+    <script>
+      window.searchData = [
+        {% for post in site.posts %}
+        {
+          title: {{ post.title | jsonify }},
+          content: {{ post.content | strip_html | truncate: 500 | jsonify }},
+          url: {{ post.url | relative_url | jsonify }},
+          date: {{ post.date | date: "%B %d, %Y" | jsonify }},
+          categories: {{ post.categories | jsonify }},
+          excerpt: {{ post.excerpt | strip_html | truncate: 100 | jsonify }},
+          icon: {% if post.categories contains 'Linux' %}"fab fa-linux"{% elsif post.categories contains 'Development' %}"fas fa-code"{% elsif post.categories contains 'Projects' %}"fas fa-project-diagram"{% elsif post.categories contains 'Audio' %}"fas fa-music"{% else %}"fas fa-file-alt"{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ];
+    </script>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% if page.mermaid %}
+      {% include mermaid.html %}
+    {% endif %}
+    <script src="{{ '/assets/js/plasma-desktop.js' | relative_url }}"></script>
+    
+    {% if page.layout == 'post' %}
+    <!-- Auto-populate post data for Konsole -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const terminal = document.getElementById('terminal-window');
+        if (terminal) {
+          terminal.dataset.currentPostUrl = '{{ page.url | relative_url }}';
+          // Update task manager for opened terminal
+          updateTaskManager();
+        }
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>

@@ -1,24 +1,49 @@
 ---
-layout: page
+layout: plasma-desktop
 # The Category layout
 ---
 
 {% include lang.html %}
 
-<div id="page-category">
-  <h1 class="ps-lg-2">
-    <i class="far fa-folder-open fa-fw text-muted"></i>
-    {{ page.title }}
-    <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
-  </h1>
-
-  <ul class="content ps-0">
-    {% for post in page.posts %}
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <span class="dash flex-grow-1"></span>
-        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
-      </li>
-    {% endfor %}
-  </ul>
+<div class="folder-view list-view" id="category-posts">
+  {% for post in page.posts %}
+    <div class="file-item post-file" 
+         data-url="{{ post.url | relative_url }}" 
+         data-title="{{ post.title }}"
+         data-content="{{ post.content | strip_html | truncate: 500 }}"
+         onclick="openPost(this)">
+      <div class="file-icon">
+        {% if post.categories contains 'Linux' %}
+          <i class="fab fa-linux"></i>
+        {% elsif post.categories contains 'Development' %}
+          <i class="fas fa-code"></i>
+        {% elsif post.categories contains 'Projects' %}
+          <i class="fas fa-project-diagram"></i>
+        {% elsif post.categories contains 'Audio' %}
+          <i class="fas fa-music"></i>
+        {% else %}
+          <i class="fas fa-file-alt"></i>
+        {% endif %}
+      </div>
+      <div class="file-details">
+        <div class="file-label">{{ post.title }}</div>
+        <div class="file-description">{{ post.content | strip_html | truncate: 100 }}</div>
+        <div class="file-meta">
+          <span class="date">{{ post.date | date: "%B %d, %Y" }}</span>
+          {% if post.categories.size > 0 %}
+            <span class="categories">
+              {% for category in post.categories %}
+                <span class="category-tag">{{ category }}</span>
+              {% endfor %}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+      {% if post.pin %}
+        <div class="pin-indicator">
+          <i class="fas fa-thumbtack"></i>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
 </div>

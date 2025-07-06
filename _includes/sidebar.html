@@ -26,25 +26,27 @@
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
-      <!-- home -->
+      <!-- documents -->
       <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
         <a href="{{ '/' | relative_url }}" class="nav-link">
-          <i class="fa-fw fas fa-home"></i>
-          <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
+          <i class="fa-fw fas fa-folder"></i>
+          <span>DOCUMENTS</span>
         </a>
       </li>
       <!-- the real tabs -->
-      {% for tab in site.tabs %}
-      <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
-        <a href="{{ tab.url | relative_url }}" class="nav-link">
-          <i class="fa-fw {{ tab.icon }}"></i>
-          {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
-
-          <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
+      <li class="nav-item{% if '/archives/' == page.url %}{{ " active" }}{% endif %}">
+        <a href="{{ '/archives/' | relative_url }}" class="nav-link">
+          <i class="fa-fw fas fa-file-archive"></i>
+          <span>ARK</span>
         </a>
       </li>
-      <!-- .nav-item -->
-      {% endfor %}
+      
+      <li class="nav-item{% if '/projects/' == page.url %}{{ " active" }}{% endif %}">
+        <a href="{{ '/projects/' | relative_url }}" class="nav-link">
+          <i class="fa-fw fas fa-chart-area"></i>
+          <span>KSYSGUARD</span>
+        </a>
+      </li>
     </ul>
   </nav>
 

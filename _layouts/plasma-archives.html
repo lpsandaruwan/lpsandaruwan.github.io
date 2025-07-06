@@ -1,0 +1,51 @@
+---
+layout: plasma-desktop
+---
+
+{% include lang.html %}
+
+<div class="folder-view list-view" id="archives-list">
+  {% assign years = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' | sort: 'name' | reverse %}
+  {% for year in years %}
+    <div class="file-item year-item">
+      <div class="file-icon">
+        <i class="fas fa-calendar-alt"></i>
+      </div>
+      <div class="file-details">
+        <div class="file-label">{{ year.name }}</div>
+        <div class="file-description">{{ year.items.size }} posts published</div>
+        <div class="file-meta">
+          <span class="date">{{ year.items.size }} posts</span>
+        </div>
+      </div>
+    </div>
+    
+    {% assign months = year.items | group_by_exp: 'post', 'post.date | date: "%B"' | sort: 'name' %}
+    {% for month in months %}
+      {% for post in month.items %}
+        <div class="file-item post-file archive-post" 
+             data-url="{{ post.url | relative_url }}" 
+             data-title="{{ post.title }}"
+             onclick="openPost(this)">
+          <div class="file-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="file-details">
+            <div class="file-label">{{ post.title }}</div>
+            <div class="file-description">{{ post.content | strip_html | truncate: 100 }}</div>
+            <div class="file-meta">
+              <span class="date">{{ post.date | date: "%B %d, %Y" }}</span>
+              {% if post.categories.size > 0 %}
+                <span class="categories">
+                  {% for category in post.categories %}
+                    <span class="category-tag">{{ category }}</span>
+                  {% endfor %}
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+</div>

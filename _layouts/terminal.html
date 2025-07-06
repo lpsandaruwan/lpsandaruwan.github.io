@@ -1,0 +1,71 @@
+---
+layout: compress
+---
+
+<!doctype html>
+
+{% include origin-type.html %}
+
+{% include lang.html %}
+
+{% if site.theme_mode %}
+  {% capture prefer_mode %}data-mode="terminal"{% endcapture %}
+{% else %}
+  {% capture prefer_mode %}data-mode="terminal"{% endcapture %}
+{% endif %}
+
+<!-- Terminal layout for Linux/KDE theme -->
+<html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
+  {% include head.html %}
+
+  <body>
+    <div class="terminal-window">
+      <div class="terminal-titlebar">
+        <div class="terminal-title">{{ site.title | default: "Terminal" }} - {{ page.title | default: "Blog" }}</div>
+        <div class="window-controls">
+          <div class="control minimize">−</div>
+          <div class="control maximize">□</div>
+          <div class="control close">×</div>
+        </div>
+      </div>
+      
+      <div class="terminal-content">
+        <div class="terminal-prompt">
+          <span class="user-host">{{ site.author.name | default: "user" }}@{{ site.title | default: "blog" }}</span>
+          <span class="separator">:</span>
+          <span class="path">~{{ page.url | default: "/" }}</span>
+          <span class="prompt-symbol">$</span>
+        </div>
+        
+        <div class="terminal-command">
+          <span class="command">cat</span> <span class="argument">{{ page.title | default: "posts" | slugify }}.md</span>
+        </div>
+        
+        <div class="terminal-output">
+          <main aria-label="Main Content">
+            {% if layout.refactor or layout.layout == 'default' %}
+              {% include refactor-content.html content=content lang=lang %}
+            {% else %}
+              {{ content }}
+            {% endif %}
+          </main>
+        </div>
+        
+        <div class="terminal-prompt">
+          <span class="user-host">{{ site.author.name | default: "user" }}@{{ site.title | default: "blog" }}</span>
+          <span class="separator">:</span>
+          <span class="path">~{{ page.url | default: "/" }}</span>
+          <span class="prompt-symbol">$</span>
+          <span class="cursor"> </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    {% include js-selector.html %}
+
+    {% if page.mermaid %}
+      {% include mermaid.html %}
+    {% endif %}
+  </body>
+</html>

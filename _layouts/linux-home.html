@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+{% include lang.html %}
+
+<div class="linux-desktop">
+  <div class="top-panel">
+    <div class="app-menu">
+      <span>Applications</span>
+    </div>
+<div class="system-tray">
+  {% for entry in site.data.contact %}
+    {% case entry.type %}
+    {% when 'linkedin' %}
+    {%- capture url -%}
+    https://{{ entry.type }}.com/in/{{ site[entry.type].username }}
+    {%- endcapture -%}
+    {% when 'github', 'facebook' %}
+    {%- capture url -%}
+    https://{{ entry.type }}.com/{{ site[entry.type].username }}
+    {%- endcapture -%}
+    {% when 'email' %}
+    {% assign email = site.social.email | split: '@' %}
+    {%- capture url -%}
+    javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')
+    {%- endcapture -%}
+    {% when 'rss' %}
+    {% assign url = '/feed.xml' | relative_url %}
+    {% else %}
+    {% assign url = entry.url %}
+    {% endcase %}
+
+    {% if url %}
+    <a href="{{ url }}" aria-label="{{ entry.type }}" {% assign link_types='' %} {% unless entry.noblank %}
+      target="_blank" {% assign link_types='noopener noreferrer' %} {% endunless %} {% if entry.type=='mastodon' %} {%
+      assign link_types=link_types | append: ' me' | strip %} {% endif %} {% unless link_types==empty %}
+      rel="{{ link_types }}" {% endunless %} class="tray-item">
+      <i class="{{ entry.icon }}"></i>
+    </a>
+    {% endif %}
+  {% endfor %}
+</div>
+  </div>
+
+  <div class="main-content">
+<div class="dock">
+  <a href="{{ '/' | relative_url }}" class="dock-item">
+    <i class="fas fa-home"></i>
+  </a>
+  {% for tab in site.tabs %}
+    <a href="{{ tab.url | relative_url }}" class="dock-item">
+      <i class="fas {{ tab.icon }}"></i>
+    </a>
+  {% endfor %}
+</div>
+    <div class="file-manager">
+      <div id="post-list" class="grid-view">
+        {% for post in site.posts %}
+          <a href="{{ post.url | relative_url }}" class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="file-name">{{ post.title }}</div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
