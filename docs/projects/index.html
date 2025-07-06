@@ -31,23 +31,24 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.4" />
-<meta property="og:title" content="sdl2" />
+<meta property="og:title" content="KSysGuard" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="I am Lahiru Pathirage. I work on AI Agents &amp; Serverless systems. I build Autonomous Systems and love Linux &amp; Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own." />
-<meta property="og:description" content="I am Lahiru Pathirage. I work on AI Agents &amp; Serverless systems. I build Autonomous Systems and love Linux &amp; Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own." />
-<link rel="canonical" href="/tags/sdl2/" />
-<meta property="og:url" content="/tags/sdl2/" />
+<meta name="description" content="System Monitor - Developer Statistics Auto-refresh: ON" />
+<meta property="og:description" content="System Monitor - Developer Statistics Auto-refresh: ON" />
+<link rel="canonical" href="/projects/" />
+<meta property="og:url" content="/projects/" />
 <meta property="og:site_name" content="Lahiru’s dev journal" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-07-06T23:36:47+05:30" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="sdl2" />
+<meta property="twitter:title" content="KSysGuard" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"I am Lahiru Pathirage. I work on AI Agents &amp; Serverless systems. I build Autonomous Systems and love Linux &amp; Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own.","headline":"sdl2","url":"/tags/sdl2/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-07-06T23:36:47+05:30","datePublished":"2025-07-06T23:36:47+05:30","description":"System Monitor - Developer Statistics Auto-refresh: ON","headline":"KSysGuard","mainEntityOfPage":{"@type":"WebPage","@id":"/projects/"},"url":"/projects/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>sdl2 | Lahiru's dev journal
+  <title>KSysGuard | Lahiru's dev journal
   </title>
 
   <!--
@@ -308,7 +309,7 @@
         </a>
       </li>
       
-      <li class="nav-item">
+      <li class="nav-item active">
         <a href="/projects/" class="nav-link">
           <i class="fa-fw fas fa-chart-area"></i>
           <span>KSYSGUARD</span>
@@ -380,7 +381,7 @@
                   <div class="toolbar-left">
                     <span class="toolbar-title">
                       
-                        <i class="fas fa-folder"></i> sdl2
+                        <i class="fas fas fa-chart-area"></i> KSysGuard
                       
                     </span>
                   </div>
@@ -396,57 +397,197 @@
                 <!-- File Browser Area -->
                 <div class="file-browser" id="file-browser">
                   
-                    
-
-
-
-<div class="folder-view list-view" id="tag-posts">
+                    <div class="ksysguard-dashboard" id="ksysguard-dashboard">
   
-    <div class="file-item post-file" 
-         data-url="/posts/savior-ship/" 
-         data-title="Savior ship - A cross flatform C++ game"
-         data-content="Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer version 2(SDL2),
-This is the way I attempted to refresh my skills on C++. Savior ship has been released under GPL license in GitHub for the purpose
-of helping out the people who seek SDL2 beginner level applications to learn.
-
-
-
-Website: https://lahirus.com/savior-ship
-
-License: GPLv3 or later
-
-Source code: https://github.com/lpsandaruwan/savior-ship
-
-Releases: https://github.com/lpsandaruwan/savior-sh..."
-         onclick="openPost(this)">
-      <div class="file-icon">
-        
-          <i class="fas fa-project-diagram"></i>
-        
+  <!-- KSysGuard Toolbar -->
+  <div class="ksysguard-toolbar">
+    <div class="toolbar-section">
+      <div class="toolbar-title">
+        <i class="fas fa-chart-area"></i>
+        <span>System Monitor - Developer Statistics</span>
       </div>
-      <div class="file-details">
-        <div class="file-label">Savior ship - A cross flatform C++ game</div>
-        <div class="file-description">Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer versi...</div>
-        <div class="file-meta">
-          <span class="date">February 23, 2017</span>
-          
-            <span class="categories">
-              
-                <span class="category-tag">#c++</span>
-              
-                <span class="category-tag">#sdl2</span>
-              
-                <span class="category-tag">#game</span>
-              
-                <span class="category-tag">#2d</span>
-              
-            </span>
-          
+    </div>
+    <div class="toolbar-section">
+      <div class="refresh-indicator">
+        <i class="fas fa-sync-alt" id="refresh-icon"></i>
+        <span>Auto-refresh: ON</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KSysGuard Main Content -->
+  <div class="ksysguard-content">
+    
+    <!-- Top Row - Overview Metrics -->
+    <div class="monitor-row">
+      <div class="monitor-panel half-width">
+        <div class="panel-header">
+          <i class="fab fa-github"></i>
+          <span>GitHub Profile Overview</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="metrics-overview">
+            <img src="https://github-readme-stats.vercel.app/api?username=lpsandaruwan&amp;show_icons=true&amp;theme=dark&amp;count_private=true&amp;hide_border=true&amp;bg_color=2a2e32&amp;text_color=fcfcfc&amp;icon_color=3daee9&amp;title_color=3daee9" alt="GitHub Stats" />
+          </div>
         </div>
       </div>
       
+      <div class="monitor-panel half-width">
+        <div class="panel-header">
+          <i class="fas fa-fire"></i>
+          <span>Activity Streak Monitor</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="metrics-overview">
+            <img src="https://github-readme-streak-stats.herokuapp.com/?user=lpsandaruwan&amp;theme=dark&amp;hide_border=true&amp;background=2a2e32&amp;stroke=3daee9&amp;ring=3daee9&amp;fire=f67400&amp;currStreakLabel=3daee9" alt="GitHub Streak" />
+          </div>
+        </div>
+      </div>
     </div>
-  
+
+    <!-- Second Row - Language and Activity -->
+    <div class="monitor-row">
+      <div class="monitor-panel third-width">
+        <div class="panel-header">
+          <i class="fas fa-code"></i>
+          <span>Language Distribution</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="metrics-chart">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lpsandaruwan&amp;layout=compact&amp;theme=dark&amp;hide_border=true&amp;bg_color=2a2e32&amp;text_color=fcfcfc&amp;title_color=3daee9&amp;count_private=true&amp;include_orgs=true&amp;langs_count=8" alt="Top Languages" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="monitor-panel two-thirds-width">
+        <div class="panel-header">
+          <i class="fas fa-chart-line"></i>
+          <span>Contribution Timeline</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="activity-graph">
+            <img src="https://github-readme-activity-graph.vercel.app/graph?username=lpsandaruwan&amp;theme=react-dark&amp;hide_border=true&amp;bg_color=2a2e32&amp;color=fcfcfc&amp;line=3daee9&amp;point=f67400" alt="Activity Graph" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third Row - Repository Monitoring -->
+    <div class="monitor-row">
+      <div class="monitor-panel half-width">
+        <div class="panel-header">
+          <i class="fas fa-folder-open"></i>
+          <span>Repository Monitor</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+            <span class="metric-count" id="repo-count">0</span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="process-list" id="repositories-list">
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Scanning repositories...
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="monitor-panel half-width">
+        <div class="panel-header">
+          <i class="fas fa-users"></i>
+          <span>Organization Processes</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+            <span class="metric-count" id="org-count">0</span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="process-list" id="organizations-list">
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Detecting organizations...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fourth Row - System Resources -->
+    <div class="monitor-row">
+      <div class="monitor-panel full-width">
+        <div class="panel-header">
+          <i class="fas fa-building"></i>
+          <span>Organization Repository Activity</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="process-list compact" id="org-repositories-list">
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin"></i> Loading organization processes...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fifth Row - Achievement Metrics -->
+    <div class="monitor-row">
+      <div class="monitor-panel full-width">
+        <div class="panel-header">
+          <i class="fas fa-trophy"></i>
+          <span>Achievement Metrics</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="achievements-grid">
+            <img src="https://github-profile-trophy.vercel.app/?username=lpsandaruwan&amp;theme=darkhub&amp;no-frame=true&amp;column=6&amp;margin-w=10&amp;margin-h=10" alt="GitHub Trophies" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row - Analytics -->
+    <div class="monitor-row">
+      <div class="monitor-panel full-width">
+        <div class="panel-header">
+          <i class="fas fa-analytics"></i>
+          <span>Performance Metrics</span>
+          <div class="panel-controls">
+            <span class="status-indicator active"></span>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="performance-metrics">
+            <div class="metric-item">
+              <img src="https://komarev.com/ghpvc/?username=lpsandaruwan&amp;color=3daee9&amp;style=flat-square&amp;label=Profile+Views" alt="Profile Views" />
+            </div>
+            <div class="metric-item">
+              <img src="https://img.shields.io/github/followers/lpsandaruwan?color=3daee9&amp;style=flat-square&amp;label=Followers" alt="Followers" />
+            </div>
+            <div class="metric-item">
+              <img src="https://img.shields.io/github/stars/lpsandaruwan?color=f67400&amp;style=flat-square&amp;label=Total+Stars" alt="Total Stars" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
                   

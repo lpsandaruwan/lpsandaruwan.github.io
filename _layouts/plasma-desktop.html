@@ -7,7 +7,7 @@ layout: compress
 {% include origin-type.html %}
 {% include lang.html %}
 
-<html lang="{{ site.alt_lang | default: site.lang }}" data-mode="plasma">
+<html lang="{{ site.alt_lang | default: site.lang }}">
   {% include head.html %}
 
   <body class="plasma-desktop-body">
@@ -197,10 +197,6 @@ layout: compress
               <i class="fas fa-wifi"></i>
             </div>
             
-            <!-- Theme Toggle -->
-            <div class="tray-icon mode-toggle" title="Theme">
-              <i class="fas fa-adjust"></i>
-            </div>
           </div>
           
           <!-- Clock -->
@@ -429,6 +425,11 @@ layout: compress
     {% if page.mermaid %}
       {% include mermaid.html %}
     {% endif %}
+    {% include mode-toggle.html %}
+    
+    <!-- Load theme system JavaScript -->
+    <script src="{{ '/assets/js/dist/commons.min.js' | relative_url }}"></script>
+    
     <script src="{{ '/assets/js/plasma-desktop.js' | relative_url }}"></script>
     
     {% if page.layout == 'post' %}

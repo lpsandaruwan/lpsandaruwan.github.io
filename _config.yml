@@ -16,10 +16,10 @@ timezone: Asia/Colombo
 
 title: Lahiru's dev journal # the main title
 
-tagline: I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.
+tagline: I am Lahiru Pathirage. I work on AI Agents & Serverless systems. I build Autonomous Systems and love Linux & Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own.
 
 description: >- # used by seo meta and the atom feed
-  I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.
+  I am Lahiru Pathirage. I work on AI Agents & Serverless systems. I build Autonomous Systems and love Linux & Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own.
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -178,12 +178,14 @@ compress_html:
 exclude:
   - "*.gem"
   - "*.gemspec"
-  - docs
   - tools
   - README.md
   - LICENSE
   - rollup.config.js
   - package*.json
+
+# Build settings
+destination: docs
 
 jekyll-archives:
   enabled: [categories, tags]

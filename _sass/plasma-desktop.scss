@@ -4,12 +4,33 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
-// KDE Plasma Color Palette
+// KDE Plasma Color Palette - Dark Mode
 $plasma-dark-bg: #1b1e20;
-$plasma-window-bg: #2a2e32;
-$plasma-panel-bg: #31363b;
-$plasma-titlebar-bg: #3c4043;
-$plasma-taskbar-bg: #2a2e32;
+$plasma-dark-window-bg: #2a2e32;
+$plasma-dark-panel-bg: #31363b;
+$plasma-dark-titlebar-bg: #3c4043;
+$plasma-dark-taskbar-bg: #2a2e32;
+$plasma-dark-text: #fcfcfc;
+$plasma-dark-text-disabled: #6e7175;
+$plasma-dark-border: #4d5157;
+$plasma-dark-separator: #31363b;
+$plasma-dark-hover: rgba(61, 174, 233, 0.2);
+$plasma-dark-active: rgba(61, 174, 233, 0.4);
+
+// KDE Plasma Color Palette - Light Mode
+$plasma-light-bg: #f0f0f0;
+$plasma-light-window-bg: #ffffff;
+$plasma-light-panel-bg: #e6e6e6;
+$plasma-light-titlebar-bg: #f5f5f5;
+$plasma-light-taskbar-bg: #eeeeee;
+$plasma-light-text: #232629;
+$plasma-light-text-disabled: #6e7175;
+$plasma-light-border: #c0c0c0;
+$plasma-light-separator: #d6d6d6;
+$plasma-light-hover: rgba(61, 174, 233, 0.1);
+$plasma-light-active: rgba(61, 174, 233, 0.2);
+
+// Common colors
 $plasma-blue: #3daee9;
 $plasma-green: #1cdc9a;
 $plasma-orange: #f67400;
@@ -17,27 +38,84 @@ $plasma-red: #da4453;
 $plasma-yellow: #f67400;
 $plasma-purple: #8e44ad;
 $plasma-cyan: #16a085;
-$plasma-text: #fcfcfc;
-$plasma-text-disabled: #6e7175;
-$plasma-border: #4d5157;
-$plasma-separator: #31363b;
-$plasma-hover: rgba(61, 174, 233, 0.2);
-$plasma-active: rgba(61, 174, 233, 0.4);
+
+// Default variables (will be overridden by theme)
+$plasma-window-bg: $plasma-dark-window-bg;
+$plasma-panel-bg: $plasma-dark-panel-bg;
+$plasma-titlebar-bg: $plasma-dark-titlebar-bg;
+$plasma-taskbar-bg: $plasma-dark-taskbar-bg;
+$plasma-text: $plasma-dark-text;
+$plasma-text-disabled: $plasma-dark-text-disabled;
+$plasma-border: $plasma-dark-border;
+$plasma-separator: $plasma-dark-separator;
+$plasma-hover: $plasma-dark-hover;
+$plasma-active: $plasma-dark-active;
 
 // Fonts
 $plasma-font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 $plasma-mono-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
 
-// Apply plasma theme only when in plasma mode
-html[data-mode="plasma"] {
-  body {
+// Code block styling is now handled by code-block-fix.scss
+// Force code blocks to be visible in plasma-desktop theme
+body.plasma-desktop-body {
+  .language-plaintext,
+  .highlighter-rouge,
+  .highlight,
+  div.highlight,
+  figure.highlight {
+    display: block !important;
+    margin: 0.75rem 0 !important;
+    overflow: auto !important;
+  }
+  
+  pre {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: pre !important;
+  }
+  
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace !important;
+  }
+}
+
+
+// Apply plasma theme for dark mode
+html[data-mode="dark"] {
+  body.plasma-desktop-body {
     margin: 0;
     padding: 0;
     font-family: $plasma-font-family;
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     overflow: hidden;
     height: 100vh;
-    color: $plasma-text;
+    color: $plasma-dark-text;
+  }
+}
+
+// Apply plasma theme for light mode
+html[data-mode="light"] {
+  body.plasma-desktop-body {
+    margin: 0;
+    padding: 0;
+    font-family: $plasma-font-family;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    overflow: hidden;
+    height: 100vh;
+    color: $plasma-light-text;
+  }
+}
+
+// Default (system preference)
+html:not([data-mode]) {
+  body.plasma-desktop-body {
+    margin: 0;
+    padding: 0;
+    font-family: $plasma-font-family;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    overflow: hidden;
+    height: 100vh;
+    color: $plasma-dark-text;
   }
 }
 
@@ -46,10 +124,8 @@ html[data-mode="plasma"] {
   margin: 0;
   padding: 0;
   font-family: $plasma-font-family;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   overflow: hidden;
   height: 100vh;
-  color: $plasma-text;
 }
 
 #plasma-desktop {
@@ -60,13 +136,27 @@ html[data-mode="plasma"] {
   flex-direction: column;
 }
 
-.desktop-wallpaper {
+// Dark mode wallpaper
+html[data-mode="dark"] .desktop-wallpaper,
+html:not([data-mode]) .desktop-wallpaper {
   flex: 1;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   background-image: 
     radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+// Light mode wallpaper
+html[data-mode="light"] .desktop-wallpaper {
+  flex: 1;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(30, 60, 114, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(61, 174, 233, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
   position: relative;
   overflow: hidden;
 }
@@ -80,31 +170,70 @@ html[data-mode="plasma"] {
   left: 20px;
   right: 40px;
   bottom: 60px;
-  
-  .file-manager-window {
-    width: 100%;
-    height: 100%;
-    background: $plasma-window-bg;
-    border: 1px solid $plasma-border;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
 }
 
-// Window Titlebar
-.window-titlebar {
-  background: linear-gradient(to bottom, $plasma-titlebar-bg, darken($plasma-titlebar-bg, 5%));
-  border-bottom: 1px solid $plasma-border;
+// Dark mode file manager
+html[data-mode="dark"] .file-manager-window,
+html:not([data-mode]) .file-manager-window {
+  width: 100%;
+  height: 100%;
+  background: $plasma-dark-window-bg;
+  border: 1px solid $plasma-dark-border;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// Light mode file manager
+html[data-mode="light"] .file-manager-window {
+  width: 100%;
+  height: 100%;
+  background: $plasma-light-window-bg;
+  border: 1px solid $plasma-light-border;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// Window Titlebar - Dark mode
+html[data-mode="dark"] .window-titlebar,
+html:not([data-mode]) .window-titlebar {
+  background: linear-gradient(to bottom, $plasma-dark-titlebar-bg, darken($plasma-dark-titlebar-bg, 5%));
+  border-bottom: 1px solid $plasma-dark-border;
   height: 40px;
   display: flex;
   align-items: center;
   padding: 0 12px;
   
   .window-title {
-    color: $plasma-text;
+    color: $plasma-dark-text;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    i {
+      color: $plasma-blue;
+    }
+  }
+}
+
+// Window Titlebar - Light mode
+html[data-mode="light"] .window-titlebar {
+  background: linear-gradient(to bottom, $plasma-light-titlebar-bg, darken($plasma-light-titlebar-bg, 5%));
+  border-bottom: 1px solid $plasma-light-border;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  
+  .window-title {
+    color: $plasma-light-text;
     font-size: 14px;
     font-weight: 500;
     display: flex;
@@ -135,6 +264,49 @@ html[data-mode="plasma"] {
       
       &:hover {
         background: rgba(255, 255, 255, 0.1);
+      }
+      
+      &.minimize {
+        color: $plasma-yellow;
+      }
+      
+      &.maximize {
+        color: $plasma-green;
+      }
+      
+      &.close {
+        color: $plasma-red;
+        
+        &:hover {
+          background: $plasma-red;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Light mode window controls
+html[data-mode="light"] .window-titlebar {
+  .window-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    
+    .control {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.2s;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
       }
       
       &.minimize {
@@ -519,16 +691,32 @@ html[data-mode="plasma"] {
 }
 
 // KDE Plasma Taskbar
-.plasma-taskbar {
+// Dark mode taskbar
+html[data-mode="dark"] .plasma-taskbar,
+html:not([data-mode]) .plasma-taskbar {
   height: 48px;
-  background: $plasma-taskbar-bg;
-  border-top: 1px solid $plasma-border;
+  background: $plasma-dark-taskbar-bg;
+  border-top: 1px solid $plasma-dark-border;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 9999; // Higher than terminal
+  z-index: 9999;
+  position: relative;
+}
+
+// Light mode taskbar
+html[data-mode="light"] .plasma-taskbar {
+  height: 48px;
+  background: $plasma-light-taskbar-bg;
+  border-top: 1px solid $plasma-light-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
   position: relative;
 }
 
@@ -620,8 +808,17 @@ html[data-mode="plasma"] {
     border-radius: 4px;
     transition: all 0.2s;
     font-size: 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
     
     &:hover {
+      background: $plasma-hover;
+      color: $plasma-text;
+    }
+    
+    &:focus {
+      outline: none;
       background: $plasma-hover;
       color: $plasma-text;
     }
@@ -669,13 +866,13 @@ html[data-mode="plasma"] {
   left: 50%;
   transform: translateX(-50%);
   width: 70%;
-  height: calc(100vh - 80px); // Leave 80px space for taskbar and minimal margin
-  max-height: calc(100vh - 80px); // Maximum height minus taskbar
+  height: calc(100vh - 88px); // Leave space for taskbar (48px) + top margin (20px) + bottom margin (20px)
+  max-height: calc(100vh - 88px); // Maximum height minus taskbar and margins
   background: $plasma-window-bg;
   border: 1px solid $plasma-border;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  z-index: 2000;
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   
@@ -712,7 +909,7 @@ html[data-mode="plasma"] {
     color: #fcfcfc;
     font-family: $plasma-mono-family;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     padding: 16px;
     overflow-y: auto;
     
@@ -792,59 +989,6 @@ html[data-mode="plasma"] {
       }
     }
     
-    code {
-      background: #2a2e32;
-      border: 1px solid #4d5157;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: $plasma-mono-family;
-      color: $plasma-green;
-    }
-    
-    pre {
-      background: #2a2e32;
-      border: 1px solid #4d5157;
-      border-radius: 6px;
-      padding: 16px;
-      overflow-x: auto;
-      margin: 16px 0;
-      font-family: $plasma-mono-family;
-      line-height: 1.4;
-      
-      code {
-        background: none;
-        border: none;
-        padding: 0;
-        color: #fcfcfc;
-        font-size: 13px;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-    }
-    
-    // Fix code blocks in posts
-    .highlight {
-      background: #2a2e32 !important;
-      border: 1px solid #4d5157;
-      border-radius: 6px;
-      margin: 16px 0;
-      overflow: hidden;
-      
-      pre {
-        background: none;
-        border: none;
-        margin: 0;
-        padding: 16px;
-        overflow-x: auto;
-        
-        code {
-          background: none;
-          border: none;
-          padding: 0;
-          color: #fcfcfc;
-        }
-      }
-    }
     
     // Language labels for code blocks
     .language-label {
