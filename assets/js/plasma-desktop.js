@@ -44,6 +44,11 @@ function openPost(element) {
   const currentPostFile = document.getElementById('current-post-file');
   const overlay = document.getElementById('overlay');
   
+  // Store current URL before opening post (for returning later)
+  if (!window.location.pathname.includes('/posts/') && !window.location.pathname.match(/\/\d{4}\/\d{2}\/\d{2}\//)) {
+    localStorage.setItem('lastFileManagerView', window.location.pathname);
+  }
+  
   if (terminal && terminalOutput) {
     // Store post URL for maximize functionality
     terminal.dataset.currentPostUrl = url;
@@ -83,12 +88,21 @@ function openPost(element) {
           // Remove social sharing sections from fetched content
           cleanContent = cleanContent.replace(/<div class="share-wrapper[\s\S]*?<\/div>/gi, '');
           
-          // Remove post-tags sections from fetched content
+          // Remove ALL post-tags sections from fetched content (more thorough)
           cleanContent = cleanContent.replace(/<div class="post-tags[\s\S]*?<\/div>/gi, '');
+          cleanContent = cleanContent.replace(/<div[^>]*tags[^>]*>[\s\S]*?<\/div>/gi, '');
+          cleanContent = cleanContent.replace(/<i class="fa fa-tags[^>]*>[\s\S]*?<\/i>/gi, '');
+          cleanContent = cleanContent.replace(/<i class="fas fa-tags[^>]*>[\s\S]*?<\/i>/gi, '');
           
           // Remove comments sections from fetched content 
           cleanContent = cleanContent.replace(/<div class="post-comments[\s\S]*?<\/div>/gi, '');
-          cleanContent = cleanContent.replace(/<div id="disqus_thread"[\s\S]*?<\/div>/gi, '');
+          cleanContent = cleanContent.replace(/<div id="disqus_thread[\s\S]*?<\/div>/gi, '');
+          
+          // Remove any remaining tag-related elements (more comprehensive)
+          cleanContent = cleanContent.replace(/<a href="[^"]*\/tags\/[^"]*"[^>]*>.*?<\/a>/gi, '');
+          cleanContent = cleanContent.replace(/<span[^>]*tag[^>]*>.*?<\/span>/gi, '');
+          cleanContent = cleanContent.replace(/<div[^>]*post-tail[^>]*>[\s\S]*?<\/div>/gi, '');
+          cleanContent = cleanContent.replace(/<div[^>]*post-tags[^>]*>[\s\S]*?<\/div>/gi, '');
           
           terminalOutput.innerHTML = `
             <h1># ${title}</h1>
@@ -147,14 +161,34 @@ function closeTerminal() {
     terminal.style.top = '20px';
     terminal.style.width = '70%';
     terminal.style.height = 'calc(100vh - 80px)';
+    
+    // Reset any maximized state
+    terminal.classList.remove('maximized');
+    terminal.style.borderRadius = '8px';
+    terminal.style.border = '1px solid #4d5157';
+    
+    // Reset the maximize button text
+    const maximizeButton = document.querySelector('.control.maximize');
+    if (maximizeButton) {
+      maximizeButton.textContent = '□';
+    }
+    
+    // When closing a post, try to return to the last file manager view
+    if (window.location.pathname.includes('/posts/') || window.location.pathname.match(/\/\d{4}\/\d{2}\/\d{2}\//)) {
+      // Get the last file manager view from local storage
+      const lastView = localStorage.getItem('lastFileManagerView');
+      
+      // If we have a stored view, go there; otherwise go to home
+      if (lastView) {
+        window.location.href = lastView;
+      } else {
+        window.location.href = '/';
+      }
+    }
   }
   if (overlay) overlay.classList.add('hidden');
   
-  // If we're on a post URL, go back to home to show file manager
-  if (window.location.pathname.includes('/posts/') || window.location.pathname.match(/\/\d{4}\/\d{2}\/\d{2}\//)) {
-    window.location.href = '/';
-  }
-  
+  // Update task manager to remove terminal task
   updateTaskManager();
 }
 
@@ -332,8 +366,8 @@ function updateTaskManager() {
   const terminal = document.getElementById('terminal-window');
   
   if (taskManager) {
-    // Clear existing tasks except file manager
-    const tasks = taskManager.querySelectorAll('.task-item:not([title="File Manager"])');
+    // Clear existing tasks except Dolphin
+    const tasks = taskManager.querySelectorAll('.task-item:not([title="Dolphin"])');
     tasks.forEach(task => task.remove());
     
     // Add terminal task if terminal is open
@@ -367,6 +401,7 @@ function toggleCategoriesMenu() {
 function maximizeTerminal() {
   const terminal = document.getElementById('terminal-window');
   const taskbar = document.querySelector('.plasma-taskbar');
+  const taskbarHeight = taskbar ? taskbar.offsetHeight : 48;
   
   if (terminal) {
     if (terminal.classList.contains('maximized')) {
@@ -381,20 +416,25 @@ function maximizeTerminal() {
       terminal.style.bottom = 'auto';
       terminal.style.borderRadius = '8px';
       terminal.style.border = '1px solid #4d5157';
+      terminal.style.position = 'fixed';
       document.querySelector('.control.maximize').textContent = '□';
     } else {
       // Maximize to full screen but keep taskbar
       terminal.classList.add('maximized');
-      terminal.style.width = '100vw';
-      terminal.style.height = 'calc(100vh - 48px)'; // Leave space for taskbar
+      terminal.style.width = '100%';
+      terminal.style.height = `calc(100vh - ${taskbarHeight}px)`; // Dynamic taskbar height
       terminal.style.transform = 'none';
+      terminal.style.position = 'fixed';
       terminal.style.top = '0';
       terminal.style.left = '0';
       terminal.style.right = '0';
-      terminal.style.bottom = '48px'; // Position above taskbar
+      terminal.style.bottom = `${taskbarHeight}px`; // Position above taskbar
+      terminal.style.margin = '0';
+      terminal.style.padding = '0';
       terminal.style.borderRadius = '0';
       terminal.style.border = 'none';
       terminal.style.zIndex = '2000'; // Below taskbar
+      terminal.style.maxWidth = '100%'; // Ensure it uses full width
       document.querySelector('.control.maximize').textContent = '❐';
       
       // Update address bar to show full URL
