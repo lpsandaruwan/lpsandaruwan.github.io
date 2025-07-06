@@ -1,0 +1,3563 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" >
+  <!-- The Head -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  >
+
+  
+
+  
+
+  
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Super charge a Google cloud functions project" />
+<meta name="author" content="Lahiru Pathirage" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process. I named this little Pythonic tool as gostep a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases. I would like to show you how it works up to now. First of all… You need to have installed below components to use gostep cli. Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/) Gcloud sdk(https://cloud.google.com/sdk) subversion(https://subversion.apache.org) gostep(https://github.com/gostep-cli/gostep) Next steps… Now simply install gostep cli. 1 pip install gostep After installing gostep, using gcloud sdk log in to your google cloud platform account. 1 gcloud auth login Once you logged in, select the gcloud project that you want to use for your serverless functions. 1 gcloud config set project {projectId} Oh! wait, to list down project Ids gcloud projects list or gostep gcloud projects can be used. All set… Now we are ready build a cloud functions cluster. First gostep needs a workspace directory, a gcloud service account and a credentials file for deployment purposes. We can initiate them by this command, gostep auth init {new_service_account_name} inside {workspace_directory}. 1 gostep auth init my-service-account inside ./my-workspace Now we can see a credentials file has been generated inside the workspace. Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project gostep gcloud locations can be used. Now we can simply do, 1 gostep base init {project_name} location{gcloud_region_id} version &quot;0.1.0&quot; explains {description} inside {workspace_directory} In our case, 1 2 cd my-workspace gostep base init my-new-project location asia-east2 version &quot;0.1.0&quot; explains &quot;my sample project&quot; It’s geen light now to create cloud functions now. gostep has specified template structures for this. Let’s simply bootstrap a python cloud function. For this purpose, 1 gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory} Since we are in the workspace directory and we already set up a default location Id we won’t be using location and inside arguments. 1 gostep service init my-python-function version &quot;0.1.0&quot; env python Let’s bootstrap another function with nodeJs. 1 gostep service init my-nodejs-function version &quot;0.1.0&quot; env nodejs We can see source files inside the {workspace_directory}/src. In our case inside, my-workspace/src/my-nodejs-function and my-workspace/src/my-python-function. Great…! Now our project is ready to get deployed. Aight… Let’s do, 1 gostep deploy diff diff keyword will only deploy the changes we made for our functions(gostep tracks md5 of the function directory). To deploy a single function it needs to be called by name. gostep deploy {function_name}. In our case, 1 gostep deploy my-nodejs-function Bravo…! Now our functions are deployed and ready to be executed. In future releases… More templates, templates for go lang, templates for Spring framework, etc… Handle function triggers such as pubsub, events, etc… Run cloud functions cluster in local environment, so developers can benefit debugging. Please find the source code in https://github.com/gostep-cli/gostep." />
+<meta property="og:description" content="When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process. I named this little Pythonic tool as gostep a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases. I would like to show you how it works up to now. First of all… You need to have installed below components to use gostep cli. Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/) Gcloud sdk(https://cloud.google.com/sdk) subversion(https://subversion.apache.org) gostep(https://github.com/gostep-cli/gostep) Next steps… Now simply install gostep cli. 1 pip install gostep After installing gostep, using gcloud sdk log in to your google cloud platform account. 1 gcloud auth login Once you logged in, select the gcloud project that you want to use for your serverless functions. 1 gcloud config set project {projectId} Oh! wait, to list down project Ids gcloud projects list or gostep gcloud projects can be used. All set… Now we are ready build a cloud functions cluster. First gostep needs a workspace directory, a gcloud service account and a credentials file for deployment purposes. We can initiate them by this command, gostep auth init {new_service_account_name} inside {workspace_directory}. 1 gostep auth init my-service-account inside ./my-workspace Now we can see a credentials file has been generated inside the workspace. Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project gostep gcloud locations can be used. Now we can simply do, 1 gostep base init {project_name} location{gcloud_region_id} version &quot;0.1.0&quot; explains {description} inside {workspace_directory} In our case, 1 2 cd my-workspace gostep base init my-new-project location asia-east2 version &quot;0.1.0&quot; explains &quot;my sample project&quot; It’s geen light now to create cloud functions now. gostep has specified template structures for this. Let’s simply bootstrap a python cloud function. For this purpose, 1 gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory} Since we are in the workspace directory and we already set up a default location Id we won’t be using location and inside arguments. 1 gostep service init my-python-function version &quot;0.1.0&quot; env python Let’s bootstrap another function with nodeJs. 1 gostep service init my-nodejs-function version &quot;0.1.0&quot; env nodejs We can see source files inside the {workspace_directory}/src. In our case inside, my-workspace/src/my-nodejs-function and my-workspace/src/my-python-function. Great…! Now our project is ready to get deployed. Aight… Let’s do, 1 gostep deploy diff diff keyword will only deploy the changes we made for our functions(gostep tracks md5 of the function directory). To deploy a single function it needs to be called by name. gostep deploy {function_name}. In our case, 1 gostep deploy my-nodejs-function Bravo…! Now our functions are deployed and ready to be executed. In future releases… More templates, templates for go lang, templates for Spring framework, etc… Handle function triggers such as pubsub, events, etc… Run cloud functions cluster in local environment, so developers can benefit debugging. Please find the source code in https://github.com/gostep-cli/gostep." />
+<link rel="canonical" href="/posts/gostep-intro/" />
+<meta property="og:url" content="/posts/gostep-intro/" />
+<meta property="og:site_name" content="Lahiru’s dev journal" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-19T00:00:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Super charge a Google cloud functions project" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Lahiru Pathirage","url":"https://github.com/lpsandaruwan/"},"dateModified":"2023-11-03T21:56:02+05:30","datePublished":"2020-06-19T00:00:00+05:30","description":"When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process. I named this little Pythonic tool as gostep a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases. I would like to show you how it works up to now. First of all… You need to have installed below components to use gostep cli. Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/) Gcloud sdk(https://cloud.google.com/sdk) subversion(https://subversion.apache.org) gostep(https://github.com/gostep-cli/gostep) Next steps… Now simply install gostep cli. 1 pip install gostep After installing gostep, using gcloud sdk log in to your google cloud platform account. 1 gcloud auth login Once you logged in, select the gcloud project that you want to use for your serverless functions. 1 gcloud config set project {projectId} Oh! wait, to list down project Ids gcloud projects list or gostep gcloud projects can be used. All set… Now we are ready build a cloud functions cluster. First gostep needs a workspace directory, a gcloud service account and a credentials file for deployment purposes. We can initiate them by this command, gostep auth init {new_service_account_name} inside {workspace_directory}. 1 gostep auth init my-service-account inside ./my-workspace Now we can see a credentials file has been generated inside the workspace. Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project gostep gcloud locations can be used. Now we can simply do, 1 gostep base init {project_name} location{gcloud_region_id} version &quot;0.1.0&quot; explains {description} inside {workspace_directory} In our case, 1 2 cd my-workspace gostep base init my-new-project location asia-east2 version &quot;0.1.0&quot; explains &quot;my sample project&quot; It’s geen light now to create cloud functions now. gostep has specified template structures for this. Let’s simply bootstrap a python cloud function. For this purpose, 1 gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory} Since we are in the workspace directory and we already set up a default location Id we won’t be using location and inside arguments. 1 gostep service init my-python-function version &quot;0.1.0&quot; env python Let’s bootstrap another function with nodeJs. 1 gostep service init my-nodejs-function version &quot;0.1.0&quot; env nodejs We can see source files inside the {workspace_directory}/src. In our case inside, my-workspace/src/my-nodejs-function and my-workspace/src/my-python-function. Great…! Now our project is ready to get deployed. Aight… Let’s do, 1 gostep deploy diff diff keyword will only deploy the changes we made for our functions(gostep tracks md5 of the function directory). To deploy a single function it needs to be called by name. gostep deploy {function_name}. In our case, 1 gostep deploy my-nodejs-function Bravo…! Now our functions are deployed and ready to be executed. In future releases… More templates, templates for go lang, templates for Spring framework, etc… Handle function triggers such as pubsub, events, etc… Run cloud functions cluster in local environment, so developers can benefit debugging. Please find the source code in https://github.com/gostep-cli/gostep.","headline":"Super charge a Google cloud functions project","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/gostep-intro/"},"url":"/posts/gostep-intro/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+
+  <title>Super charge a Google cloud functions project | Lahiru's dev journal
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Lahiru's dev journal">
+<meta name="application-name" content="Lahiru's dev journal">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  
+    
+      <link rel="preconnect" href="https://fonts.googleapis.com" >
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+    
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+    
+      <link rel="preconnect" href="https://fonts.googleapis.com" >
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+    
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+  
+
+  <!-- GA -->
+  
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.21.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Manific Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css">
+  
+
+  <!-- JavaScript -->
+
+  
+    <!-- Switch the mode between dark and light. -->
+
+<script type="text/javascript">
+  class ModeToggle {
+    static get MODE_KEY() {
+      return 'mode';
+    }
+    static get MODE_ATTR() {
+      return 'data-mode';
+    }
+    static get DARK_MODE() {
+      return 'dark';
+    }
+    static get LIGHT_MODE() {
+      return 'light';
+    }
+    static get ID() {
+      return 'mode-toggle';
+    }
+
+    constructor() {
+      if (this.hasMode) {
+        if (this.isDarkMode) {
+          if (!this.isSysDarkPrefer) {
+            this.setDark();
+          }
+        } else {
+          if (this.isSysDarkPrefer) {
+            this.setLight();
+          }
+        }
+      }
+
+      let self = this;
+
+      /* always follow the system prefers */
+      this.sysDarkPrefers.addEventListener('change', () => {
+        if (self.hasMode) {
+          if (self.isDarkMode) {
+            if (!self.isSysDarkPrefer) {
+              self.setDark();
+            }
+          } else {
+            if (self.isSysDarkPrefer) {
+              self.setLight();
+            }
+          }
+
+          self.clearMode();
+        }
+
+        self.notify();
+      });
+    } /* constructor() */
+
+    get sysDarkPrefers() {
+      return window.matchMedia('(prefers-color-scheme: dark)');
+    }
+
+    get isSysDarkPrefer() {
+      return this.sysDarkPrefers.matches;
+    }
+
+    get isDarkMode() {
+      return this.mode === ModeToggle.DARK_MODE;
+    }
+
+    get isLightMode() {
+      return this.mode === ModeToggle.LIGHT_MODE;
+    }
+
+    get hasMode() {
+      return this.mode != null;
+    }
+
+    get mode() {
+      return sessionStorage.getItem(ModeToggle.MODE_KEY);
+    }
+
+    /* get the current mode on screen */
+    get modeStatus() {
+      if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) {
+        return ModeToggle.DARK_MODE;
+      } else {
+        return ModeToggle.LIGHT_MODE;
+      }
+    }
+
+    setDark() {
+      document.documentElement.setAttribute(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE);
+    }
+
+    setLight() {
+      document.documentElement.setAttribute(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE);
+    }
+
+    clearMode() {
+      document.documentElement.removeAttribute(ModeToggle.MODE_ATTR);
+      sessionStorage.removeItem(ModeToggle.MODE_KEY);
+    }
+
+    /* Notify another plugins that the theme mode has changed */
+    notify() {
+      window.postMessage(
+        {
+          direction: ModeToggle.ID,
+          message: this.modeStatus
+        },
+        '*'
+      );
+    }
+
+    flipMode() {
+      if (this.hasMode) {
+        if (this.isSysDarkPrefer) {
+          if (this.isLightMode) {
+            this.clearMode();
+          } else {
+            this.setLight();
+          }
+        } else {
+          if (this.isDarkMode) {
+            this.clearMode();
+          } else {
+            this.setDark();
+          }
+        }
+      } else {
+        if (this.isSysDarkPrefer) {
+          this.setLight();
+        } else {
+          this.setDark();
+        }
+      }
+
+      this.notify();
+    } /* flipMode() */
+  } /* ModeToggle */
+
+  const modeToggle = new ModeToggle();
+</script>
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle">
+      
+      
+      <img src="/assets/img/me.jpeg" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
+      
+    </a>
+
+    <h1 class="site-title">
+      <a href="/">Lahiru's dev journal</a>
+    </h1>
+    <p class="site-subtitle fst-italic mb-0">I am Lahiru Pathirage, a polyglot software developer with a BSc in Computer Science, and a passionate advocate for cloud computing. Since 2015, I have worked on developing and delivering enterprise software solutions. My primary interest is designing and building software systems that combine sound software architecture with cloud computing technologies.</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+      <li class="nav-item">
+        <a href="/categories/" class="nav-link">
+          <i class="fa-fw fas fa-stream"></i>
+          
+
+          <span>CATEGORIES</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
+      <li class="nav-item">
+        <a href="/tags/" class="nav-link">
+          <i class="fa-fw fas fa-tags"></i>
+          
+
+          <span>TAGS</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
+      <li class="nav-item">
+        <a href="/archives/" class="nav-link">
+          <i class="fa-fw fas fa-archive"></i>
+          
+
+          <span>ARCHIVES</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+    <button type="button" class="mode-toggle btn" aria-label="Switch Mode">
+      <i class="fas fa-adjust"></i>
+    </button>
+
+    
+    <span class="icon-border"></span>
+    
+    
+
+    
+    
+
+    
+    <a href="https://linkedin.com/in/lpsandaruwan" aria-label="linkedin"  
+      target="_blank"    
+      rel="noopener noreferrer" >
+      <i class="fab fa-linkedin"></i>
+    </a>
+    
+    
+    
+
+    
+    <a href="https://github.com/lpsandaruwan" aria-label="github"  
+      target="_blank"    
+      rel="noopener noreferrer" >
+      <i class="fab fa-github"></i>
+    </a>
+    
+    
+    
+
+    
+    <a href="https://facebook.com/lpsandaruwan1" aria-label="facebook"  
+      target="_blank"    
+      rel="noopener noreferrer" >
+      <i class="fab fa-facebook"></i>
+    </a>
+    
+    
+    
+
+    
+    <a href="javascript:location.href = 'mailto:' + ['lpsadaruwan','gmail.com'].join('@')" aria-label="email"    >
+      <i class="fas fa-envelope"></i>
+    </a>
+    
+    
+    
+
+    
+    <a href="/feed.xml" aria-label="rss"    >
+      <i class="fas fa-rss"></i>
+    </a>
+    
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">
+                Home
+              </a>
+            </span>
+
+          
+        
+          
+        
+          
+            
+              <span>Super charge a Google cloud functions project</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+  
+  
+
+  <!-- CDN URL -->
+  
+
+  <!-- Add image path -->
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+    
+
+    
+
+    
+      
+    
+
+    <!-- lazy-load images -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+
+        
+        
+      
+    
+
+    <!-- combine -->
+    
+  
+
+  
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+<article class="px-1">
+  <header>
+    <h1 data-toc-skip>Super charge a Google cloud functions project</h1>
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1592505000"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Jun 19, 2020
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+        <span>
+          Updated
+          <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1699028762"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Nov  3, 2023
+</time>
+
+        </span>
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/lpsandaruwan/">Lahiru Pathirage</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <!-- read time -->
+        <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="538 words"
+>
+  <em>2 min</em> read</span>
+
+      </div>
+      <!-- .d-flex -->
+    </div>
+    <!-- .post-meta -->
+  </header>
+
+  <div class="content">
+    <p><br />
+When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process.</p>
+
+<p>I named this little Pythonic tool as <strong>gostep</strong> a.k.a serverless templates provider for Google cloud platform. However this tool is still taking the baby steps. Hope to develop this to be more useful in future releases.</p>
+
+<p>I would like to show you how it works up to now.</p>
+
+<h3 id="first-of-all"><span class="me-2">First of all…</span><a href="#first-of-all" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>You need to have installed below components to use gostep cli.</p>
+<ol>
+  <li>Python version 3.x with PyPI a.k.a pip(https://www.python.org/download/releases/3.0/, https://pypi.org/project/pip/)</li>
+  <li>Gcloud sdk(https://cloud.google.com/sdk)</li>
+  <li>subversion(https://subversion.apache.org)</li>
+  <li>gostep(https://github.com/gostep-cli/gostep)</li>
+</ol>
+
+<h3 id="next-steps"><span class="me-2">Next steps…</span><a href="#next-steps" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>Now simply install gostep cli.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>pip install gostep
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>After installing gostep, using gcloud sdk log in to your google cloud platform account.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gcloud auth login
+</pre></td></tr></tbody></table></code></div></div>
+<p>Once you logged in, select the gcloud project that you want to use for your serverless functions.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gcloud config set project {projectId}
+</pre></td></tr></tbody></table></code></div></div>
+<p>Oh! wait, to list down project Ids <code class="language-plaintext highlighter-rouge">gcloud projects list</code> or <code class="language-plaintext highlighter-rouge">gostep gcloud projects</code> can be used.</p>
+
+<h3 id="all-set"><span class="me-2">All set…</span><a href="#all-set" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>Now we are ready build a cloud functions cluster.
+First gostep needs a workspace directory, a gcloud service account and a credentials file for deployment purposes.
+We can initiate them by this command, <code class="language-plaintext highlighter-rouge">gostep auth init {new_service_account_name} inside {workspace_directory}</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep auth init my-service-account inside ./my-workspace
+</pre></td></tr></tbody></table></code></div></div>
+<p>Now we can see a credentials file has been generated inside the workspace.
+Next we need to create a configuration file which keeps the project skeleton. We need to chose a default region for that. Otherwise gostep will choose that for us. To get a list for our gcloud project <code class="language-plaintext highlighter-rouge">gostep gcloud locations</code> can be used. Now we can simply do,</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep base init {project_name} location{gcloud_region_id} version "0.1.0" explains {description} inside {workspace_directory}
+</pre></td></tr></tbody></table></code></div></div>
+<p>In our case,</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>cd my-workspace
+gostep base init my-new-project location asia-east2 version "0.1.0" explains "my sample project"
+</pre></td></tr></tbody></table></code></div></div>
+<p>It’s geen light now to create cloud functions now. gostep has <a href="https://github.com/gostep-cli/gostep-templates">specified template structures</a> for this.
+Let’s simply bootstrap a python cloud function. For this purpose,</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep service init {cloud_function_name} location {gcloud_region_id} version {service_version} env {runtime} explains {desciption} inside {workspace_directory}
+</pre></td></tr></tbody></table></code></div></div>
+<p>Since we are in the workspace directory and we already set up a default location Id we won’t be using <code class="language-plaintext highlighter-rouge">location</code> and <code class="language-plaintext highlighter-rouge">inside</code> arguments.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep service init my-python-function version "0.1.0" env python
+</pre></td></tr></tbody></table></code></div></div>
+<p>Let’s bootstrap another function with nodeJs.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep service init my-nodejs-function version "0.1.0" env nodejs
+</pre></td></tr></tbody></table></code></div></div>
+<p>We can see source files inside the <code class="language-plaintext highlighter-rouge">{workspace_directory}/src</code>. In our case inside, <code class="language-plaintext highlighter-rouge">my-workspace/src/my-nodejs-function</code> and <code class="language-plaintext highlighter-rouge">my-workspace/src/my-python-function</code>.</p>
+
+<h3 id="great"><span class="me-2">Great…!</span><a href="#great" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>Now our project is ready to get deployed.
+Aight… Let’s do,</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep deploy diff
+</pre></td></tr></tbody></table></code></div></div>
+<p><code class="language-plaintext highlighter-rouge">diff</code> keyword will only deploy the changes we made for our functions(gostep tracks md5 of the function directory). To deploy a single function it needs to be called by name. <code class="language-plaintext highlighter-rouge">gostep deploy {function_name}</code>. In our case,</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>gostep deploy my-nodejs-function
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="bravo"><span class="me-2">Bravo…!</span><a href="#bravo" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>Now our functions are deployed and ready to be executed.
+<a href="/assets/img/content/posts/gostep/functions.png" class="popup img-link  shimmer"><img src="/assets/img/content/posts/gostep/functions.png" alt="cfunctions" loading="lazy"></a></p>
+
+<h3 id="in-future-releases"><span class="me-2">In future releases…</span><a href="#in-future-releases" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<ul>
+  <li>More templates, templates for go lang, templates for Spring framework, etc…</li>
+  <li>Handle function triggers such as pubsub, events, etc…</li>
+  <li>Run cloud functions cluster in local environment, so developers can benefit debugging.</li>
+</ul>
+
+<p>Please find the source code in https://github.com/gostep-cli/gostep.</p>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/projects/">Projects</a>,
+          <a href="/categories/devops/">DevOps</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/gcp/"
+            class="post-tag no-text-decoration"
+          >gcp</a>
+        
+          <a
+            href="/tags/serverless/"
+            class="post-tag no-text-decoration"
+          >serverless</a>
+        
+          <a
+            href="/tags/gostep/"
+            class="post-tag no-text-decoration"
+          >gostep</a>
+        
+          <a
+            href="/tags/python/"
+            class="post-tag no-text-decoration"
+          >python</a>
+        
+          <a
+            href="/tags/cli/"
+            class="post-tag no-text-decoration"
+          >cli</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted me-1">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+      
+      <a
+        href="https://twitter.com/intent/tweet?text=Super%20charge%20a%20Google%20cloud%20functions%20project%20-%20Lahiru's%20dev%20journal&url=%2Fposts%2Fgostep-intro%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Twitter"
+        target="_blank"
+        rel="noopener"
+        aria-label="Twitter"
+      >
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+      
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?title=Super%20charge%20a%20Google%20cloud%20functions%20project%20-%20Lahiru's%20dev%20journal&u=%2Fposts%2Fgostep-intro%2F"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Facebook"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+      >
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+      
+      <a
+        href="https://t.me/share/url?url=%2Fposts%2Fgostep-intro%2F&text=Super%20charge%20a%20Google%20cloud%20functions%20project%20-%20Lahiru's%20dev%20journal"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Telegram"
+        target="_blank"
+        rel="noopener"
+        aria-label="Telegram"
+      >
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
+            <div class="access">
+              <!-- Get the last 5 posts from lastmod list. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/jvm-cpu-usage/">JVM CPU usage using Java MXBeans</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/depli/">Depli - A JVM monitor application</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/log-tracker/">Continuous listening to remote text files using python</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/github-sonarqube/">Continuous Code Quality On My OpenSource Project</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/sb1095-volume-knob-linux/">Setting up Creative Labs USB DAC volume knob on Linux</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli/">cli</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gcp/">gcp</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gostep/">gostep</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/serverless/">serverless</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/2d/">2d</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/angularjs/">angularjs</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ansible/">ansible</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/audio/">audio</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+  <section id="toc-wrapper" class="ps-0 pe-4">
+    <h2 class="panel-heading ps-3 pt-2 mb-2">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/posts/saga-gcp-choreography/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1668882600"
+  data-df="ll"
+  
+>
+  Nov 20, 2022
+</time>
+
+              <h4 class="pt-0 my-2">Saga Pattern with serverless model on Google Cloud Platform - Part 1</h4>
+              <div class="text-muted">
+                <p>
+                  
+
+
+
+
+
+                  
+  Gostep: 👉 Guide
+Materials: 👉 Complete source code
+
+
+During the past few years, the microservices architecture(MSA) and serverless model have gained a lot of popularity in the industry. However, ...
+                </p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/kalagola/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1485369000"
+  data-df="ll"
+  
+>
+  Jan 26, 2017
+</time>
+
+              <h4 class="pt-0 my-2">Traverse through font design timeline</h4>
+              <div class="text-muted">
+                <p>
+                  
+
+
+
+
+
+                  KalaGola is a cross platform Pythonic tool to traverse through the timeline of your GitHub hosted font repository,
+and generate a video file to show how your font evolved through time. Just provide...
+                </p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/log-tracker/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1492108200"
+  data-df="ll"
+  
+>
+  Apr 14, 2017
+</time>
+
+              <h4 class="pt-0 my-2">Continuous listening to remote text files using python</h4>
+              <div class="text-muted">
+                <p>
+                  
+
+
+
+
+
+                  Log Tracker is a simple wrapper around Python paramiko to track text files using SSH.
+It gives you the ability to create custom python functions to track and analyze log files the way you want.
+A u...
+                </p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/posts/tomcat-gce-ansible-demo/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Application Deployment in Apache Tomcat on GCE Using Ansible</p>
+    </a>
+  
+
+  
+    <a
+      href="/posts/saga-gcp-choreography/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Saga Pattern with serverless model on Google Cloud Platform - Part 1</p>
+    </a>
+  
+</nav>
+
+            
+              
+              <!--  The comments switcher -->
+
+  
+  <!-- The Disqus lazy loading. -->
+
+<div id="disqus_thread">
+  <p class="text-center text-muted small">Comments powered by <a href="https://disqus.com/">Disqus</a>.</p>
+</div>
+
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = '/posts/gostep-intro/';
+    this.page.identifier = '/posts/gostep-intro/';
+  };
+
+  /* Lazy loading */
+  var disqus_observer = new IntersectionObserver(
+    function (entries) {
+      if (entries[0].isIntersecting) {
+        (function () {
+          var d = document,
+            s = d.createElement('script');
+          s.src = 'https://lpsandaruwan.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+
+        disqus_observer.disconnect();
+      }
+    },
+    { threshold: [0] }
+  );
+
+  disqus_observer.observe(document.querySelector('#disqus_thread'));
+
+  /* Auto switch theme */
+  function reloadDisqus() {
+    if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
+      /* Disqus hasn't been loaded */
+      if (typeof DISQUS === 'undefined') {
+        return;
+      }
+
+      if (document.readyState == 'complete') {
+        DISQUS.reset({ reload: true, config: disqus_config });
+      }
+    }
+  }
+
+  if (document.querySelector('.mode-toggle')) {
+    window.addEventListener('message', reloadDisqus);
+  }
+</script>
+
+
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>
+    ©
+    <time>2024</time>
+    <a href="https://github.com/lpsandaruwan">Lahiru Sandaruwan Pathirage</a>.
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center unloaded">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli/">cli</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gcp/">gcp</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gostep/">gostep</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/serverless/">serverless</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/2d/">2d</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/angularjs/">angularjs</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ansible/">ansible</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/audio/">audio</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- JavaScripts -->
+
+    <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.7.1/dist/jquery.min.js,npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js,npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.10/dayjs.min.js,npm/dayjs@1.11.10/locale/en.min.js,npm/dayjs@1.11.10/plugin/relativeTime.min.js,npm/dayjs@1.11.10/plugin/localizedFormat.min.js,npm/tocbot@4.21.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  /* Note: dependent library will be loaded in `js-selector.html` */
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('search-results'),
+    json: '/assets/js/data/search.json',
+    searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{snippet}</p>  </article>',
+    noResultsText: '<p class="mt-5"></p>',
+    templateMiddleware: function(prop, value, template) {
+      if (prop === 'categories') {
+        if (value === '') {
+          return `${value}`;
+        } else {
+          return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+        }
+      }
+
+      if (prop === 'tags') {
+        if (value === '') {
+          return `${value}`;
+        } else {
+          return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+        }
+      }
+    }
+  });
+</script>
+
+  </body>
+</html>
+

@@ -6,27 +6,8 @@
 @import 'colors/syntax-dark';
 
 html {
-  @media (prefers-color-scheme: light) {
-    &:not([data-mode]),
-    &[data-mode='light'] {
-      @include light-syntax;
-    }
-
-    &[data-mode='dark'] {
-      @include dark-syntax;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    &:not([data-mode]),
-    &[data-mode='dark'] {
-      @include dark-syntax;
-    }
-
-    &[data-mode='light'] {
-      @include light-syntax;
-    }
-  }
+  // Force dark syntax highlighting always
+  @include dark-syntax;
 }
 
 /* -- code snippets -- */
