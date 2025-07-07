@@ -127,6 +127,11 @@ function openPost(element) {
         terminal.classList.remove('hidden');
         overlay.classList.remove('hidden');
         
+        // Auto-maximize terminal on mobile devices
+        if (window.innerWidth <= 768) {
+          maximizeTerminal();
+        }
+        
         // Update browser URL to post URL
         window.history.pushState({}, '', url);
         
@@ -144,6 +149,11 @@ function openPost(element) {
         // Show terminal anyway
         terminal.classList.remove('hidden');
         overlay.classList.remove('hidden');
+        
+        // Auto-maximize terminal on mobile devices
+        if (window.innerWidth <= 768) {
+          maximizeTerminal();
+        }
         
         // Update browser URL to post URL even on error
         window.history.pushState({}, '', url);
@@ -490,6 +500,12 @@ document.addEventListener('keydown', function(e) {
       terminalOutput.innerHTML = '<p>Welcome to the terminal!</p>';
       terminal.classList.remove('hidden');
       overlay.classList.remove('hidden');
+      
+      // Auto-maximize terminal on mobile devices
+      if (window.innerWidth <= 768) {
+        maximizeTerminal();
+      }
+      
       updateTaskManager();
     }
   }
@@ -850,6 +866,142 @@ function displayArchiveFiles(posts) {
   if (fileCount) fileCount.textContent = `${posts.length} files`;
 }
 
+// Mobile navigation functions
+function toggleMobileNav() {
+  const sidebar = document.querySelector('.fm-sidebar');
+  const overlay = document.querySelector('.mobile-nav-overlay');
+  
+  if (sidebar && overlay) {
+    sidebar.classList.toggle('mobile-open');
+    overlay.classList.toggle('active');
+  }
+}
+
+function closeMobileNav() {
+  const sidebar = document.querySelector('.fm-sidebar');
+  const overlay = document.querySelector('.mobile-nav-overlay');
+  
+  if (sidebar && overlay) {
+    sidebar.classList.remove('mobile-open');
+    overlay.classList.remove('active');
+  }
+}
+
+function initializeMobileNavigation() {
+  // Create mobile navigation elements if they don't exist
+  if (window.innerWidth <= 768) {
+    createMobileNavigation();
+  }
+  
+  // Add event listeners for mobile navigation
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+  
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', toggleMobileNav);
+  }
+  
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', closeMobileNav);
+  }
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      closeMobileNav();
+    } else if (window.innerWidth <= 768) {
+      createMobileNavigation();
+    }
+  });
+}
+
+function createMobileNavigation() {
+  // Create mobile header if it doesn't exist
+  if (!document.querySelector('.mobile-header')) {
+    const mobileHeader = document.createElement('div');
+    mobileHeader.className = 'mobile-header';
+    mobileHeader.innerHTML = `
+      <button class="mobile-menu-button" onclick="toggleMobileNav()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <span class="mobile-title">File Manager</span>
+    `;
+    
+    const plasmaDesktop = document.querySelector('.plasma-desktop');
+    if (plasmaDesktop) {
+      plasmaDesktop.insertBefore(mobileHeader, plasmaDesktop.firstChild);
+    }
+  }
+  
+  // Create mobile nav overlay if it doesn't exist
+  if (!document.querySelector('.mobile-nav-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-nav-overlay';
+    overlay.addEventListener('click', closeMobileNav);
+    
+    const plasmaDesktop = document.querySelector('.plasma-desktop');
+    if (plasmaDesktop) {
+      plasmaDesktop.appendChild(overlay);
+    }
+  }
+}
+
+// Check if current page is a post and auto-maximize terminal on mobile
+function checkAndAutoMaximizePost() {
+  // Check if we're on a post page by URL pattern
+  const isPostPage = window.location.pathname.includes('/posts/') || 
+                     window.location.pathname.match(/\/\d{4}\/\d{2}\/\d{2}\//);
+  
+  if (isPostPage && window.innerWidth <= 768) {
+    const terminal = document.getElementById('terminal-window');
+    
+    if (terminal) {
+      // If terminal is already visible, maximize it
+      if (!terminal.classList.contains('hidden')) {
+        setTimeout(() => {
+          maximizeTerminal();
+        }, 100);
+      } else {
+        // If terminal is hidden, use MutationObserver to watch for when it becomes visible
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              if (!terminal.classList.contains('hidden')) {
+                setTimeout(() => {
+                  maximizeTerminal();
+                }, 50);
+                observer.disconnect(); // Stop observing once we've maximized
+              }
+            }
+          });
+        });
+        
+        observer.observe(terminal, {
+          attributes: true,
+          attributeFilter: ['class']
+        });
+        
+        // Also check periodically in case the class change isn't detected
+        const checkInterval = setInterval(() => {
+          if (!terminal.classList.contains('hidden')) {
+            setTimeout(() => {
+              maximizeTerminal();
+            }, 50);
+            clearInterval(checkInterval);
+            observer.disconnect();
+          }
+        }, 100);
+        
+        // Stop checking after 5 seconds to avoid infinite checking
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          observer.disconnect();
+        }, 5000);
+      }
+    }
+  }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   // Start clock
@@ -858,6 +1010,27 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize task manager
   updateTaskManager();
+  
+  // Initialize mobile navigation
+  initializeMobileNavigation();
+  
+  // Check if we need to auto-maximize terminal for direct post access
+  checkAndAutoMaximizePost();
+  
+  // Handle orientation changes and window resizing for mobile
+  window.addEventListener('resize', function() {
+    // Re-check auto-maximize on orientation change
+    setTimeout(() => {
+      checkAndAutoMaximizePost();
+    }, 300); // Small delay to allow orientation change to complete
+  });
+  
+  // Handle orientation change events specifically
+  window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+      checkAndAutoMaximizePost();
+    }, 500); // Longer delay for orientation change
+  });
   
   // Load GitHub data if on GitHub stats page
   if (window.location.pathname.includes('/projects/')) {
@@ -953,3 +1126,5 @@ window.performSearch = performSearch;
 window.toggleCategoriesMenu = toggleCategoriesMenu;
 window.maximizeTerminal = maximizeTerminal;
 window.minimizeTerminal = minimizeTerminal;
+window.toggleMobileNav = toggleMobileNav;
+window.closeMobileNav = closeMobileNav;

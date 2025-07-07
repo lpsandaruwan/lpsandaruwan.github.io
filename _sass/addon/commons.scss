@@ -1295,11 +1295,13 @@ search {
     @include slide(top 0.2s ease);
 
     left: 0;
+    padding: 0 1rem;
   }
 
   main,
   #panel-wrapper {
     margin-top: 0;
+    padding: 0 1rem;
   }
 
   #topbar-title,
@@ -1314,6 +1316,18 @@ search {
 
   #tags {
     justify-content: center !important;
+    
+    .tag {
+      margin: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+      border-radius: 1rem;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   h1.dynamic-title {
@@ -1324,6 +1338,118 @@ search {
     }
   }
 } /* max-width: 849px */
+
+/* Extra small mobile devices */
+@media all and (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  
+  #topbar-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  main,
+  #panel-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .form-control {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+    
+    .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  .pagination {
+    .page-link {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  #tags {
+    .tag {
+      margin: 0.2rem;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      min-width: 40px;
+      min-height: 40px;
+    }
+  }
+  
+  .post-preview {
+    .post-content {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .post-meta {
+        font-size: 0.8rem;
+      }
+    }
+  }
+  
+  .share-wrapper {
+    .share-icons a {
+      width: 36px;
+      height: 36px;
+      margin: 0.25rem;
+    }
+  }
+}
+
+/* Very small devices */
+@media all and (max-width: 320px) {
+  body {
+    font-size: 13px;
+  }
+  
+  #topbar-wrapper {
+    padding: 0 0.25rem;
+  }
+  
+  main,
+  #panel-wrapper {
+    padding: 0 0.25rem;
+  }
+  
+  .btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .card {
+    .card-body {
+      padding: 0.75rem;
+    }
+  }
+  
+  #tags {
+    .tag {
+      margin: 0.15rem;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.75rem;
+      min-width: 36px;
+      min-height: 36px;
+    }
+  }
+}
 
 /* Sidebar is visible */
 @media all and (min-width: 850px) {
