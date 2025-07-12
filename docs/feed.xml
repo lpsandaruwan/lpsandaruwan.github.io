@@ -4,7 +4,7 @@
   <id>/</id>
   <title>Lahiru's dev journal</title>
   <subtitle>I am Lahiru Pathirage. I work on AI Agents &amp; Serverless systems. I build Autonomous Systems and love Linux &amp; Open Source. I have a Computer Science degree and have been making software since 2015. I like to build systems that use cloud tech and can work on their own.</subtitle>
-  <updated>2025-07-07T10:37:31+05:30</updated>
+  <updated>2025-07-12T23:48:01+05:30</updated>
   <author>
     <name>Lahiru Sandaruwan Pathirage</name>
     <uri>/</uri>
@@ -17,6 +17,51 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It</title>
+    <link href="/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/" rel="alternate" type="text/html" title="I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It" />
+    <published>2025-07-10T00:00:00+05:30</published>
+  
+    <updated>2025-07-10T00:00:00+05:30</updated>
+  
+    <id>/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/</id>
+    <content src="/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/" />
+    <author>
+      <name>lpsandaruwan</name>
+    </author>
+
+  
+    
+    <category term="Posts" />
+    
+    <category term="REST" />
+    
+    <category term="API designing" />
+    
+    <category term="Software Engineering" />
+    
+    <category term="AI Assisted coding" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Here’s something that bugs me: AI tools like ChatGPT, Claude, Gemini, or whatever AI you’re using are great at cranking out code fast,
+but they often generate REST APIs that look like they were designed by someone who never had to maintain them.
+
+Over the past few years working with different teams, I’ve noticed that about most of AI-generated APIs have naming conventions that make me question ...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -175,34 +220,6 @@ During the past few years, the microservices architecture(MSA) and serverless mo
 
   
     <summary>Bootstrap a micro services project with Google cloud functions quickly.</summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Application Deployment in Apache Tomcat on GCE Using Ansible</title>
-    <link href="/posts/tomcat-gce-ansible-demo/" rel="alternate" type="text/html" title="Application Deployment in Apache Tomcat on GCE Using Ansible" />
-    <published>2018-03-01T00:00:00+05:30</published>
-  
-    <updated>2023-11-03T21:56:02+05:30</updated>
-  
-    <id>/posts/tomcat-gce-ansible-demo/</id>
-    <content src="/posts/tomcat-gce-ansible-demo/" />
-    <author>
-      <name>lpsandaruwan</name>
-    </author>
-
-  
-    
-    <category term="Posts" />
-    
-    <category term="DevOps" />
-    
-  
-
-  
-    <summary>Orchestrating Apache tomcat Tomcat deployments in Google Cloud Platform using Ansible.</summary>
   
 
   </entry>
