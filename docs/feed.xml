@@ -4,7 +4,7 @@
   <id>/</id>
   <title>Lahiru's dev journal</title>
   <subtitle>Hey, I'm Lahiru Pathirage. I've been professionally building software since 2016, working on everything from simple tools to complex enterprise systems. One thing that’s always held true for me is that good design leads to great software. I'm deeply focused on AI agents and serverless architecture; building systems that are intelligent, scalable, and require minimal human intervention. I'm a computer science graduate who feels at home in a terminal, loves Linux, and believes open source makes everything better.</subtitle>
-  <updated>2025-07-13T00:09:00+05:30</updated>
+  <updated>2025-07-13T00:10:07+05:30</updated>
   <author>
     <name>Lahiru Sandaruwan Pathirage</name>
     <uri>/</uri>
@@ -24,7 +24,7 @@
     <link href="/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/" rel="alternate" type="text/html" title="I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It" />
     <published>2025-07-10T00:00:00+05:30</published>
   
-    <updated>2025-07-10T00:00:00+05:30</updated>
+    <updated>2025-07-13T00:09:08+05:30</updated>
   
     <id>/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/</id>
     <content src="/posts/ive-noticed-ai-tools-generate-terrible-rest-apis/" />

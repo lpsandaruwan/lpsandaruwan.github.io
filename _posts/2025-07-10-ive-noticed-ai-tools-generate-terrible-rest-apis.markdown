@@ -140,7 +140,7 @@ Apply these rules to ALL REST API code generation. These rules are non-negotiabl
   </div>
 </div>
 
-### 📁 How to Add These Rules to Your AI Tools
+#### How to Add These Rules to Your AI Tools
 
 **For Claude Code (.claude.md):**
 Create a `.claude.md` file in your project root and paste the rules above.
