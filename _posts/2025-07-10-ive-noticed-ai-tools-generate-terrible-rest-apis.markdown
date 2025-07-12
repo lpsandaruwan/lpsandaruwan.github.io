@@ -10,7 +10,7 @@ title: "I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It
 Here's something that bugs me: AI tools like ChatGPT, Claude, Gemini, or whatever AI you're using are great at cranking out code fast,
 but they often generate REST APIs that look like they were designed by someone who never had to maintain them.
 
-Over the past few years working with different teams, I've noticed that about most of AI-generated APIs have naming conventions that make me question everything.
+Over the past few years working with different teams, I've noticed that about most of AI generated APIs have naming conventions that make me question everything.
 
 <img src="/assets/img/content/posts/rest/mrCroca.png" alt="REST API design illustration" style="max-width: 800px; height: auto; display: block; margin: 20px auto;" />
 
