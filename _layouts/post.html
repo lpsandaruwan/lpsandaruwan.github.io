@@ -7,7 +7,7 @@ layout: desktop
   
   <!-- Desktop Icons -->
   <div class="desktop-icons">
-    <div class="desktop-icon" onclick="window.history.back()" ondblclick="window.history.back()">
+    <div class="desktop-icon" onclick="goToPostsList()" ondblclick="goToPostsList()">
       <div class="desktop-icon-image">
         <svg width="48" height="48" viewBox="0 0 24 24">
           <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/>
@@ -46,7 +46,7 @@ layout: desktop
       <div class="menu-section">
         <h3>Blog & Portfolio</h3>
         <div class="app-list">
-          <div class="menu-app" onclick="window.history.back(); closeStartMenu();">
+          <div class="menu-app" onclick="goToPostsList(); closeStartMenu();">
             <div class="app-icon">
               <svg width="24" height="24" viewBox="0 0 24 24">
                 <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/>
@@ -189,16 +189,7 @@ layout: desktop
                 <circle cx="12" cy="13" r="2"/>
                 <path d="M19 7h-3V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM10 6h4v1h-4V6zm2 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
               </svg>
-              <span>AI & Intelligent Systems Architect</span>
-            </div>
-            <div class="bio-item">
-              <svg width="16" height="16" viewBox="0 0 24 24">
-                <path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/>
-                <path d="M2 6v2h20V6H2zm0 6v2h20v-2H2zm0 6v2h20v-2H2z"/>
-                <circle cx="12" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1"/>
-                <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1"/>
-              </svg>
-              <span>Serverless & Cloud Architecture</span>
+              <span>AI Agents & Serverless Fanatic</span>
             </div>
             <div class="bio-item">
               <svg width="16" height="16" viewBox="0 0 24 24">
@@ -206,7 +197,7 @@ layout: desktop
                 <circle cx="6" cy="19" r="2"/>
                 <path d="M14 13v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2z"/>
               </svg>
-              <span>Linux & Open Source Advocate</span>
+              <span>Linux & Open Source Evangelist</span>
             </div>
           </div>
         </div>
@@ -297,12 +288,12 @@ layout: desktop
       <div class="window-controls">
         <button class="window-minimize" onclick="minimizeWindow('text-editor')" title="Minimize">−</button>
         <button class="window-maximize" onclick="maximizeWindow('text-editor')" title="Restore">◱</button>
-        <button class="window-close" onclick="window.history.back()" title="Close">×</button>
+        <button class="window-close" onclick="goToDesktopHome()" title="Close">×</button>
       </div>
     </div>
     <div class="window-toolbar">
       <div class="toolbar-buttons">
-        <button class="toolbar-btn" onclick="window.history.back()">← Back</button>
+        <button class="toolbar-btn" onclick="goToPostsList()">← Back</button>
         <div class="zoom-controls">
           <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
           <span class="zoom-level" id="zoom-level">100%</span>
@@ -324,6 +315,28 @@ layout: desktop
         <div class="post-content">
           {{ content }}
         </div>
+        
+        <!-- Disqus Comments -->
+        {% if site.comments.active == 'disqus' and site.comments.disqus.shortname %}
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page.url = "{{ site.url }}{{ page.url }}";
+              this.page.identifier = "{{ page.url }}";
+              this.page.title = "{{ page.title | escape }}";
+            };
+            (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://{{ site.comments.disqus.shortname }}.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+        {% endif %}
+        
         <div class="post-navigation">
           {% if page.previous.url %}
             <a href="{{ page.previous.url }}" class="nav-btn">← {{ page.previous.title }}</a>
@@ -338,6 +351,33 @@ layout: desktop
 </div>
 
 <script>
+// Go to desktop home view (for close button)
+function goToDesktopHome() {
+  const baseUrl = '{{ site.baseurl | default: "" }}' + '/';
+  window.location.href = baseUrl;
+}
+
+// Go to posts list (for back button) - redirect to home with file manager open
+function goToPostsList() {
+  const baseUrl = '{{ site.baseurl | default: "" }}' + '/';
+  // Add a hash to indicate we want to open the file manager
+  window.location.href = baseUrl + '#open-file-manager';
+}
+
+// Smart navigation for menu items - go to home if external referrer
+function goToHome() {
+  const baseUrl = '{{ site.baseurl | default: "" }}' + '/';
+  
+  // Check if there's a previous page in history within our site
+  if (document.referrer && document.referrer.includes(window.location.origin)) {
+    // If the referrer is from our site, go back
+    window.history.back();
+  } else {
+    // If accessed directly or from external site, go to home
+    window.location.href = baseUrl;
+  }
+}
+
 // Add taskbar click functionality for Kate window
 document.addEventListener('DOMContentLoaded', function() {
   const kateTaskbarIcon = document.querySelector('[data-app="text-editor"]');

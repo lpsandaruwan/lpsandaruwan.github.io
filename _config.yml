@@ -17,6 +17,12 @@ social:
   twitter: "lpsandaruwan"
   youtube: "lpsandaruwan"
 
+# Comments
+comments:
+  active: disqus
+  disqus:
+    shortname: lpsandaruwan
+
 markdown: kramdown
 highlighter: rouge
 theme: minima

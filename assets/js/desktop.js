@@ -665,6 +665,15 @@ function minimizeWindow(windowId) {
   const window = document.getElementById(windowId);
   console.log('Found window for minimize:', window);
   
+  // Special handling for Kate editor when file manager doesn't exist
+  if (windowId === 'text-editor' && !document.getElementById('file-manager')) {
+    // If we're on a post page without file manager, go to posts list
+    if (typeof goToPostsList === 'function') {
+      goToPostsList();
+      return;
+    }
+  }
+  
   if (window) {
     console.log('Minimizing window');
     window.classList.add('minimized');
@@ -1399,6 +1408,15 @@ window.resetZoom = resetZoom;
 function initializeDesktop() {
   console.log('Initializing desktop...');
   new PlasmaDesktop();
+  
+  // Check if we need to auto-open file manager
+  if (window.location.hash === '#open-file-manager') {
+    setTimeout(() => {
+      openFileManager();
+      // Clear the hash
+      history.replaceState(null, null, window.location.pathname + window.location.search);
+    }, 500);
+  }
   
   // Initialize zoom functionality if we're on a Kate view (post page)
   if (document.querySelector('.editor-content')) {
