@@ -1591,15 +1591,301 @@ function initializeDesktop() {
   }, 500);
 }
 
+// Mobile and Touch Support
+class MobileSupport {
+  constructor() {
+    this.initTouchEvents();
+    this.initViewportHandling();
+    this.optimizeForMobile();
+  }
+
+  initTouchEvents() {
+    // Add touch feedback for desktop icons
+    document.querySelectorAll('.desktop-icon').forEach(icon => {
+      icon.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+      icon.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+    });
+
+    // Add touch feedback for file items
+    document.addEventListener('DOMContentLoaded', () => {
+      this.addTouchToFileItems();
+    });
+
+    // Add touch feedback for buttons
+    document.querySelectorAll('.toolbar-btn, .page-btn, .zoom-btn, .menu-app').forEach(btn => {
+      btn.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+      btn.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+    });
+
+    // Prevent double-tap zoom on specific elements
+    document.querySelectorAll('.window, .taskbar, .start-menu').forEach(element => {
+      element.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      });
+    });
+  }
+
+  addTouchToFileItems() {
+    // This will be called periodically to add touch events to dynamically created file items
+    document.querySelectorAll('.file-item:not([data-touch-added])').forEach(item => {
+      item.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+      item.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+      item.setAttribute('data-touch-added', 'true');
+    });
+  }
+
+  handleTouchStart(e) {
+    const element = e.currentTarget;
+    element.classList.add('touch-active');
+    
+    // Add vibration feedback on supported devices
+    if ('vibrate' in navigator) {
+      navigator.vibrate(10);
+    }
+  }
+
+  handleTouchEnd(e) {
+    const element = e.currentTarget;
+    setTimeout(() => {
+      element.classList.remove('touch-active');
+    }, 150);
+  }
+
+  initViewportHandling() {
+    // Handle viewport changes for mobile
+    this.updateViewportHeight();
+    window.addEventListener('resize', this.updateViewportHeight.bind(this));
+    window.addEventListener('orientationchange', () => {
+      setTimeout(this.updateViewportHeight.bind(this), 500);
+    });
+  }
+
+  updateViewportHeight() {
+    // Update CSS custom property for actual viewport height
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Adjust desktop height for mobile browsers
+    const desktop = document.getElementById('desktop');
+    if (desktop && this.isMobile()) {
+      desktop.style.height = `${window.innerHeight}px`;
+    }
+  }
+
+  optimizeForMobile() {
+    if (this.isMobile()) {
+      // Reduce animation complexity on mobile
+      this.reduceMobileAnimations();
+      
+      // Optimize widget positioning
+      this.optimizeWidgetLayout();
+      
+      // Add mobile-specific event handlers
+      this.addMobileEventHandlers();
+      
+      // Improve scroll performance
+      this.optimizeScrolling();
+    }
+  }
+
+  isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  reduceMobileAnimations() {
+    if (this.isMobile() && window.innerWidth <= 480) {
+      // Reduce the number of wallpaper particles on very small screens
+      const particles = document.querySelectorAll('.floating-dot.particle');
+      particles.forEach((particle, index) => {
+        if (index % 2 === 0) {
+          particle.style.display = 'none';
+        }
+      });
+      
+      // Reduce idle animation complexity
+      const idleAnimations = document.getElementById('idle-animations');
+      if (idleAnimations) {
+        idleAnimations.style.opacity = '0.7';
+      }
+    }
+  }
+
+  optimizeWidgetLayout() {
+    if (this.isMobile()) {
+      const widgets = document.querySelector('.desktop-widgets');
+      if (widgets) {
+        // Make widgets more accessible on mobile
+        widgets.style.zIndex = '60';
+        
+        // Add touch scrolling
+        widgets.style.webkitOverflowScrolling = 'touch';
+        widgets.style.overflowY = 'auto';
+      }
+    }
+  }
+
+  addMobileEventHandlers() {
+    // Close menus when touching outside on mobile
+    document.addEventListener('touchstart', (e) => {
+      const startMenu = document.getElementById('start-menu');
+      const appLauncher = document.querySelector('.app-launcher');
+      
+      if (startMenu && !startMenu.contains(e.target) && !appLauncher.contains(e.target)) {
+        if (!startMenu.classList.contains('hidden')) {
+          closeStartMenu();
+        }
+      }
+    }, { passive: true });
+
+    // Prevent context menu on mobile
+    document.addEventListener('contextmenu', (e) => {
+      if (this.isMobile()) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  optimizeScrolling() {
+    // Add smooth scrolling and better touch handling
+    document.querySelectorAll('.file-list, .start-menu-content, .desktop-widgets').forEach(element => {
+      element.style.webkitOverflowScrolling = 'touch';
+      element.style.scrollBehavior = 'smooth';
+    });
+  }
+}
+
+// Touch feedback CSS
+function addTouchFeedbackCSS() {
+  const style = document.createElement('style');
+  style.id = 'touch-feedback';
+  style.textContent = `
+    .touch-active {
+      transform: scale(0.95) !important;
+      opacity: 0.8 !important;
+      transition: all 0.1s ease !important;
+    }
+    
+    .desktop-icon.touch-active {
+      background: rgba(45, 106, 48, 0.25) !important;
+    }
+    
+    .file-item.touch-active {
+      background: rgba(45, 106, 48, 0.2) !important;
+    }
+    
+    .menu-app.touch-active {
+      background: rgba(45, 106, 48, 0.2) !important;
+    }
+    
+    @media (max-width: 768px) {
+      /* Enhanced mobile scrollbars */
+      ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: rgba(245, 243, 239, 0.5);
+        border-radius: 6px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(45, 106, 48, 0.3);
+        border-radius: 6px;
+        border: 2px solid rgba(245, 243, 239, 0.5);
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(45, 106, 48, 0.5);
+      }
+      
+      /* Mobile-specific CSS custom properties */
+      :root {
+        --mobile-safe-area-top: env(safe-area-inset-top, 0px);
+        --mobile-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+        --mobile-safe-area-left: env(safe-area-inset-left, 0px);
+        --mobile-safe-area-right: env(safe-area-inset-right, 0px);
+      }
+      
+      /* Adjust for mobile safe areas */
+      #desktop {
+        padding-top: var(--mobile-safe-area-top);
+        padding-bottom: var(--mobile-safe-area-bottom);
+        padding-left: var(--mobile-safe-area-left);
+        padding-right: var(--mobile-safe-area-right);
+      }
+      
+      #taskbar {
+        padding-bottom: calc(var(--mobile-safe-area-bottom) + 8px);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      /* Very small screen optimizations */
+      .desktop-widgets {
+        transform: scale(0.95);
+        transform-origin: bottom right;
+      }
+      
+      .bio-widget .widget-content {
+        gap: 10px;
+      }
+      
+      .stat-item {
+        margin-bottom: 8px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Enhanced pagination for mobile
+function updatePaginationForMobile() {
+  const pagination = document.getElementById('pagination');
+  if (pagination && window.innerWidth <= 768) {
+    // Make pagination more touch-friendly
+    const pageButtons = pagination.querySelectorAll('.page-btn');
+    pageButtons.forEach(btn => {
+      btn.style.minHeight = '44px';
+      btn.style.minWidth = '44px';
+      btn.style.fontSize = '14px';
+    });
+  }
+}
+
+// Initialize mobile support
+let mobileSupport;
+function initializeMobileSupport() {
+  mobileSupport = new MobileSupport();
+  addTouchFeedbackCSS();
+  
+  // Update file item touch events periodically
+  setInterval(() => {
+    if (mobileSupport) {
+      mobileSupport.addTouchToFileItems();
+    }
+  }, 1000);
+  
+  // Update pagination for mobile when needed
+  updatePaginationForMobile();
+  window.addEventListener('resize', updatePaginationForMobile);
+}
+
 // Initialize desktop when DOM is loaded
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeDesktop);
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeDesktop();
+    initializeMobileSupport();
+  });
 } else {
   // DOM is already loaded
   initializeDesktop();
+  initializeMobileSupport();
 }
 
-// Handle window resize
+// Handle window resize and orientation changes
 window.addEventListener('resize', () => {
   // Adjust windows if they're outside viewport
   document.querySelectorAll('.window').forEach(window => {
@@ -1611,4 +1897,21 @@ window.addEventListener('resize', () => {
       window.style.top = '10px';
     }
   });
+  
+  // Update mobile optimizations
+  if (mobileSupport) {
+    mobileSupport.updateViewportHeight();
+    mobileSupport.optimizeForMobile();
+  }
+});
+
+// Handle orientation changes
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    if (mobileSupport) {
+      mobileSupport.updateViewportHeight();
+      mobileSupport.optimizeForMobile();
+    }
+    updatePaginationForMobile();
+  }, 500);
 });

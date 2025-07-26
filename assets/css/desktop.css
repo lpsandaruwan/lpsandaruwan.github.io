@@ -2590,44 +2590,673 @@ body, html {
   }
 }
 
-/* Responsive */
+/* Comprehensive Mobile Responsiveness */
+
+/* Large Mobile Devices (up to 768px) */
 @media (max-width: 768px) {
-  .window {
-    left: 5%;
-    right: 5%;
-    top: 5%;
-    bottom: calc(var(--taskbar-height) + 10px);
-    min-width: unset;
+  /* Base mobile styles */
+  body, html {
+    overflow-x: hidden;
   }
   
+  #desktop {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Taskbar mobile optimization */
+  #taskbar {
+    height: 56px;
+    padding: 0 8px;
+    backdrop-filter: blur(20px);
+    border-top: 2px solid var(--plasma-border);
+  }
+  
+  :root {
+    --taskbar-height: 56px;
+  }
+
+  .app-launcher {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .taskbar-apps {
+    max-width: 50%;
+    gap: 6px;
+  }
+
+  .app-icon {
+    min-width: 44px;
+    max-width: 150px;
+    height: 40px;
+    padding: 0 8px;
+    border-radius: 8px;
+  }
+
+  .app-icon-text {
+    font-size: 12px;
+    max-width: 90px;
+  }
+
+  .clock {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  /* Desktop icons mobile layout */
+  .desktop-icons {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 20px;
+    z-index: 50;
+    max-width: calc(100vw - 30px);
+  }
+
+  .desktop-icon {
+    width: 80px;
+    padding: 10px;
+    border-radius: 12px;
+    justify-self: center;
+  }
+
+  .desktop-icon-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .desktop-icon-image svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .desktop-icon-label {
+    font-size: 12px;
+    max-width: 80px;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  /* Desktop widgets mobile positioning */
+  .desktop-widgets {
+    position: fixed;
+    top: auto;
+    right: 15px;
+    bottom: calc(var(--taskbar-height) + 15px);
+    left: 15px;
+    width: auto;
+    max-width: none;
+    z-index: 45;
+    max-height: 50vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .desktop-widget {
+    margin-bottom: 0;
+    border-radius: 12px;
+    backdrop-filter: blur(25px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .bio-widget .widget-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .bio-photo {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .bio-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bio-name {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .bio-title {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .bio-details {
+    gap: 6px;
+  }
+
+  .bio-item {
+    font-size: 11px;
+  }
+
+  .bio-item svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .stat-item {
+    margin-bottom: 10px;
+  }
+
+  .stat-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .stat-number {
+    font-size: 16px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .widget-content {
+    padding: 14px;
+  }
+
+  .intro-widget .intro-text p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Window mobile optimization */
+  .window {
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: var(--taskbar-height) !important;
+    width: 100vw !important;
+    height: calc(100vh - var(--taskbar-height)) !important;
+    min-width: unset !important;
+    min-height: unset !important;
+    border-radius: 0 !important;
+    border: none;
+    z-index: 150;
+  }
+
+  .window-titlebar {
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 0;
+  }
+
+  .window-title {
+    font-size: 15px;
+  }
+
+  .window-controls button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .window-toolbar {
+    height: 44px;
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .toolbar-buttons {
+    order: 1;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .view-options {
+    order: 2;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .address-bar {
+    order: 3;
+    width: 100%;
+    margin: 8px 0 0 0;
+  }
+
+  .toolbar-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+  /* File manager mobile optimization */
+  .file-list-header {
+    padding: 12px 16px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  .column-header {
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
+
+  .column-header.name-column {
+    flex: 2;
+    min-width: 200px;
+  }
+
+  .column-header.date-column {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .column-header.author-column {
+    display: none; /* Hide on mobile to save space */
+  }
+
+  .column-header.categories-column {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .column-header.words-column {
+    display: none; /* Hide on mobile to save space */
+  }
+
+  .file-item {
+    padding: 12px 16px;
+    min-height: 52px;
+  }
+
+  .file-column {
+    padding: 0 8px;
+  }
+
+  .file-column.name-column {
+    flex: 2;
+    min-width: 200px;
+    gap: 12px;
+  }
+
+  .file-column.date-column {
+    flex: 1;
+    min-width: 100px;
+    font-size: 12px;
+  }
+
+  .file-column.author-column {
     display: none;
   }
-  
-  .address-bar {
-    margin: 0 8px;
+
+  .file-column.categories-column {
+    flex: 1;
+    min-width: 100px;
+    font-size: 12px;
   }
-  
-  .post-title {
-    font-size: 24px;
+
+  .file-column.words-column {
+    display: none;
   }
-  
-  .editor-content {
+
+  .file-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .file-name {
+    font-size: 14px;
+  }
+
+  /* Grid view mobile optimization */
+  .file-list.grid-view {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
     padding: 16px;
   }
 
-  /* Desktop icons on mobile */
-  .desktop-icons {
-    top: 10px;
-    left: 10px;
-    flex-direction: row;
+  .file-list.grid-view .file-item {
+    min-height: 140px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  /* Pagination mobile */
+  .pagination {
+    padding: 16px;
+    gap: 8px;
     flex-wrap: wrap;
+  }
+
+  .page-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    min-width: 44px;
+  }
+
+  /* Kate editor mobile optimization */
+  .editor-content {
+    padding: 20px 16px;
+  }
+
+  .post-header {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .post-title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .post-meta {
+    font-size: 13px;
+  }
+
+  .post-content {
+    max-width: 100%;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .post-content h1 { font-size: 22px; }
+  .post-content h2 { font-size: 19px; }
+  .post-content h3 { font-size: 17px; }
+
+  .post-content pre {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    overflow-x: auto;
+  }
+
+  .post-content code {
+    font-size: 13px;
+  }
+
+  .post-comments {
+    max-width: 100%;
+    padding: 0;
+    margin-top: 32px;
+  }
+
+  .post-comments #disqus_thread {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .post-navigation {
+    max-width: 100%;
+    padding: 0;
+    margin-top: 32px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Zoom controls mobile */
+  .zoom-controls {
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  .zoom-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+    border-radius: 6px;
+  }
+
+  .zoom-level {
+    font-size: 12px;
+    min-width: 45px;
+  }
+
+  /* Start menu mobile optimization */
+  .start-menu {
+    position: fixed;
+    bottom: calc(var(--taskbar-height) + 10px);
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-width: none;
+    max-height: 70vh;
+    border-radius: 16px;
+  }
+
+  .start-menu-header {
+    padding: 20px;
+  }
+
+  .user-info {
+    margin-bottom: 16px;
+  }
+
+  .user-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .user-name {
+    font-size: 16px;
+  }
+
+  .user-status {
+    font-size: 12px;
+  }
+
+  .search-box input {
+    padding: 12px 16px 12px 44px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .search-box svg {
+    left: 16px;
+  }
+
+  .start-menu-content {
+    max-height: 50vh;
+    padding: 8px 0;
+  }
+
+  .menu-section {
+    margin-bottom: 12px;
+  }
+
+  .menu-section h3 {
+    font-size: 13px;
+    padding: 12px 20px 8px 20px;
+  }
+
+  .app-list {
+    padding: 0 12px;
+  }
+
+  .menu-app {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+
+  .menu-app .app-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .app-name {
+    font-size: 15px;
+  }
+
+  .app-desc {
+    font-size: 12px;
+  }
+
+  .start-menu-footer {
+    padding: 16px 20px;
+  }
+
+  .menu-action {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+
+  /* App menu mobile optimization */
+  .app-menu {
+    position: fixed;
+    bottom: calc(var(--taskbar-height) + 10px);
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-width: none;
+    max-height: 70vh;
+    border-radius: 16px;
+  }
+
+  .app-menu-header {
+    padding: 20px;
+  }
+
+  .app-menu-search input {
+    padding: 12px 16px 12px 44px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .app-menu-search svg {
+    left: 16px;
+  }
+
+  .app-menu-content {
+    padding: 20px;
+    max-height: 50vh;
+  }
+
+  .app-category {
+    margin-bottom: 20px;
+  }
+
+  .app-category h4 {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .app-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 16px;
+  }
+
+  .app-item {
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .app-item-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+
+  .app-item span {
+    font-size: 12px;
+  }
+
+  /* Idle animations mobile optimization */
+  .walking-bot .bot-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .memory-stream {
+    width: 1.5px;
+    height: 40px;
+  }
+
+  .data-packet {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+
+  .code-snippet {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+}
+
+/* Small Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+  /* Extra small mobile adjustments */
+  #taskbar {
+    height: 60px;
+    padding: 0 6px;
+  }
+  
+  :root {
+    --taskbar-height: 60px;
+  }
+
+  .app-launcher {
+    width: 48px;
+    height: 48px;
+  }
+
+  .taskbar-apps {
+    max-width: 45%;
+  }
+
+  .app-icon {
+    min-width: 48px;
+    max-width: 120px;
+    height: 44px;
+  }
+
+  .app-icon-text {
+    font-size: 11px;
+    max-width: 70px;
+  }
+
+  .clock {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  /* Desktop icons grid for very small screens */
+  .desktop-icons {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     gap: 15px;
+    top: 12px;
+    left: 12px;
+    right: 12px;
   }
 
   .desktop-icon {
     width: 70px;
-    padding: 6px;
+    padding: 8px;
   }
 
   .desktop-icon-image {
@@ -2636,67 +3265,192 @@ body, html {
   }
 
   .desktop-icon-image svg {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
   }
 
   .desktop-icon-label {
     font-size: 11px;
-    max-width: 70px;
+    padding: 3px 6px;
   }
 
-  /* Desktop widgets on mobile */
+  /* Widgets for very small screens */
   .desktop-widgets {
-    position: fixed;
-    top: auto;
-    right: 10px;
-    bottom: calc(var(--taskbar-height) + 10px);
-    width: calc(100% - 20px);
-    max-width: 280px;
-    z-index: 40;
-    max-height: 60vh;
-    overflow-y: auto;
+    right: 12px;
+    left: 12px;
+    bottom: calc(var(--taskbar-height) + 12px);
+    max-height: 45vh;
   }
 
-  .desktop-widget {
-    margin-bottom: 10px;
+  .bio-widget .widget-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
   }
 
   .bio-photo {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
 
   .bio-name {
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  .bio-title {
+    font-size: 11px;
+  }
+
+  .bio-item {
+    font-size: 10px;
+  }
+
+  .bio-item svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .stat-icon {
+    width: 24px;
+    height: 24px;
   }
 
   .stat-number {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .widget-content {
     padding: 12px;
   }
 
-  /* App menu on mobile */
-  .app-menu {
-    left: 5px;
-    right: 5px;
-    width: auto;
-    max-width: none;
+  .intro-widget .intro-text p {
+    font-size: 11px;
   }
 
-  .app-grid {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  /* Window adjustments */
+  .window-titlebar {
+    height: 44px;
+    padding: 0 12px;
   }
 
-  /* Start menu on mobile */
+  .window-title {
+    font-size: 14px;
+  }
+
+  .window-controls button {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .window-toolbar {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  /* File manager very small screens */
+  .file-list-header {
+    padding: 10px 12px;
+    font-size: 12px;
+    min-height: 40px;
+  }
+
+  .column-header.categories-column {
+    display: none; /* Hide categories on very small screens */
+  }
+
+  .file-column.categories-column {
+    display: none;
+  }
+
+  .column-header.name-column {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .file-column.name-column {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .file-item {
+    padding: 10px 12px;
+    min-height: 48px;
+  }
+
+  .file-name {
+    font-size: 13px;
+  }
+
+  /* Grid view very small screens */
+  .file-list.grid-view {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .file-list.grid-view .file-item {
+    min-height: 120px;
+    padding: 12px;
+  }
+
+  /* Kate editor very small screens */
+  .editor-content {
+    padding: 16px 12px;
+  }
+
+  .post-title {
+    font-size: 20px;
+  }
+
+  .post-meta {
+    font-size: 12px;
+  }
+
+  .post-content {
+    font-size: 14px;
+  }
+
+  .post-content h1 { font-size: 19px; }
+  .post-content h2 { font-size: 17px; }
+  .post-content h3 { font-size: 15px; }
+
+  .post-content pre {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .post-content code {
+    font-size: 12px;
+  }
+
+  /* Zoom controls very small screens */
+  .zoom-controls {
+    gap: 4px;
+    padding: 4px 8px;
+  }
+
+  .zoom-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .zoom-level {
+    font-size: 11px;
+    min-width: 40px;
+  }
+
+  /* Menus very small screens */
   .start-menu {
-    left: 5px;
-    right: 5px;
-    width: auto;
-    max-width: none;
+    left: 8px;
+    right: 8px;
+    bottom: calc(var(--taskbar-height) + 8px);
+    max-height: 75vh;
+  }
+
+  .start-menu-header {
+    padding: 16px;
   }
 
   .user-avatar {
@@ -2708,8 +3462,160 @@ body, html {
     font-size: 14px;
   }
 
+  .search-box input {
+    padding: 10px 14px 10px 40px;
+    font-size: 14px;
+  }
+
+  .menu-app {
+    padding: 10px 12px;
+  }
+
   .menu-app .app-icon {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .app-name {
+    font-size: 14px;
+  }
+
+  .app-desc {
+    font-size: 11px;
+  }
+
+  .app-menu {
+    left: 8px;
+    right: 8px;
+    bottom: calc(var(--taskbar-height) + 8px);
+  }
+
+  .app-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 12px;
+  }
+
+  .app-item {
+    padding: 12px 8px;
+  }
+
+  .app-item-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+  }
+
+  .app-item span {
+    font-size: 11px;
+  }
+
+  /* Idle animations very small screens */
+  .walking-bot .bot-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .memory-stream {
+    width: 1px;
+    height: 30px;
+  }
+
+  .data-packet {
+    font-size: 9px;
+    padding: 1px 3px;
+  }
+
+  .code-snippet {
+    font-size: 8px;
+    padding: 1px 4px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch targets */
+  .desktop-icon {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .file-item {
+    min-height: 48px;
+  }
+
+  .menu-app {
+    min-height: 48px;
+  }
+
+  .app-item {
+    min-height: 48px;
+  }
+
+  .page-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .window-controls button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .toolbar-btn {
+    min-height: 44px;
+  }
+
+  .zoom-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .desktop-icon:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(45, 106, 48, 0.15);
+  }
+
+  .file-item:hover {
+    transform: none;
+  }
+
+  .menu-app:hover {
+    transform: none;
+  }
+
+  .app-item:hover {
+    transform: none;
+  }
+
+  /* Touch feedback */
+  .desktop-icon:active {
+    transform: scale(0.95);
+    background: rgba(45, 106, 48, 0.25);
+  }
+
+  .file-item:active {
+    background: rgba(45, 106, 48, 0.2);
+  }
+
+  .menu-app:active {
+    background: rgba(45, 106, 48, 0.2);
+  }
+
+  .app-item:active {
+    background: rgba(45, 106, 48, 0.2);
+  }
+
+  .page-btn:active {
+    transform: scale(0.95);
+  }
+
+  .window-controls button:active {
+    transform: scale(0.9);
+  }
+
+  .zoom-btn:active {
+    transform: scale(0.9);
   }
 }
