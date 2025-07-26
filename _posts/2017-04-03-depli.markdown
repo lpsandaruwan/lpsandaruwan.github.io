@@ -12,7 +12,7 @@ Depli provides you the 10-second solution for monitoring JVMs. Just add a JMX re
 Depli provides you a rich UI, you can even search for running threads, classpaths etc.
 This handsome tool has been released under GPL license on GitHub.
 
-![depli](/assets/img/content/depli.png)
+![depli](/assets/images/content/depli.png)
 
 
 Website: [https://lahirus.com/depli](https://lahirus.com/depli)

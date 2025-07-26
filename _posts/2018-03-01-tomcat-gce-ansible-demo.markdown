@@ -16,7 +16,7 @@ install dependencies and deploy the application on each server. Doing these task
 The way to make such scenarios easier, efficient and effective is making a reusable structure which does these repetitive tasks when we invoke it.
 For that purpose, we use configuration management.
 
-![cm_what_happens](/assets/img/content/posts/gce-tomcat-ansible/cm_showoff.png)
+![cm_what_happens](/assets/images/content/posts/gce-tomcat-ansible/cm_showoff.png)
 
 This tutorial is about a such scenario, to splash the easiness of using a reusable code base when deploying an application,
 using **Ansible**(a radical and impressive configuration management tool with its capabilities and ease of use compared to other tools),
@@ -27,7 +27,7 @@ using **Ansible**(a radical and impressive configuration management tool with it
    configure an Apache Tomcat server and will deploy a war file according to given metadata.
    (To understand playbooks knowing Ansible basics is more than enough. Refer [Ansible documentation](http://docs.ansible.com/ansible/latest/intro_getting_started.html))
 
-![playbook_flow](/assets/img/content/posts/gce-tomcat-ansible/playbook_flow.png)
+![playbook_flow](/assets/images/content/posts/gce-tomcat-ansible/playbook_flow.png)
 
 <br>
 ## Getting started
@@ -45,7 +45,7 @@ refer [installing pip with package managers for more information](https://packag
 pip list
 {% endhighlight %}
 
-![pip_list](/assets/img/content/posts/gce-tomcat-ansible/pip_list.png)
+![pip_list](/assets/images/content/posts/gce-tomcat-ansible/pip_list.png)
 
 And then clone the repository [gce-tomcat-ansible-demo](https://github.com/lpsandaruwan/gce-tomcat-ansible-demo), which contains playbooks to create a Google compute engine instance,
  install Java, configure a Apache Tomcat server and deploy a given war file on the configured application server.
@@ -82,7 +82,7 @@ After installing the SDK run the below command to initialize.
 gcloud init
 {% endhighlight %}
 
-![gcloud_init](/assets/img/content/posts/gce-tomcat-ansible/gcloud_init.png)
+![gcloud_init](/assets/images/content/posts/gce-tomcat-ansible/gcloud_init.png)
 
 And it will direct you to the web page in your browser. From there allow the access to the SDK.
  Now in the terminal select the appropriate project ID. After that you should be able to run playbooks on the appropriate project and manipulate it.
@@ -132,8 +132,8 @@ ansible-playbook run.ym
 Final output will be as below. And after a successful run you will have your application deployed in an
 Apache Tomcat server on a Google compute engine instance.
 
-![final](/assets/img/content/posts/gce-tomcat-ansible/final.png)
-![web](/assets/img/content/posts/gce-tomcat-ansible/web.png)
+![final](/assets/images/content/posts/gce-tomcat-ansible/final.png)
+![web](/assets/images/content/posts/gce-tomcat-ansible/web.png)
 <br>
 
 ## Appendix

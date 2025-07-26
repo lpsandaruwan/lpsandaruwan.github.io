@@ -2,12 +2,12 @@
 author: lpsandaruwan
 categories: [Posts, Linux, OS, Development]
 date: 2024-10-27
-img: /assets/img/content/posts/arch/arch.png
+img: /assets/images/content/posts/arch/arch.png
 tags: [posts, linux, os, development]
 title: "Arch Linux for Developers: A Step-by-Step Guide to Building Your Ultimate Dev Environment"
 ---
 
-![arch logo](/assets/img/content/posts/arch/arch.png)
+![arch logo](/assets/images/content/posts/arch/arch.png)
 
 ## Why Arch Linux? Let's Jump In!
 
@@ -26,7 +26,7 @@ Before you dive into Arch Linux, get your feet wet with a few beginner-friendly 
 
 When you're picking a Linux distro, think about a few important things. The image below breaks down what makes up a Linux operating system.
 
-![Linux internals](/assets/img/content/posts/arch/linux.drawio.png)
+![Linux internals](/assets/images/content/posts/arch/linux.drawio.png)
 
 ### 1. Hardware Compatibility
 
@@ -104,11 +104,11 @@ Alright, you’ve got the scoop on why Arch Linux is worth it, so let’s start 
 
 3. **Boot It Up**: Insert your bootable media into your PC and restart it. You’ll see the installer menu—choose the first option to kick things off!
 
-   ![Startup](/assets/img/content/posts/arch/installer.startup.png)
+   ![Startup](/assets/images/content/posts/arch/installer.startup.png)
 
 Now, you should see a root terminal waiting for you.
 
-   ![Startup initial](/assets/img/content/posts/arch/startup.root.terminal.png)
+   ![Startup initial](/assets/images/content/posts/arch/startup.root.terminal.png)
 
 ---
 
@@ -458,7 +458,7 @@ reboot
 
 When your system boots up, you will be greeted by your new desktop environment!
 
-![after_login](/assets/img/content/posts/arch/installation_finished.png)
+![after_login](/assets/images/content/posts/arch/installation_finished.png)
 
 ---
 
@@ -772,7 +772,7 @@ Want system-wide sound effects? Try JamesDSP for an enhanced audio experience.
 yay -S jamesdsp
 ```
 
-![JamesDSP Screenshot](/assets/img/content/posts/arch/jamesdsp.png)
+![JamesDSP Screenshot](/assets/images/content/posts/arch/jamesdsp.png)
 
 #### 3. Communication Apps
 

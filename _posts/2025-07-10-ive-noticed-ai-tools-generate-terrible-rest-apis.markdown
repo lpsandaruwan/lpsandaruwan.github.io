@@ -2,7 +2,7 @@
 author: lpsandaruwan
 categories: [Posts, REST, API designing, Software Engineering, AI Assisted coding]
 date: 2025-07-10
-img: /assets/img/content/posts/rest/mrCroca.png
+img: /assets/images/content/posts/rest/mrCroca.png
 tags: [posts, api, restful, software, ai]
 title: "I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It"
 ---
@@ -12,7 +12,7 @@ but they often generate REST APIs that look like they were designed by someone w
 
 Over the past few years working with different teams, I've noticed that about most of AI generated APIs have naming conventions that make me question everything.
 
-<img src="/assets/img/content/posts/rest/mrCroca.png" alt="REST API design illustration" style="max-width: 800px; height: auto; display: block; margin: 20px auto;" />
+<img src="/assets/images/content/posts/rest/mrCroca.png" alt="REST API design illustration" style="max-width: 800px; height: auto; display: block; margin: 20px auto;" />
 
 Why does this happen? AI models learn from existing code on the internet, and unfortunately, there's a lot of bad API design out there. When you ask an AI to "create a book API," it might give you something like this:
 

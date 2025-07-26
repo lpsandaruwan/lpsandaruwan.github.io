@@ -12,7 +12,7 @@ Savior Ship is a simple 2D shooter game implemented using C++ and simple direct 
 This is the way I attempted to refresh my skills on C++. Savior ship has been released under GPL license in GitHub for the purpose
 of helping out the people who seek SDL2 beginner level applications to learn.
 
-![savior-ship](/assets/img/content/savior_ship.png)
+![savior-ship](/assets/images/content/savior_ship.png)
 
 
 Website: [https://lahirus.com/savior-ship](https://lahirus.com/savior-ship)

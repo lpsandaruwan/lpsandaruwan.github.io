@@ -2,7 +2,7 @@
 author: lpsandaruwan
 categories: [Posts, Audio, Hobby, Music]
 date: 2023-12-23
-img: /assets/img/content/posts/gcp-saga/flowchart.png
+img: /assets/images/content/posts/gcp-saga/flowchart.png
 tags: [audio, music, hobby, electronics]
 title: "GrooveCraft: Building Your Own Amplifier for Next-Level Music Vibes"
 ---
@@ -10,7 +10,7 @@ title: "GrooveCraft: Building Your Own Amplifier for Next-Level Music Vibes"
 > People have different preferences when it comes to how they like to listen to music, and the sound experience can be different for each person. Here, I've put together my findings on creating an affordable do-it-yourself sound system that suits my taste.
 {: .prompt-warning }
 
-![wave_graph_nero_forte_slipknot](/assets/img/content/posts/diy-amp/wave-nero-forte.png)
+![wave_graph_nero_forte_slipknot](/assets/images/content/posts/diy-amp/wave-nero-forte.png)
 
 ## What Makes Sound Good?
 
@@ -27,7 +27,7 @@ The sound you hear is like a digital superhero! It's stored as digital data, kin
 
 Choosing a music player is like picking the coolest DJ for your tunes. You've got a bunch of them for different operating systems. Each player uses its own algorithm for handling digital music data. Since I mostly roll with Linux and Android, my picks are Apple Music for Android (Loseless music streaming), for Linux Aqualung, Audacious, and Deadbeef. And on Windows, Windows Media Player is my top pick. 🎶✨
 
-![loseless_streaming](/assets/img/content/posts/diy-amp/loseless_stream.jpg)
+![loseless_streaming](/assets/images/content/posts/diy-amp/loseless_stream.jpg)
 
 ### 3. Supercharging Your Music: Digital Signal Processing Plugins (DSP Plugins).
 
@@ -36,11 +36,11 @@ Want to spice up your music experience? You can play around with some cool tools
 On Linux my go-to buddies are JamesDSP4Linux (a nifty pipewire DSP tool) and Calf Studio Gear (especially when using Jack2, mostly for line-in audio). I personally enjoy adding a bit of treble boost, lowering the mid-range a bit(1kHz as the low-lying), and keeping the bass reduced or flat for those low-frequency vibes. It is a modified "V" curved equalization effect with frequencies decreasing from 500Hz to around 4kHz. It's a very pleasing tone for my ears! 🎶✨
 
 - JamesDSP4Linux
-![jamesdsp](/assets/img/content/posts/diy-amp/eq_v_curve.png)
+![jamesdsp](/assets/images/content/posts/diy-amp/eq_v_curve.png)
 
 - Calf studio gear
 
-![calf](/assets/img/content/posts/diy-amp/eq_calf.png)
+![calf](/assets/images/content/posts/diy-amp/eq_calf.png)
 
 ### 4. The DAC: Turning Digital to Analog.
 
@@ -107,15 +107,15 @@ A rocking music system won't do much if you forget about your ear health. Here a
 
 I've already delved into selecting audio data, DSPs, and DACs above. Now, let's dive into my adventure of deciphering the analog configuration for the audio.
 
-![high_level_graph](/assets/img/content/posts/diy-amp/high_level_graph.jpg)
+![high_level_graph](/assets/images/content/posts/diy-amp/high_level_graph.jpg)
 
-![high_level_graph](/assets/img/content/posts/diy-amp/low_level_graph.jpg)
+![high_level_graph](/assets/images/content/posts/diy-amp/low_level_graph.jpg)
 
 ### 1. The Speakers.
 
 I scored this awesome classic Sony 5.1 speaker set online for a steal! These older speakers are not just easy on the wallet but also deliver a super clear and lively sound, way better than those budget Chinese speakers flooding the market(no offence). But I prefer a simple stereo (2 channels or 2.1) sound vibe. No need for fancy 4.0, 5.1, or 7.1 setups. So, I decided to move ahead with just the front speakers (SS-TS31) and the subwoofer box (SS-WS31) from this set.
 
-![sony_speakers](/assets/img/content/posts/diy-amp/sony-spks.jpg)
+![sony_speakers](/assets/images/content/posts/diy-amp/sony-spks.jpg)
 
 ### 2. The Pre-Amplifier.
 
@@ -170,7 +170,7 @@ Based on my research, I picked the pre-amplifier circuit with **NE5532**.
 
 Just like with pre-amplifiers, I explored amplifier chips and circuit setups to find the perfect match to power up the signal for my speakers. With a listening space of about 144 sqft, I aimed for an amplifier delivering 20 to 100 watts, ideal for my Sony speakers with a 3-ohm impedance and a ~130 watts rating (not exceeding 4 ohms and 50 watts per channel, keeping it safe). Since I roll with a 2.1 speaker setup, I needed a 3-channel amplification output.
 
-![tda_amp](/assets/img/content/posts/diy-amp/tda_amp.jpg)
+![tda_amp](/assets/images/content/posts/diy-amp/tda_amp.jpg)
 
 #### Amplifier Configurations
 
@@ -182,7 +182,7 @@ To configure the 3-channel output, I utilized multiple pre-amplifiers with band 
 - **TDA 1524A for Subwoofer Channel:**
   - Turned the treble knob to 0, complemented by a passive low pass filter with a resistor and capacitor, restricting subwoofer output up to ~300Hz.
 
-![low_pass](/assets/img/content/posts/diy-amp/low_pass.png)
+![low_pass](/assets/images/content/posts/diy-amp/low_pass.png)
 
 **1. Ripped-off Circuit from Microlab M100 Subwoofer System (Class - Probably D):**
 - Integrated speaker quality was terrible, lacking bass and high frequencies.
@@ -225,7 +225,7 @@ To configure the 3-channel output, I utilized multiple pre-amplifiers with band 
 - Lower THD, integrated speaker guard, and wider operating voltage range were added advantages.
 - Sealed the deal with this amplifier.
 
-![final](/assets/img/content/posts/diy-amp/circuit.jpg)
+![final](/assets/images/content/posts/diy-amp/circuit.jpg)
 
 > Please disregard the unsightly black tapes; they're there due to my phobia and past experiences with circuit-roasting short circuits. 😂
 {: .prompt-tip }
@@ -237,4 +237,4 @@ To configure the 3-channel output, I utilized multiple pre-amplifiers with band 
 
 Considering all the research and money spent, I could have bought a decent off-the-shelf speaker system. But where's the fun in that? 😎
 
-![closing](/assets/img/content/posts/diy-amp/amp_dac.jpg)
+![closing](/assets/images/content/posts/diy-amp/amp_dac.jpg)

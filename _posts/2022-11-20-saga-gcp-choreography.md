@@ -2,7 +2,7 @@
 author: lpsandaruwan
 categories: [Posts, Serverless]
 date: 2022-11-20
-img: /assets/img/content/posts/gcp-saga/flowchart.png
+img: /assets/images/content/posts/gcp-saga/flowchart.png
 tags: [gcp, serverless, saga, choreography, gostep]
 title:  "Saga Pattern with serverless model on Google Cloud Platform - Part 1"
 ---
@@ -28,7 +28,7 @@ Now that we have a basic understanding of Saga pattern, we will discuss how to i
 ## The real world example
 Let’s consider a train ticket booking system.
 
-![flowchart](/assets/img/content/posts/gcp-saga/flowchart.png)
+![flowchart](/assets/images/content/posts/gcp-saga/flowchart.png)
 
 The workflow consists of,
 
@@ -83,7 +83,7 @@ For the demonstration we will be using,
 - Firestore to store event data
 - MongoDb as the transits service database
 
-![saga chor flow](/assets/img/content/posts/gcp-saga/sagachoreographyflow.png)
+![saga chor flow](/assets/images/content/posts/gcp-saga/sagachoreographyflow.png)
 
 
 ### Transits service

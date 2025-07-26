@@ -82,7 +82,7 @@ gostep deploy my-nodejs-function
 
 ### Bravo...!
 Now our functions are deployed and ready to be executed.
-![cfunctions](/assets/img/content/posts/gostep/functions.png)
+![cfunctions](/assets/images/content/posts/gostep/functions.png)
 
 ### In future releases...
 * More templates, templates for go lang, templates for Spring framework, etc...
