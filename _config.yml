@@ -32,7 +32,10 @@ paginate_path: "/page:num/"
 collections:
   posts:
     output: true
-    permalink: /:categories/:year/:month/:day/:title/
+    permalink: /posts/:title/
+
+# Permalink structure for clean URLs
+permalink: /posts/:title/
 
 defaults:
   - scope:
