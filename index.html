@@ -5,6 +5,59 @@ layout: desktop
 <div id="desktop">
   <div id="wallpaper"></div>
   
+  <!-- Idle Animations - Only show when no windows are open -->
+  <div id="idle-animations" class="idle-animations">
+    <!-- Walking Bots -->
+    <div class="walking-bot bot-1">
+      <svg width="32" height="32" viewBox="0 0 24 24" class="bot-icon">
+        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2M21 9V7L15 1L9 7V9C9 10.1 9.9 11 11 11V22H13V11C14.1 11 15 10.1 15 9H21M7.5 13C6.1 13 5 14.1 5 15.5S6.1 18 7.5 18 10 16.9 10 15.5 8.9 13 7.5 13M16.5 13C15.1 13 14 14.1 14 15.5S15.1 18 16.5 18 19 16.9 19 15.5 17.9 13 16.5 13"/>
+        <circle cx="8" cy="10" r="1"/>
+        <circle cx="16" cy="10" r="1"/>
+      </svg>
+    </div>
+    
+    <div class="walking-bot bot-2">
+      <svg width="28" height="28" viewBox="0 0 24 24" class="bot-icon">
+        <path d="M12 2L13.09 6.26L18 6L17 8L21 10L16 12L17 14L13.09 17.74L12 22L10.91 17.74L6 18L7 16L3 14L8 12L7 10L10.91 6.26L12 2Z"/>
+        <circle cx="9" cy="9" r="1.5"/>
+        <circle cx="15" cy="9" r="1.5"/>
+        <path d="M8 13H16V15H8Z"/>
+      </svg>
+    </div>
+    
+    <div class="walking-bot bot-3">
+      <svg width="36" height="36" viewBox="0 0 24 24" class="bot-icon">
+        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2M8.5 7L9.91 8.41L8.5 9.83L7.09 8.41L8.5 7M15.5 7L16.91 8.41L15.5 9.83L14.09 8.41L15.5 7M11 14V22H13V14H11M6 16V18H8V16H6M16 16V18H18V16H16"/>
+        <circle cx="7" cy="11" r="1"/>
+        <circle cx="17" cy="11" r="1"/>
+      </svg>
+    </div>
+    
+    <!-- Memory Flow Animation -->
+    <div class="memory-streams">
+      <div class="memory-stream stream-1"></div>
+      <div class="memory-stream stream-2"></div>
+      <div class="memory-stream stream-3"></div>
+      <div class="memory-stream stream-4"></div>
+    </div>
+    
+    <!-- Data Packets -->
+    <div class="data-packets">
+      <div class="data-packet packet-1">0x1F</div>
+      <div class="data-packet packet-2">AI</div>
+      <div class="data-packet packet-3">λ</div>
+      <div class="data-packet packet-4">∞</div>
+      <div class="data-packet packet-5">0101</div>
+    </div>
+    
+    <!-- Floating Code Snippets -->
+    <div class="floating-code">
+      <div class="code-snippet snippet-1">{'AI': true}</div>
+      <div class="code-snippet snippet-2">const bot = new AI()</div>
+      <div class="code-snippet snippet-3">serverless.yml</div>
+    </div>
+  </div>
+  
   <!-- Desktop Icons -->
   <div class="desktop-icons">
     <div class="desktop-icon" onclick="openFileManager()" ondblclick="openFileManager()">

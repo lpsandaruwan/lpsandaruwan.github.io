@@ -640,6 +640,13 @@ function openFileManager() {
       fileManager.addEventListener('mousedown', () => focusWindow('file-manager'));
       fileManager.setAttribute('data-focus-handler', 'true');
     }
+    
+    // Update idle animations
+    setTimeout(() => {
+      if (typeof updateIdleAnimationsVisibility === 'function') {
+        updateIdleAnimationsVisibility();
+      }
+    }, 100);
   }
 }
 
@@ -687,6 +694,13 @@ function minimizeWindow(windowId) {
       appIcon.classList.add('minimized');
       console.log('Taskbar icon updated for minimize');
     }
+    
+    // Update idle animations
+    setTimeout(() => {
+      if (typeof updateIdleAnimationsVisibility === 'function') {
+        updateIdleAnimationsVisibility();
+      }
+    }, 100);
   } else {
     console.log('Window not found for minimize:', windowId);
   }
@@ -885,7 +899,20 @@ function closeWindow(windowId) {
       setTimeout(() => {
         window.remove();
         removeFromTaskbar(windowId);
+        // Update idle animations after window is removed
+        if (typeof updateIdleAnimationsVisibility === 'function') {
+          updateIdleAnimationsVisibility();
+        }
       }, 300);
+    }
+    
+    // Update idle animations immediately for file manager
+    if (windowId === 'file-manager') {
+      setTimeout(() => {
+        if (typeof updateIdleAnimationsVisibility === 'function') {
+          updateIdleAnimationsVisibility();
+        }
+      }, 100);
     }
   } else {
     console.log('Window not found:', windowId);
@@ -1404,10 +1431,65 @@ window.zoomIn = zoomIn;
 window.zoomOut = zoomOut;
 window.resetZoom = resetZoom;
 
+// Idle Desktop Animations Management
+function initializeIdleAnimations() {
+  console.log('Initializing idle animations...');
+  
+  // Check initial state
+  updateIdleAnimationsVisibility();
+  
+  // Set up window state monitoring
+  const observer = new MutationObserver(() => {
+    updateIdleAnimationsVisibility();
+  });
+  
+  // Watch for changes in window visibility classes
+  document.querySelectorAll('.window').forEach(window => {
+    observer.observe(window, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  });
+  
+  // Also monitor for new windows being added
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Update animations every few seconds as a fallback
+  setInterval(updateIdleAnimationsVisibility, 3000);
+}
+
+function updateIdleAnimationsVisibility() {
+  const idleAnimations = document.getElementById('idle-animations');
+  if (!idleAnimations) return;
+  
+  // Check if any windows are currently visible (not hidden or minimized)
+  const visibleWindows = document.querySelectorAll('.window:not(.hidden):not(.minimized)');
+  const hasVisibleWindows = visibleWindows.length > 0;
+  
+  if (hasVisibleWindows) {
+    // Hide idle animations when windows are open
+    idleAnimations.classList.add('hidden');
+  } else {
+    // Show idle animations when desktop is idle
+    idleAnimations.classList.remove('hidden');
+  }
+  
+  console.log(`Idle animations ${hasVisibleWindows ? 'hidden' : 'visible'} - visible windows: ${visibleWindows.length}`);
+}
+
+// Expose function globally for other scripts
+window.updateIdleAnimationsVisibility = updateIdleAnimationsVisibility;
+
 // Function to initialize the desktop
 function initializeDesktop() {
   console.log('Initializing desktop...');
   new PlasmaDesktop();
+  
+  // Initialize idle animations
+  initializeIdleAnimations();
   
   // Check if we need to auto-open file manager
   if (window.location.hash === '#open-file-manager') {
