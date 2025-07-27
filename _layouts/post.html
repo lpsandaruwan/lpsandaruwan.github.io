@@ -104,7 +104,7 @@ layout: desktop
       <div class="menu-section">
         <h3>Contact & Media</h3>
         <div class="app-list">
-          <div class="menu-app" onclick="window.open('mailto:lpsadaruwan@gmail.com', '_blank'); closeStartMenu();">
+          <div class="menu-app" onclick="window.open('mailto:hello@lpsandaruwan.dev', '_blank'); closeStartMenu();">
             <div class="app-icon gmail-icon">
               <svg width="24" height="24" viewBox="0 0 24 24">
                 <path d="M20 4H4C2.89 4 2 4.89 2 6V18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4M20 18H4V8L12 13L20 8V18M20 6L12 11L4 6H20Z"/>
@@ -112,7 +112,7 @@ layout: desktop
             </div>
             <div class="app-info">
               <div class="app-name">Email Me</div>
-              <div class="app-desc">lpsadaruwan@gmail.com</div>
+              <div class="app-desc">hello@lpsandaruwan.dev</div>
             </div>
           </div>
           
@@ -310,8 +310,10 @@ layout: desktop
             <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
             {% if page.author %} • <span>{{ page.author }}</span>{% endif %}
             • {{ content | number_of_words }} words
+            • {{ content | number_of_words | divided_by: 200 | at_least: 1 }} min read
           </div>
         </div>
+        
         <div class="post-content">
           {{ content }}
         </div>
@@ -378,28 +380,67 @@ function goToHome() {
   }
 }
 
-// Add taskbar click functionality for Kate window
+// Simple Kate post functionality
 document.addEventListener('DOMContentLoaded', function() {
+  // Taskbar functionality
   const kateTaskbarIcon = document.querySelector('[data-app="text-editor"]');
   const kateWindow = document.getElementById('text-editor');
   
   if (kateTaskbarIcon && kateWindow) {
     kateTaskbarIcon.addEventListener('click', function() {
       if (kateWindow.classList.contains('minimized')) {
-        // Restore from minimized state
         kateWindow.classList.remove('minimized');
         kateWindow.classList.add('maximized');
         kateTaskbarIcon.classList.add('active');
         kateTaskbarIcon.classList.remove('minimized');
       } else if (kateWindow.classList.contains('maximized')) {
-        // Minimize when maximized
         minimizeWindow('text-editor');
       } else {
-        // Restore to maximized (default state)
         kateWindow.classList.add('maximized');
         kateTaskbarIcon.classList.add('active');
       }
     });
   }
+  
+  // Add simple copy buttons to code blocks
+  addCodeCopyButtons();
 });
+
+function addCodeCopyButtons() {
+  const codeBlocks = document.querySelectorAll('pre code');
+  
+  codeBlocks.forEach((block) => {
+    const pre = block.parentElement;
+    if (!pre || pre.querySelector('.copy-btn')) return;
+    
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-btn';
+    copyButton.textContent = 'Copy';
+    copyButton.title = 'Copy code to clipboard';
+    
+    copyButton.addEventListener('click', function() {
+      navigator.clipboard.writeText(block.textContent).then(() => {
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => {
+          copyButton.textContent = 'Copy';
+        }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = block.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => {
+          copyButton.textContent = 'Copy';
+        }, 2000);
+      });
+    });
+    
+    pre.style.position = 'relative';
+    pre.appendChild(copyButton);
+  });
+}
 </script>

@@ -2037,44 +2037,142 @@ body, html {
 }
 
 .post-content ul, .post-content ol {
-  margin: 16px 0;
+  margin: 20px 0;
   padding-left: 24px;
 }
 
 .post-content li {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  line-height: 1.6;
 }
 
+/* Subtle visual improvements */
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 24px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border: 1px solid var(--plasma-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.post-content th,
+.post-content td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--plasma-border);
+}
+
+.post-content th {
+  background: var(--plasma-surface);
+  font-weight: 600;
+  color: var(--plasma-text);
+}
+
+.post-content td {
+  background: rgba(49, 50, 68, 0.3);
+}
+
+.post-content hr {
+  border: none;
+  height: 1px;
+  background: var(--plasma-border);
+  margin: 32px 0;
+}
+
+/* Clean Post Styling */
 .post-header {
-  max-width: 80%;
-  margin: 0 auto 32px auto;
-  padding: 0 20px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--plasma-border);
 }
 
+.post-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--plasma-text);
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+.post-meta {
+  color: var(--plasma-text-secondary);
+  font-size: 14px;
+  margin: 0;
+}
+
+.post-meta time {
+  color: var(--plasma-primary);
+}
+
+/* Enhanced typography and readability */
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: var(--plasma-text);
+  font-weight: 600;
+}
+
+.post-content h1 { font-size: 24px; margin-top: 40px; }
+.post-content h2 { font-size: 22px; }
+.post-content h3 { font-size: 20px; }
+.post-content h4 { font-size: 18px; }
+
+.post-content p {
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.post-content a {
+  color: var(--plasma-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.post-content a:hover {
+  border-bottom-color: var(--plasma-primary);
+}
+
+/* Copy button for code blocks */
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(137, 180, 250, 0.1);
+  color: var(--plasma-primary);
+  border: 1px solid rgba(137, 180, 250, 0.2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(137, 180, 250, 0.2);
+}
+
+/* Comments and navigation sections */
 .post-comments {
-  margin-top: 48px;
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 20px;
+  margin-top: 40px;
   padding-top: 24px;
   border-top: 1px solid var(--plasma-border);
 }
 
-.post-comments #disqus_thread {
-  background: var(--plasma-surface);
-  padding: 24px;
-  border-radius: 8px;
-  border: 1px solid var(--plasma-border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .post-navigation {
-  margin-top: 48px;
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 20px;
+  margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid var(--plasma-border);
   display: flex;
@@ -2084,7 +2182,7 @@ body, html {
 
 .nav-btn {
   padding: 8px 16px;
-  background: var(--plasma-surface-variant);
+  background: var(--plasma-surface);
   color: var(--plasma-text);
   text-decoration: none;
   border-radius: 6px;
@@ -2115,6 +2213,25 @@ body, html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--plasma-text-secondary);
+}
+
+/* Widget-specific scrollbars */
+.desktop-widgets::-webkit-scrollbar {
+  width: 6px;
+}
+
+.desktop-widgets::-webkit-scrollbar-track {
+  background: rgba(30, 30, 46, 0.3);
+  border-radius: 3px;
+}
+
+.desktop-widgets::-webkit-scrollbar-thumb {
+  background: rgba(137, 180, 250, 0.4);
+  border-radius: 3px;
+}
+
+.desktop-widgets::-webkit-scrollbar-thumb:hover {
+  background: rgba(137, 180, 250, 0.6);
 }
 
 /* Idle Desktop Animations */
@@ -2630,11 +2747,25 @@ body, html {
   }
 
   .app-icon {
-    min-width: 44px;
+    min-width: 48px;
     max-width: 150px;
-    height: 40px;
-    padding: 0 8px;
+    height: 44px;
+    padding: 0 10px;
     border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .app-icon:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .app-icon:active,
+  .app-icon.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.95);
   }
 
   .app-icon-text {
@@ -2665,6 +2796,20 @@ body, html {
     padding: 10px;
     border-radius: 12px;
     justify-self: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .desktop-icon:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .desktop-icon:active,
+  .desktop-icon.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.95);
   }
 
   .desktop-icon-image {
@@ -2688,18 +2833,51 @@ body, html {
   /* Desktop widgets mobile positioning */
   .desktop-widgets {
     position: fixed;
-    top: auto;
+    top: 120px;
     right: 15px;
     bottom: calc(var(--taskbar-height) + 15px);
     left: 15px;
     width: auto;
     max-width: none;
     z-index: 45;
-    max-height: 50vh;
+    height: auto;
+    max-height: calc(100vh - 180px);
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 10px;
+  }
+  
+  /* Ensure widgets don't overlap with desktop icons */
+  @media (max-width: 768px) and (max-height: 600px) {
+    .desktop-widgets {
+      top: 100px;
+      max-height: calc(100vh - 160px);
+    }
+  }
+  
+  /* Enhanced mobile scrolling */
+  .desktop-widgets::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .desktop-widgets::-webkit-scrollbar-track {
+    background: rgba(30, 30, 46, 0.3);
+    border-radius: 4px;
+  }
+  
+  .desktop-widgets::-webkit-scrollbar-thumb {
+    background: rgba(137, 180, 250, 0.6);
+    border-radius: 4px;
+    min-height: 30px;
+  }
+  
+  .desktop-widgets::-webkit-scrollbar-thumb:hover {
+    background: rgba(137, 180, 250, 0.8);
   }
 
   .desktop-widget {
@@ -2711,10 +2889,11 @@ body, html {
 
   .bio-widget .widget-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    text-align: left;
+    text-align: center;
     gap: 16px;
+    padding: 16px;
   }
 
   .bio-photo {
@@ -2726,29 +2905,44 @@ body, html {
   .bio-info {
     flex: 1;
     min-width: 0;
+    width: 100%;
   }
 
   .bio-name {
-    font-size: 15px;
-    margin-bottom: 4px;
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    word-break: break-word;
   }
 
   .bio-title {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 12px;
+    line-height: 1.3;
+    word-break: break-word;
   }
 
   .bio-details {
-    gap: 6px;
+    gap: 8px;
+    width: 100%;
   }
 
   .bio-item {
-    font-size: 11px;
+    font-size: 12px;
+    padding: 4px 0;
+    line-height: 1.5;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
   }
 
   .bio-item svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 
   .stat-item {
@@ -2761,20 +2955,64 @@ body, html {
   }
 
   .stat-number {
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .stat-label {
-    font-size: 10px;
+    font-size: 11px;
+    line-height: 1.3;
   }
 
   .widget-content {
-    padding: 14px;
+    padding: 16px;
+    overflow: visible;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   .intro-widget .intro-text p {
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.6;
+    word-break: break-word;
+    text-align: left;
+  }
+  
+  /* Improve widget readability */
+  .widget-content {
+    min-height: auto;
+  }
+  
+  .desktop-widget {
+    min-height: auto;
+    margin-bottom: 0;
+    overflow: visible;
+  }
+  
+  /* Stats widget mobile improvements */
+  .stats-widget .widget-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 12px 8px;
+    border-radius: 8px;
+    background: rgba(137, 180, 250, 0.1);
+  }
+  
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
   }
 
   /* Window mobile optimization */
@@ -2836,9 +3074,24 @@ body, html {
   }
 
   .toolbar-btn {
-    padding: 8px 12px;
+    padding: 10px 14px;
     font-size: 13px;
-    border-radius: 6px;
+    border-radius: 8px;
+    min-height: 44px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .toolbar-btn:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .toolbar-btn:active,
+  .toolbar-btn.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.95);
   }
 
   /* File manager mobile optimization */
@@ -2879,6 +3132,19 @@ body, html {
   .file-item {
     padding: 12px 16px;
     min-height: 52px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .file-item:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .file-item:active,
+  .file-item.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.98);
   }
 
   .file-column {
@@ -2941,10 +3207,25 @@ body, html {
   }
 
   .page-btn {
-    padding: 10px 14px;
+    padding: 12px 16px;
     font-size: 13px;
-    border-radius: 6px;
-    min-width: 44px;
+    border-radius: 8px;
+    min-width: 48px;
+    min-height: 48px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .page-btn:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .page-btn:active,
+  .page-btn.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.95);
   }
 
   /* Kate editor mobile optimization */
@@ -2964,6 +3245,115 @@ body, html {
 
   .post-meta {
     font-size: 13px;
+  }
+  
+  /* Enhanced mobile post styles */
+  .post-meta-enhanced {
+    margin: 20px 0 24px 0;
+  }
+  
+  .meta-row {
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .meta-item {
+    font-size: 13px;
+    padding: 8px 12px;
+    justify-content: center;
+  }
+  
+  .post-tags {
+    margin-top: 12px;
+    gap: 6px;
+  }
+  
+  .tag-item {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  /* Mobile Table of Contents */
+  .table-of-contents {
+    margin: 20px 0;
+    border-radius: 8px;
+  }
+  
+  .toc-header {
+    padding: 12px 16px;
+  }
+  
+  .toc-content {
+    max-height: 200px;
+  }
+  
+  .toc-link {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  .toc-level-1 .toc-link { padding-left: 16px; }
+  .toc-level-2 .toc-link { padding-left: 24px; }
+  .toc-level-3 .toc-link { padding-left: 32px; font-size: 13px; }
+  .toc-level-4 .toc-link { padding-left: 40px; font-size: 12px; }
+  
+  /* Mobile Social Sharing */
+  .post-sharing {
+    padding: 20px 16px;
+    margin: 32px 0;
+    border-radius: 12px;
+  }
+  
+  .sharing-header h4 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .sharing-buttons {
+    gap: 12px;
+    flex-direction: column;
+  }
+  
+  .share-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+    border-radius: 20px;
+    justify-content: center;
+  }
+  
+  /* Mobile Post Navigation */
+  .post-navigation {
+    flex-direction: column;
+    gap: 12px;
+    margin: 32px 0;
+  }
+  
+  .nav-btn {
+    min-width: auto;
+    padding: 14px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  
+  /* Mobile Code Blocks */
+  .code-header {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .code-copy-btn {
+    align-self: flex-end;
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  
+  .line-numbers {
+    padding: 12px 6px;
+    font-size: 12px;
+    min-width: 35px;
   }
 
   .post-content {
@@ -3096,9 +3486,24 @@ body, html {
   }
 
   .menu-app {
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 4px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 48px;
+  }
+  
+  .menu-app:hover {
+    background: rgba(45, 106, 48, 0.15);
+  }
+  
+  .menu-app:active,
+  .menu-app.touch-active {
+    background: rgba(45, 106, 48, 0.25) !important;
+    transform: scale(0.98);
   }
 
   .menu-app .app-icon {
@@ -3206,18 +3611,116 @@ body, html {
     font-size: 9px;
     padding: 2px 6px;
   }
+  
+  /* Ensure widgets are always scrollable and text doesn't get cut off */
+  .desktop-widgets {
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  
+  .desktop-widget {
+    overflow: visible;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .widget-content {
+    overflow: visible;
+  }
+  
+  .bio-item, .stat-label, .intro-text p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
 }
 
 /* Small Mobile Devices (up to 480px) */
 @media (max-width: 480px) {
   /* Extra small mobile adjustments */
   #taskbar {
-    height: 60px;
-    padding: 0 6px;
+    height: 64px;
+    padding: 0 8px;
   }
   
   :root {
-    --taskbar-height: 60px;
+    --taskbar-height: 64px;
+  }
+
+  /* Improve touch targets */
+  .file-item {
+    padding: 16px;
+    min-height: 60px;
+  }
+  
+  .file-column.name-column {
+    flex: 3;
+    min-width: 150px;
+  }
+  
+  .file-column.date-column {
+    flex: 2;
+    min-width: 90px;
+  }
+  
+  .file-name {
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  
+  .page-btn {
+    padding: 14px 18px;
+    min-width: 52px;
+    min-height: 52px;
+    font-size: 14px;
+  }
+  
+  .toolbar-btn {
+    padding: 12px 16px;
+    min-height: 48px;
+    font-size: 14px;
+  }
+  
+  /* Better desktop icon spacing */
+  .desktop-icons {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 24px;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  
+  .desktop-icon {
+    width: 90px;
+    padding: 12px;
+  }
+  
+  .desktop-icon-image {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .desktop-icon-image svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Improve start menu touch targets */
+  .menu-app {
+    padding: 16px 20px;
+    min-height: 52px;
+  }
+  
+  .menu-app .app-icon {
+    width: 44px;
+    height: 44px;
+  }
+  
+  /* Better widget positioning */
+  .desktop-widgets {
+    bottom: calc(var(--taskbar-height) + 20px);
+    left: 20px;
+    right: 20px;
   }
 
   .app-launcher {
@@ -3278,8 +3781,9 @@ body, html {
   .desktop-widgets {
     right: 12px;
     left: 12px;
+    top: 90px;
     bottom: calc(var(--taskbar-height) + 12px);
-    max-height: 45vh;
+    max-height: calc(100vh - 150px);
   }
 
   .bio-widget .widget-content {
@@ -3302,12 +3806,14 @@ body, html {
   }
 
   .bio-item {
-    font-size: 10px;
+    font-size: 11px;
+    padding: 2px 0;
+    line-height: 1.4;
   }
 
   .bio-item svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
 
   .stat-icon {
@@ -3324,7 +3830,86 @@ body, html {
   }
 
   .intro-widget .intro-text p {
-    font-size: 11px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  /* Enhanced mobile stats widget */
+  .stats-widget .widget-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .stat-item {
+    padding: 8px 6px;
+    gap: 6px;
+  }
+  
+  /* Touch improvements for mobile widgets */
+  .desktop-widget {
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Ensure all widget text is readable */
+  .bio-item span,
+  .stat-label,
+  .intro-text p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  /* Better spacing for widget items */
+  .stat-item {
+    margin-bottom: 8px;
+  }
+}
+
+/* Mobile landscape orientation improvements */
+@media (max-width: 768px) and (orientation: landscape) {
+  .desktop-widgets {
+    top: 80px;
+    max-height: calc(100vh - 140px);
+    gap: 12px;
+  }
+  
+  .desktop-icons {
+    top: 10px;
+    gap: 15px;
+  }
+  
+  .bio-widget .widget-content {
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .bio-info {
+    text-align: left;
+  }
+  
+  .bio-item {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .stats-widget .widget-content {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+}
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .stat-info {
+    flex: 1;
+    min-width: 0;
   }
 
   /* Window adjustments */

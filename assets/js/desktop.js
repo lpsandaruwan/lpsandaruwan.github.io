@@ -641,10 +641,14 @@ function openFileManager() {
       fileManager.setAttribute('data-focus-handler', 'true');
     }
     
-    // Update idle animations
+    // Update idle animations and widget visibility
     setTimeout(() => {
       if (typeof updateIdleAnimationsVisibility === 'function') {
         updateIdleAnimationsVisibility();
+      }
+      // Update widget visibility when windows change
+      if (window.mobileSupport) {
+        window.mobileSupport.manageWidgetVisibility();
       }
     }, 100);
   }
@@ -695,10 +699,14 @@ function minimizeWindow(windowId) {
       console.log('Taskbar icon updated for minimize');
     }
     
-    // Update idle animations
+    // Update idle animations and widget visibility
     setTimeout(() => {
       if (typeof updateIdleAnimationsVisibility === 'function') {
         updateIdleAnimationsVisibility();
+      }
+      // Update widget visibility when windows change
+      if (window.mobileSupport) {
+        window.mobileSupport.manageWidgetVisibility();
       }
     }, 100);
   } else {
@@ -1039,8 +1047,14 @@ function openPostFromElement(element) {
   const url = element.getAttribute('data-url');
   const title = element.getAttribute('data-title');
   if (url && title) {
-    // For the desktop interface, directly navigate to the post
-    window.location.href = url;
+    // Add a small delay for touch feedback before navigation
+    if (element.classList.contains('touch-active')) {
+      setTimeout(() => {
+        window.location.href = url;
+      }, 150);
+    } else {
+      window.location.href = url;
+    }
   }
 }
 
@@ -1154,7 +1168,7 @@ class PostsPagination {
     console.log(`Rendering ${postsToShow.length} posts for page ${this.currentPage}`);
 
     fileList.innerHTML = postsToShow.map(post => `
-      <div class="file-item" data-url="${post.url}" data-title="${post.title}" onclick="openPostFromElement(this)">
+      <div class="file-item" data-url="${post.url}" data-title="${post.title}" onclick="openPostFromElement(this)" role="button" tabindex="0" aria-label="Open post: ${post.title}">
         <div class="file-column name-column">
           <div class="file-icon">
             <svg width="16" height="16" viewBox="0 0 24 24">
@@ -1177,6 +1191,13 @@ class PostsPagination {
         </div>
       </div>
     `).join('');
+    
+    // Re-add touch events to newly created file items
+    setTimeout(() => {
+      if (window.mobileSupport) {
+        window.mobileSupport.addTouchToFileItems();
+      }
+    }, 50);
   }
 
   renderPagination() {
@@ -1486,7 +1507,7 @@ window.updateIdleAnimationsVisibility = updateIdleAnimationsVisibility;
 // Function to initialize the desktop
 function initializeDesktop() {
   console.log('Initializing desktop...');
-  new PlasmaDesktop();
+  window.plasmaDesktop = new PlasmaDesktop();
   
   // Initialize idle animations
   initializeIdleAnimations();
@@ -1602,36 +1623,78 @@ class MobileSupport {
   initTouchEvents() {
     // Add touch feedback for desktop icons
     document.querySelectorAll('.desktop-icon').forEach(icon => {
-      icon.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
-      icon.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+      icon.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+      icon.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
+      
+      // Fix single-tap to open for desktop icons
+      let lastTap = 0;
+      icon.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        if (tapLength < 300 && tapLength > 0) {
+          // Double tap detected - open immediately
+          e.preventDefault();
+          openFileManager();
+        } else {
+          // Single tap - open after short delay (allows for double-tap detection)
+          setTimeout(() => {
+            // Check if another tap occurred during the delay
+            const checkTime = new Date().getTime();
+            if (checkTime - currentTime > 250) {
+              // No second tap, treat as single tap to open
+              openFileManager();
+            }
+          }, 300);
+        }
+        lastTap = currentTime;
+      });
     });
 
     // Add touch feedback for file items
-    document.addEventListener('DOMContentLoaded', () => {
-      this.addTouchToFileItems();
-    });
+    this.addTouchToFileItems();
 
     // Add touch feedback for buttons
-    document.querySelectorAll('.toolbar-btn, .page-btn, .zoom-btn, .menu-app').forEach(btn => {
+    document.querySelectorAll('.toolbar-btn, .page-btn, .zoom-btn, .app-icon').forEach(btn => {
       btn.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
       btn.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
     });
+    
+    // Basic touch feedback for menu apps - let normal click handling work
+    document.querySelectorAll('.menu-app').forEach(menuApp => {
+      menuApp.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+      menuApp.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+    });
 
-    // Prevent double-tap zoom on specific elements
+    // Improve touch behavior for scrollable elements
+    document.querySelectorAll('.file-list, .start-menu-content, .desktop-widgets').forEach(element => {
+      // Allow scrolling and manipulation
+      element.style.touchAction = 'pan-y manipulation';
+      element.style.webkitOverflowScrolling = 'touch';
+    });
+    
+    // Prevent double-tap zoom on specific elements but allow scrolling
     document.querySelectorAll('.window, .taskbar, .start-menu').forEach(element => {
       element.addEventListener('touchstart', (e) => {
         if (e.touches.length > 1) {
           e.preventDefault();
         }
-      });
+      }, { passive: false });
+      
+      // Allow manipulation but control zoom
+      element.style.touchAction = 'manipulation';
     });
   }
 
   addTouchToFileItems() {
     // This will be called periodically to add touch events to dynamically created file items
     document.querySelectorAll('.file-item:not([data-touch-added])').forEach(item => {
+      // Add basic touch feedback for visual response
       item.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
       item.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+      
+      // Ensure proper touch action for scrolling
+      item.style.touchAction = 'manipulation';
+      
       item.setAttribute('data-touch-added', 'true');
     });
   }
@@ -1644,6 +1707,8 @@ class MobileSupport {
     if ('vibrate' in navigator) {
       navigator.vibrate(10);
     }
+    
+    // Don't prevent default - let normal click handling work
   }
 
   handleTouchEnd(e) {
@@ -1684,6 +1749,9 @@ class MobileSupport {
       
       // Add mobile-specific event handlers
       this.addMobileEventHandlers();
+      
+      // Initialize menu app touch events
+      this.initMenuAppTouchEvents();
       
       // Improve scroll performance
       this.optimizeScrolling();
@@ -1745,6 +1813,14 @@ class MobileSupport {
         e.preventDefault();
       }
     });
+    
+    // Initialize menu app touch events once
+    this.initMenuAppTouchEvents();
+  }
+  
+  initMenuAppTouchEvents() {
+    // Let normal click handling work for menu apps
+    // No special touch handling needed
   }
 
   optimizeScrolling() {
@@ -1753,6 +1829,40 @@ class MobileSupport {
       element.style.webkitOverflowScrolling = 'touch';
       element.style.scrollBehavior = 'smooth';
     });
+  }
+  
+  manageWidgetVisibility() {
+    const widgets = document.querySelector('.desktop-widgets');
+    const desktopIcons = document.querySelector('.desktop-icons');
+    
+    if (!widgets) return;
+    
+    // On very small screens, prioritize content over widgets
+    if (window.innerHeight < 500 || (window.innerWidth < 400 && window.innerHeight < 600)) {
+      // Hide widgets when windows are open or screen is too small
+      const visibleWindows = document.querySelectorAll('.window:not(.hidden):not(.minimized)');
+      if (visibleWindows.length > 0) {
+        widgets.style.display = 'none';
+      } else {
+        widgets.style.display = 'flex';
+        // Show only essential widgets on very small screens
+        const allWidgets = widgets.querySelectorAll('.desktop-widget');
+        allWidgets.forEach((widget, index) => {
+          if (index > 1) { // Show only first 2 widgets
+            widget.style.display = 'none';
+          } else {
+            widget.style.display = 'block';
+          }
+        });
+      }
+    } else {
+      widgets.style.display = 'flex';
+      // Show all widgets on larger screens
+      const allWidgets = widgets.querySelectorAll('.desktop-widget');
+      allWidgets.forEach(widget => {
+        widget.style.display = 'block';
+      });
+    }
   }
 }
 
@@ -1765,6 +1875,15 @@ function addTouchFeedbackCSS() {
       transform: scale(0.95) !important;
       opacity: 0.8 !important;
       transition: all 0.1s ease !important;
+    }
+    
+    /* Prevent text selection on touch */
+    .file-item, .desktop-icon, .page-btn, .toolbar-btn, .menu-app, .app-icon {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
     
     .desktop-icon.touch-active {
@@ -1807,6 +1926,18 @@ function addTouchFeedbackCSS() {
         --mobile-safe-area-bottom: env(safe-area-inset-bottom, 0px);
         --mobile-safe-area-left: env(safe-area-inset-left, 0px);
         --mobile-safe-area-right: env(safe-area-inset-right, 0px);
+      }
+      
+      /* Better mobile scrolling */
+      .file-list, .start-menu-content, .desktop-widgets {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+      
+      /* Improve touch feedback timing */
+      .file-item:active, .desktop-icon:active, .page-btn:active, 
+      .toolbar-btn:active, .menu-app:active, .app-icon:active {
+        transition: all 0.1s ease !important;
       }
       
       /* Adjust for mobile safe areas */
@@ -1859,14 +1990,13 @@ function updatePaginationForMobile() {
 let mobileSupport;
 function initializeMobileSupport() {
   mobileSupport = new MobileSupport();
+  window.mobileSupport = mobileSupport; // Make globally accessible
   addTouchFeedbackCSS();
   
-  // Update file item touch events periodically
-  setInterval(() => {
-    if (mobileSupport) {
-      mobileSupport.addTouchToFileItems();
-    }
-  }, 1000);
+  // Initialize file item touch events once
+  if (mobileSupport) {
+    mobileSupport.addTouchToFileItems();
+  }
   
   // Update pagination for mobile when needed
   updatePaginationForMobile();
@@ -1902,6 +2032,8 @@ window.addEventListener('resize', () => {
   if (mobileSupport) {
     mobileSupport.updateViewportHeight();
     mobileSupport.optimizeForMobile();
+    mobileSupport.optimizeWidgetLayout();
+    mobileSupport.manageWidgetVisibility();
   }
 });
 
