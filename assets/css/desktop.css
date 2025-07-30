@@ -4055,296 +4055,63 @@ body:has(#text-editor) .desktop-widgets {
     width: 94% !important;
   }
 }
-
-  /* Window adjustments */
-  .window-titlebar {
-    height: 44px;
-    padding: 0 12px;
+/* Post View Mobile Fixes */
+@media (max-width: 768px) {
+  body.kate-view {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .window-title {
-    font-size: 14px;
+  body.kate-view #desktop {
+    height: auto;
+    overflow: visible;
   }
 
-  .window-controls button {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-
-  .window-toolbar {
-    height: 40px;
-    padding: 0 12px;
-  }
-
-  /* File manager very small screens */
-  .file-list-header {
-    padding: 10px 12px;
-    font-size: 12px;
-    min-height: 40px;
-  }
-
-  .column-header.categories-column {
-    display: none; /* Hide categories on very small screens */
-  }
-
-  .file-column.categories-column {
+  body.kate-view .desktop-icons,
+  body.kate-view .desktop-widgets,
+  body.kate-view #wallpaper {
     display: none;
   }
 
-  .column-header.name-column {
-    flex: 1;
-    min-width: 150px;
-  }
-
-  .file-column.name-column {
-    flex: 1;
-    min-width: 150px;
-  }
-
-  .file-item {
-    padding: 10px 12px;
-    min-height: 48px;
-  }
-
-  .file-name {
-    font-size: 13px;
-  }
-
-  /* Grid view very small screens */
-  .file-list.grid-view {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 12px;
-    padding: 12px;
-  }
-
-  .file-list.grid-view .file-item {
-    min-height: 120px;
-    padding: 12px;
-  }
-
-  /* Kate editor very small screens */
-  .editor-content {
-    padding: 16px 12px;
-  }
-
-  .post-title {
-    font-size: 20px;
-  }
-
-  .post-meta {
-    font-size: 12px;
-  }
-
-  .post-content {
-    font-size: 14px;
-  }
-
-  .post-content h1 { font-size: 19px; }
-  .post-content h2 { font-size: 17px; }
-  .post-content h3 { font-size: 15px; }
-
-  .post-content pre {
-    padding: 10px;
-    font-size: 12px;
-  }
-
-  .post-content code {
-    font-size: 12px;
-  }
-
-  /* Zoom controls very small screens */
-  .zoom-controls {
-    gap: 4px;
-    padding: 4px 8px;
-  }
-
-  .zoom-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-
-  .zoom-level {
-    font-size: 11px;
-    min-width: 40px;
-  }
-
-  /* Menus very small screens */
-  .start-menu {
-    left: 8px;
-    right: 8px;
-    bottom: calc(var(--taskbar-height) + 8px);
-    max-height: 75vh;
-  }
-
-  .start-menu-header {
-    padding: 16px;
-  }
-
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  .user-name {
-    font-size: 14px;
-  }
-
-  .search-box input {
-    padding: 10px 14px 10px 40px;
-    font-size: 14px;
-  }
-
-  .menu-app {
-    padding: 10px 12px;
-  }
-
-  .menu-app .app-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .app-name {
-    font-size: 14px;
-  }
-
-  .app-desc {
-    font-size: 11px;
-  }
-
-  .app-menu {
-    left: 8px;
-    right: 8px;
-    bottom: calc(var(--taskbar-height) + 8px);
-  }
-
-  .app-grid {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 12px;
-  }
-
-  .app-item {
-    padding: 12px 8px;
-  }
-
-  .app-item-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 8px;
-  }
-
-  .app-item span {
-    font-size: 11px;
-  }
-
-  /* Idle animations very small screens */
-  .walking-bot .bot-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .memory-stream {
-    width: 1px;
-    height: 30px;
-  }
-
-  .data-packet {
-    font-size: 9px;
-    padding: 1px 3px;
-  }
-
-  .code-snippet {
-    font-size: 8px;
-    padding: 1px 4px;
-  }
-}
-
-/* Touch-friendly improvements */
-@media (hover: none) and (pointer: coarse) {
-  /* Touch targets */
-  .desktop-icon {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .file-item {
-    min-height: 48px;
-  }
-
-  .menu-app {
-    min-height: 48px;
-  }
-
-  .app-item {
-    min-height: 48px;
-  }
-
-  .page-btn {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .window-controls button {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .toolbar-btn {
-    min-height: 44px;
-  }
-
-  .zoom-btn {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  /* Remove hover effects on touch devices */
-  .desktop-icon:hover {
-    transform: none;
+  body.kate-view #text-editor {
+    position: static;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    z-index: 1;
+    bottom: auto !important;
     box-shadow: none;
-    background: rgba(45, 106, 48, 0.15);
+    border: none;
+    display: flex;
+    flex-direction: column;
   }
 
-  .file-item:hover {
-    transform: none;
+  body.kate-view .window-content {
+    height: auto;
+    overflow: visible;
+    flex-grow: 1;
   }
 
-  .menu-app:hover {
-    transform: none;
+  body.kate-view .editor-content {
+    overflow-y: visible;
+    padding: 16px;
+    height: auto;
   }
 
-  .app-item:hover {
-    transform: none;
+  body.kate-view #taskbar {
+    display: none !important;
   }
 
-  /* Touch feedback */
-  .desktop-icon:active {
-    transform: scale(0.95);
-    background: rgba(45, 106, 48, 0.25);
+  body.kate-view .window-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--plasma-surface);
   }
-
-  .file-item:active {
-    background: rgba(45, 106, 48, 0.2);
-  }
-
-  .menu-app:active {
-    background: rgba(45, 106, 48, 0.2);
-  }
-
-  .app-item:active {
-    background: rgba(45, 106, 48, 0.2);
-  }
-
-  .page-btn:active {
-    transform: scale(0.95);
-  }
-
-  .window-controls button:active {
-    transform: scale(0.9);
-  }
-
-  .zoom-btn:active {
-    transform: scale(0.9);
+  
+  .post-content a {
+    -webkit-tap-highlight-color: rgba(45, 106, 48, 0.3);
+    z-index: 2;
+    position: relative;
   }
 }
