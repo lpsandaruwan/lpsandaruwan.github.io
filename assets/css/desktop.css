@@ -800,6 +800,10 @@ body, html {
   pointer-events: auto;
 }
 
+.start-menu.hidden {
+  display: none;
+}
+
 .start-menu-header {
   padding: 16px;
   border-bottom: 1px solid var(--plasma-border);
