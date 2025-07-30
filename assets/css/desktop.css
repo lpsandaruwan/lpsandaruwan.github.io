@@ -1411,7 +1411,6 @@ body, html {
   display: flex;
   flex-direction: column;
   height: calc(100% - 76px);
-  overflow: hidden;
 }
 
 /* File Manager Container */
@@ -2732,6 +2731,9 @@ body, html {
 
 /* Large Mobile Devices (up to 768px) */
 @media (max-width: 768px) {
+  .desktop-icons {
+    display: none;
+  }
   /* Base mobile styles */
   body, html {
     overflow-x: hidden;
@@ -4080,9 +4082,11 @@ body:has(#text-editor) .desktop-widgets {
   }
 
   body.kate-view .desktop-icons,
-  body.kate-view .desktop-widgets,
   body.kate-view #wallpaper {
     display: none;
+  }
+  body.kate-view .desktop-widgets {
+    display: none !important;
   }
 
   body.kate-view #text-editor {
