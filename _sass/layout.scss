@@ -9,12 +9,14 @@
 
 .site-header {
     padding: $spacing-6 0;
-    border-bottom: 1px solid rgba($border-color, 0.3);
-    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba($primary, 0.1);
+    backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: rgba($bg-body, 0.8);
+    background-color: rgba($bg-body, 0.85);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 
     .container {
         display: flex;
@@ -26,27 +28,48 @@
         font-family: $font-family-heading;
         font-weight: 700;
         font-size: $font-size-xl;
-        color: $text-main;
+        background: linear-gradient(135deg, $text-main, $primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         text-decoration: none;
+        transition: all 0.3s ease;
 
         &:hover {
-            color: $primary;
+            filter: brightness(1.2);
         }
     }
 }
 
 .site-nav {
     display: flex;
-    gap: $spacing-6;
+    gap: $spacing-8;
     align-items: center;
 
     .page-link {
         color: $text-muted;
-        font-weight: 500;
+        font-weight: 600;
         font-size: $font-size-base;
+        position: relative;
+        transition: color 0.3s ease;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, $primary, $secondary);
+            transition: width 0.3s ease;
+        }
 
         &:hover {
-            color: $text-main;
+            color: $primary;
+
+            &::after {
+                width: 100%;
+            }
         }
     }
 }
