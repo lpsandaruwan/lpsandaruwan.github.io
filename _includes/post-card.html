@@ -1,0 +1,15 @@
+<div class="post-card">
+    <div class="post-meta">
+        {{ include.post.date | date: "%B %-d, %Y" }}
+        {% if include.post.categories.size > 0 %}
+        • {{ include.post.categories | first }}
+        {% endif %}
+    </div>
+    <h3 class="post-title">
+        <a href="{{ include.post.url | relative_url }}">{{ include.post.title | escape }}</a>
+    </h3>
+    <div class="post-excerpt">
+        {{ include.post.excerpt }}
+    </div>
+    <a href="{{ include.post.url | relative_url }}" class="btn">Read Article</a>
+</div>

@@ -1,0 +1,78 @@
+@import "variables";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $bg-body;
+    color: $text-main;
+    font-family: $font-family-base;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: $text-accent;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: $primary;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-family-heading;
+    color: $text-main;
+    margin-top: $spacing-8;
+    margin-bottom: $spacing-4;
+    font-weight: 700;
+    line-height: 1.2;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+p {
+    margin-bottom: $spacing-4;
+    color: $text-muted;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: $radius;
+}
+
+code {
+    font-family: $font-family-mono;
+    background-color: rgba($bg-card, 0.8);
+    padding: 0.2em 0.4em;
+    border-radius: $radius-sm;
+    font-size: 0.9em;
+    color: $primary;
+}
+
+pre {
+    background-color: $bg-card;
+    padding: $spacing-4;
+    border-radius: $radius;
+    overflow-x: auto;
+
+    code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+    }
+}

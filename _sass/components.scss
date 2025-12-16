@@ -1,0 +1,392 @@
+@import "variables";
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2 $spacing-4;
+    background-color: $bg-card;
+    color: $text-main;
+    border-radius: $radius;
+    border: 1px solid $border-color;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: $bg-card-hover;
+        color: $text-main;
+        text-decoration: none;
+    }
+
+    &.btn-primary {
+        background-color: $primary;
+        border-color: $primary;
+
+        &:hover {
+            background-color: $primary-hover;
+        }
+    }
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-8;
+    margin-top: $spacing-8;
+}
+
+.post-card {
+    background-color: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        border-color: $text-accent;
+
+        .post-title {
+            color: $primary;
+        }
+    }
+
+    .post-meta {
+        font-size: 0.875rem;
+        color: $text-muted;
+        margin-bottom: $spacing-2;
+    }
+
+    .post-title {
+        font-size: $font-size-xl;
+        margin-bottom: $spacing-4;
+        transition: color 0.2s ease;
+    }
+
+    .post-excerpt {
+        flex-grow: 1;
+        font-size: 1rem;
+        color: $text-muted;
+        margin-bottom: $spacing-6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+.section-title {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-8;
+    border-bottom: 2px solid $bg-card;
+    padding-bottom: $spacing-2;
+    display: inline-block;
+}
+
+/* Home Page specific components */
+.hero {
+    text-align: center;
+    padding: $spacing-12 0;
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto $spacing-6;
+        border: 4px solid $bg-card;
+        box-shadow: 0 0 0 2px $primary;
+        object-fit: cover;
+    }
+
+    .hero-name {
+        font-size: $font-size-4xl;
+        margin-bottom: $spacing-2;
+        background: linear-gradient(to right, $text-main, $text-accent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title {
+        font-size: $font-size-xl;
+        color: $text-muted;
+        margin-bottom: $spacing-6;
+    }
+
+    .hero-bio {
+        max-width: 600px;
+        margin: 0 auto $spacing-8;
+        font-size: $font-size-lg;
+    }
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-12;
+
+    .skill-tag {
+        background-color: $bg-card;
+        padding: $spacing-2 $spacing-4;
+        border-radius: 9999px; // Pill shape
+        border: 1px solid $border-color;
+        font-size: 0.9rem;
+        color: $text-muted;
+
+        &:hover {
+            border-color: $primary;
+            color: $text-main;
+        }
+    }
+}
+/* Post Article Page */
+.post-article {
+    .post-container {
+        max-width: 48rem;
+    }
+
+    .post-header {
+        text-align: center;
+        margin-bottom: $spacing-12;
+        padding-bottom: $spacing-8;
+        border-bottom: 1px solid $border-color;
+    }
+
+    .post-title {
+        font-size: $font-size-4xl;
+        margin-bottom: $spacing-4;
+        background: linear-gradient(to right, $text-main, $primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+    }
+
+    .post-meta {
+        color: $text-muted;
+        font-size: 0.95rem;
+        
+        .post-categories {
+            margin-top: $spacing-4;
+            display: flex;
+            gap: $spacing-2;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            background-color: $bg-card;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid $border-color;
+            font-size: 0.875rem;
+            color: $primary;
+        }
+    }
+
+    .post-content {
+        font-size: $font-size-lg;
+        line-height: 1.8;
+        color: $text-muted;
+
+        h1, h2, h3, h4, h5, h6 {
+            color: $text-main;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: $font-size-3xl;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid $bg-card;
+        }
+
+        h3 {
+            font-size: $font-size-2xl;
+        }
+
+        a {
+            color: $primary;
+            text-decoration: underline;
+
+            &:hover {
+                color: $primary-hover;
+            }
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            color: $text-muted;
+
+            li {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        blockquote {
+            border-left: 4px solid $primary;
+            padding-left: $spacing-6;
+            margin: 2rem 0;
+            font-style: italic;
+            color: $text-muted;
+        }
+
+        pre {
+            margin: 2rem 0;
+            position: relative;
+
+            code {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+        }
+
+        img {
+            margin: 2rem auto;
+            border: 1px solid $border-color;
+        }
+
+        table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+
+            th, td {
+                padding: 0.75rem;
+                border: 1px solid $border-color;
+                text-align: left;
+            }
+
+            th {
+                background-color: $bg-card;
+                color: $text-main;
+                font-weight: 600;
+            }
+
+            tr:hover {
+                background-color: rgba($bg-card, 0.5);
+            }
+        }
+    }
+
+    .post-comments {
+        margin-top: $spacing-16;
+        padding-top: $spacing-8;
+        border-top: 1px solid $border-color;
+
+        h3 {
+            margin-bottom: $spacing-8;
+            font-size: $font-size-2xl;
+        }
+    }
+
+    .post-navigation {
+        margin-top: $spacing-16;
+        padding-top: $spacing-8;
+        border-top: 1px solid $border-color;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: $spacing-4;
+
+        a {
+            display: flex;
+            flex-direction: column;
+            padding: $spacing-6;
+            background-color: $bg-card;
+            border: 1px solid $border-color;
+            border-radius: $radius-lg;
+            transition: all 0.2s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                border-color: $primary;
+                text-decoration: none;
+            }
+
+            &.nav-prev {
+                text-align: left;
+            }
+
+            &.nav-next {
+                text-align: right;
+            }
+        }
+
+        .nav-label {
+            color: $primary;
+            font-size: 0.875rem;
+            margin-bottom: $spacing-2;
+        }
+
+        .nav-title {
+            color: $text-main;
+            font-weight: 600;
+        }
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .site-header {
+        .site-nav {
+            gap: $spacing-4;
+            font-size: 0.9rem;
+        }
+    }
+
+    .hero {
+        padding: $spacing-8 0;
+
+        .hero-name {
+            font-size: $font-size-3xl;
+        }
+
+        .hero-title {
+            font-size: $font-size-lg;
+        }
+    }
+
+    .post-grid {
+        grid-template-columns: 1fr;
+        gap: $spacing-6;
+    }
+
+    .post-article {
+        .post-title {
+            font-size: $font-size-3xl;
+        }
+
+        .post-content {
+            font-size: $font-size-base;
+
+            h2 {
+                font-size: $font-size-2xl;
+            }
+
+            h3 {
+                font-size: $font-size-xl;
+            }
+        }
+    }
+
+    .social-links {
+        gap: $spacing-2;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

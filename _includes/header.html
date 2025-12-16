@@ -1,0 +1,10 @@
+<header class="site-header">
+    <div class="container">
+        <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | default: "Lahiru's dev journal" }}</a>
+        <nav class="site-nav">
+            <a href="{{ "/" | relative_url }}" class="page-link">Home</a>
+            <a href="{{ "/posts" | relative_url }}" class="page-link">Posts</a>
+            <a href="https://github.com/{{ site.social.github | default: "lpsandaruwan" }}" class="page-link" target="_blank">GitHub</a>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,15 @@
+---
+layout: default
+title: All Posts
+permalink: /posts/
+---
+
+<div class="container">
+    <h1 class="section-title" style="font-size: 3rem; margin-bottom: 3rem; display: block;">All Posts</h1>
+
+    <div class="post-grid">
+        {% for post in site.posts %}
+        {% include post-card.html post=post %}
+        {% endfor %}
+    </div>
+</div>

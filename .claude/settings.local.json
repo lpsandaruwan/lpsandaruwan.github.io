@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle install:*)",
+      "Bash(C:/Ruby33-x64/bin/bundle install)",
+      "Bash(C:/Ruby33-x64/bin/bundle exec jekyll:*)",
+      "WebFetch(domain:aicgen.github.io)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

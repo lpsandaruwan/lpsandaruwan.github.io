@@ -1,5 +1,5 @@
 title: "Lahiru's dev journal"
-description: "Hey, I'm Lahiru Pathirage. I've been professionally building software since 2016, working on everything from simple tools to complex enterprise systems. One thing that's always held true for me is that good design leads to great software. I'm deeply focused on AI agents and serverless architecture; building systems that are intelligent, scalable, and require minimal human intervention. I'm a computer science graduate who feels at home in a terminal, loves Linux, and believes open source makes everything better."
+description: "I build software that thinks and scales. Been doing this since 2016, mostly AI agents and serverless stuff. Love Linux, live in the terminal, and think open source makes everything better."
 baseurl: ""
 url: "https://lpsandaruwan.github.io"
 
@@ -48,7 +48,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "article"
       author: "lpsandaruwan"
 
 exclude:
