@@ -1,10 +1,10 @@
-<header class="site-header">
-    <div class="container">
-        <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | default: "Lahiru's dev journal" }}</a>
-        <nav class="site-nav">
-            <a href="{{ "/" | relative_url }}" class="page-link">Home</a>
-            <a href="{{ "/posts" | relative_url }}" class="page-link">Posts</a>
-            <a href="https://github.com/{{ site.social.github | default: "lpsandaruwan" }}" class="page-link" target="_blank">GitHub</a>
+<header class="site-header" data-site-header>
+    <div class="container nav-layout">
+        <a class="nav-name" href="{{ '/' | relative_url }}">{{ site.title | default: "Lahiru Pathirage" }}</a>
+        <nav class="nav-links" aria-label="Primary">
+            <a href="{{ '/writing/' | relative_url }}" data-nav-match="/writing/">Writing</a>
+            <a href="{{ '/about/' | relative_url }}" data-nav-match="/about/">About</a>
+            <a href="{{ '/#contact' | relative_url }}" data-nav-match="/" data-nav-anchor="contact">Contact</a>
         </nav>
     </div>
 </header>

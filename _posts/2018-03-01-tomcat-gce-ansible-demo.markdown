@@ -7,6 +7,8 @@ img: posts/gce-tomcat-ansible/web.png
 summary: Orchestrating Apache tomcat Tomcat deployments in Google Cloud Platform using Ansible.
 tags: [tomcat, gce, ansible, configuration-management]
 title: "Application Deployment in Apache Tomcat on GCE Using Ansible"
+redirect_from:
+  - /posts/tomcat-gce-ansible-demo/
 ---
 
 Think about a person who needs a cloud instance temporarily to deploy a web application to do tests frequently and throughout the time he deploys the application,

@@ -1,100 +1,157 @@
+// Editorial base layer. No layout, no components — just type, color, and the
+// reset/normalize bits that should apply everywhere.
+
 @import "variables";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: $bg-body;
-    background-image:
-        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
-    color: $text-main;
-    font-family: $font-family-base;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    position: relative;
-
-    &::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image:
-            repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6, 182, 212, 0.03) 2px, rgba(6, 182, 212, 0.03) 4px);
-        pointer-events: none;
-        z-index: -1;
-    }
+  margin: 0;
+  padding: 0;
+  background: $canvas;
+  color: $ink;
+  font-family: $font-sans;
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-a {
-    color: $text-accent;
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover {
-        color: $primary;
-    }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: $font-family-heading;
-    color: $text-main;
-    margin-top: $spacing-8;
-    margin-bottom: $spacing-4;
-    font-weight: 700;
-    line-height: 1.2;
-
-    &:first-child {
-        margin-top: 0;
-    }
+// --- Type ------------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  color: $ink;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
 }
 
 p {
-    margin-bottom: $spacing-4;
-    color: $text-muted;
+  margin: 0 0 1.5rem;
+  color: $ink;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    border-radius: $radius;
+// --- Links -----------------------------------------------------------------
+// Color is inherited; per-context decoration applied in components.
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-code {
-    font-family: $font-family-mono;
-    background-color: rgba($bg-card, 0.8);
-    padding: 0.2em 0.4em;
-    border-radius: $radius-sm;
-    font-size: 0.9em;
-    color: $primary;
+// --- Monospace -------------------------------------------------------------
+code, kbd, samp, pre {
+  font-family: $font-mono;
+  font-size: 0.92em;
 }
 
-pre {
-    background-color: $bg-card;
-    padding: $spacing-4;
-    border-radius: $radius;
-    overflow-x: auto;
-
-    code {
-        background-color: transparent;
-        padding: 0;
-        color: inherit;
-    }
+// --- Media -----------------------------------------------------------------
+img, picture, video, svg {
+  max-width: 100%;
+  display: block;
 }
+
+// --- Form / interactive ----------------------------------------------------
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea, select, button {
+  font: inherit;
+  color: inherit;
+}
+
+// --- Focus -----------------------------------------------------------------
+// Single visible focus ring on any keyboard-focused element.
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $accent;
+  outline-offset: 2px;
+}
+
+// --- Selection -------------------------------------------------------------
+::selection {
+  background: rgba($accent, 0.18);
+  color: $ink;
+}
+
+// --- Reduced motion --------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// --- Utility text classes used across the site ----------------------------
+.font-mono {
+  font-family: $font-mono;
+}
+
+.text-muted {
+  color: $ink-muted;
+}
+
+.kicker {
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: $ink-muted;
+  display: inline-block;
+}
+
+// Tabular numerals on any element marked .nums (year markers, dates, stats).
+.nums {
+  font-variant-numeric: tabular-nums;
+}
+
+// --- Skip-to-content link -------------------------------------------------
+// Visually hidden until the keyboard focuses it; then snaps into the top-left.
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -100px;
+  z-index: 1000;
+  background: $accent;
+  color: $canvas;
+  padding: 10px 14px;
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: top 200ms ease-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 8px;
+  outline: 2px solid $ink;
+  outline-offset: 2px;
+}
+
+// Make the main landmark focusable but never show its default outline,
+// since the skip-link target itself doesn't need a visible ring.
+main:focus { outline: none; }

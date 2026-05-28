@@ -2,63 +2,98 @@
 layout: default
 ---
 
-<article class="post-article">
-    <div class="container post-container">
-        <header class="post-header">
-            <h1 class="post-title">{{ page.title | escape }}</h1>
-            <div class="post-meta">
-                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-                {% if page.author %} • <span>{{ page.author }}</span>{% endif %}
-                • {{ content | number_of_words }} words
-                • {{ content | number_of_words | divided_by: 200 | at_least: 1 }} min read
-                {% if page.categories.size > 0 %}
-                <div class="post-categories">
-                    {% for category in page.categories %}
-                    <span class="category-tag">{{ category }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-        </header>
+{%- comment -%}
+Compute the eyebrow kicker — first category that isn't the generic "Posts"
+label. Falls back to NOTES. Same logic the home + writing index use.
+{%- endcomment -%}
+{%- assign kicker = 'NOTES' -%}
+{%- for c in page.categories -%}
+    {%- assign trimmed = c | strip -%}
+    {%- unless trimmed == 'Posts' or trimmed == 'posts' -%}
+        {%- assign kicker = trimmed | upcase -%}
+        {%- break -%}
+    {%- endunless -%}
+{%- endfor -%}
 
-        <div class="post-content">
-            {{ content }}
-        </div>
+<article class="post-article container">
+    <header class="post-header">
+        <span class="kicker">{{ kicker }}</span>
+        <h1 class="post-headline">{{ page.title | escape }}</h1>
+        {%- assign dek_value = page.dek | default: page.subtitle -%}
+        {%- if dek_value and dek_value != "" %}
+        <p class="post-dek">{{ dek_value }}</p>
+        {%- endif %}
+        <p class="post-meta font-mono">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+            <span aria-hidden="true">·</span>
+            <span>{{ page.author | default: site.author.name }}</span>
+            <span aria-hidden="true">·</span>
+            <span>{% include reading-time.html post=page %}</span>
+        </p>
+    </header>
 
-        {% if site.comments.active == 'disqus' and site.comments.disqus.shortname %}
-        <div class="post-comments">
-            <h3>Comments</h3>
-            <div id="disqus_thread"></div>
-            <script>
-                var disqus_config = function () {
-                    this.page.url = "{{ site.url }}{{ page.url }}";
-                    this.page.identifier = "{{ page.url }}";
-                    this.page.title = "{{ page.title | escape }}";
-                };
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://{{ site.comments.disqus.shortname }}.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </div>
-        {% endif %}
-
-        <nav class="post-navigation">
-            {% if page.previous.url %}
-                <a href="{{ page.previous.url }}" class="nav-prev">
-                    <span class="nav-label">← Previous</span>
-                    <span class="nav-title">{{ page.previous.title }}</span>
-                </a>
-            {% endif %}
-            {% if page.next.url %}
-                <a href="{{ page.next.url }}" class="nav-next">
-                    <span class="nav-label">Next →</span>
-                    <span class="nav-title">{{ page.next.title }}</span>
-                </a>
-            {% endif %}
-        </nav>
+    <div class="post-prose">
+        {{ content }}
     </div>
+
+    {%- comment -%}
+    Filed under — list only meaningful categories (skip the "Posts" prefix).
+    {%- endcomment -%}
+    {%- assign filed_cats = "" | split: "" -%}
+    {%- for c in page.categories -%}
+        {%- assign trimmed = c | strip -%}
+        {%- unless trimmed == 'Posts' or trimmed == 'posts' -%}
+            {%- assign filed_cats = filed_cats | push: trimmed -%}
+        {%- endunless -%}
+    {%- endfor -%}
+    {%- if filed_cats.size > 0 %}
+    <footer class="post-filed">
+        <span class="kicker">Filed under</span>
+        <ul class="filed-tags">
+            {%- for c in filed_cats %}
+            <li><span class="filed-tag">{{ c }}</span></li>
+            {%- endfor %}
+        </ul>
+    </footer>
+    {%- endif %}
+
+    {%- if page.previous.url or page.next.url %}
+    <nav class="post-navigation" aria-label="More posts">
+        {%- if page.previous.url %}
+        <a href="{{ page.previous.url | relative_url }}" class="nav-block nav-prev">
+            <span class="nav-label kicker">Previous</span>
+            <span class="nav-title">{{ page.previous.title | escape }}</span>
+        </a>
+        {%- else %}
+        <span></span>
+        {%- endif %}
+        {%- if page.next.url %}
+        <a href="{{ page.next.url | relative_url }}" class="nav-block nav-next">
+            <span class="nav-label kicker">Next</span>
+            <span class="nav-title">{{ page.next.title | escape }}</span>
+        </a>
+        {%- endif %}
+    </nav>
+    {%- endif %}
+
+    {%- if site.comments.active == 'disqus' and site.comments.disqus.shortname %}
+    <section class="post-comments" aria-label="Comments">
+        <span class="kicker">Discussion</span>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = "{{ page.url | absolute_url }}";
+                this.page.identifier = "{{ page.url }}";
+                this.page.title = "{{ page.title | escape }}";
+            };
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://{{ site.comments.disqus.shortname }}.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+    {%- endif %}
 </article>

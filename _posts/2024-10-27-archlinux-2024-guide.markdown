@@ -5,6 +5,8 @@ date: 2024-10-27
 img: /assets/images/content/posts/arch/arch.png
 tags: [posts, linux, os, development]
 title: "Arch Linux for Developers: A Step-by-Step Guide to Building Your Ultimate Dev Environment"
+redirect_from:
+  - /posts/archlinux-2024-guide/
 ---
 
 ![arch logo](/assets/images/content/posts/arch/arch.png)

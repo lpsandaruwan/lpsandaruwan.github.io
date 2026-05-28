@@ -1,0 +1,10 @@
+{%- comment -%}
+Selected writing — renders the N most recent posts as an editorial list.
+Usage: {% include selected-writing.html limit=4 %}
+{%- endcomment -%}
+{%- assign limit = include.limit | default: 4 -%}
+<ul class="editorial-list">
+{%- for post in site.posts limit: limit -%}
+    {% include post-card.html post=post %}
+{%- endfor -%}
+</ul>

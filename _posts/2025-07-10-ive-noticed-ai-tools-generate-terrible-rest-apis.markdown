@@ -5,6 +5,8 @@ date: 2025-07-10
 img: /assets/images/content/posts/rest/mrCroca.png
 tags: [posts, api, restful, software, ai]
 title: "I've Noticed AI Tools Generate Terrible REST APIs - Here's How to Fix It"
+redirect_from:
+  - /posts/ive-noticed-ai-tools-generate-terrible-rest-apis/
 ---
 
 Here's something that bugs me: AI tools like ChatGPT, Claude, Gemini, or whatever AI you're using are great at cranking out code fast,

@@ -1,15 +1,32 @@
-<div class="post-card">
-    <div class="post-meta">
-        {{ include.post.date | date: "%B %-d, %Y" }}
-        {% if include.post.categories.size > 0 %}
-        • {{ include.post.categories | first }}
-        {% endif %}
+{%- comment -%}
+Editorial post row — used in home Selected Writing and on /writing/.
+Renders as an <li> so it can sit inside <ul class="editorial-list">.
+{%- endcomment -%}
+{%- assign post = include.post -%}
+{%- comment -%}
+Pick the kicker: first category that isn't the generic "Posts" label
+(existing posts use "Posts" as a list-prefix). Fall back to NOTES.
+{%- endcomment -%}
+{%- assign kicker = 'NOTES' -%}
+{%- for c in post.categories -%}
+    {%- assign trimmed = c | strip -%}
+    {%- unless trimmed == 'Posts' or trimmed == 'posts' -%}
+        {%- assign kicker = trimmed | upcase -%}
+        {%- break -%}
+    {%- endunless -%}
+{%- endfor -%}
+{%- assign dek = post.subtitle | default: post.excerpt | strip_html | normalize_whitespace | truncate: 130 -%}
+<li class="editorial-item">
+    <span class="kicker editorial-kicker">{{ kicker }}</span>
+    <div class="editorial-body">
+        <a href="{{ post.url | relative_url }}" class="editorial-item-title">{{ post.title | escape }}</a>
+        {%- if dek and dek != "" %}
+        <p class="editorial-item-dek">{{ dek }}</p>
+        {%- endif %}
     </div>
-    <h3 class="post-title">
-        <a href="{{ include.post.url | relative_url }}">{{ include.post.title | escape }}</a>
-    </h3>
-    <div class="post-excerpt">
-        {{ include.post.excerpt }}
+    <div class="editorial-meta font-mono">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+        <span aria-hidden="true"> · </span>
+        <span>{% include reading-time.html post=post %}</span>
     </div>
-    <a href="{{ include.post.url | relative_url }}" class="btn">Read Article</a>
-</div>
+</li>

@@ -1,16 +1,28 @@
----
-layout: compress
----
-
-{% assign favicon_path = "/assets/img/favicons" | relative_url %}
-
 {
-  "name": "{{ site.title }}",
-  "short_name": "{{ site.title }}",
-  "description": "{{ site.description }}",
-  "icons": [],
-  "start_url": "{{ '/index.html' | relative_url }}",
-  "theme_color": "#2a1e6b",
-  "background_color": "#ffffff",
-  "display": "fullscreen"
+  "name": "Lahiru Pathirage",
+  "short_name": "Lahiru",
+  "description": "Building systems that think and scale — AI agents, serverless architecture.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F6F4EF",
+  "theme_color": "#F6F4EF",
+  "icons": [
+    {
+      "src": "/assets/images/favicons/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/favicons/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32 48x48"
+    },
+    {
+      "src": "/assets/images/favicons/mstile-150x150.png",
+      "type": "image/png",
+      "sizes": "150x150"
+    }
+  ]
 }

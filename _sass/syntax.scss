@@ -1,0 +1,59 @@
+// Rouge syntax theme — editorial palette.
+// Matches the .post-prose pre background so code blocks feel like one surface.
+
+@import "variables";
+
+$code-bg:      #EFECE3;
+$code-string:  #6B4226; // desaturated brown
+$code-err:     #B91C1C;
+$code-diff-add: rgba(16, 122, 92, 0.65);
+$code-diff-del: rgba(176, 56, 56, 0.65);
+
+.highlight,
+.highlighter-rouge .highlight {
+  background: $code-bg;
+  color: $ink;
+}
+
+// Comments
+.highlight {
+  .c, .ch, .cd, .cm, .cp, .cpf, .c1, .cs { color: $ink-muted; font-style: italic; }
+
+  // Errors
+  .err { color: $code-err; background: transparent; }
+
+  // Keywords
+  .k, .kc, .kd, .kn, .kp, .kr, .kt, .kv { color: $accent; font-weight: 500; }
+
+  // Names
+  .n, .na, .nb, .bp { color: $ink; }
+  .nc, .nd, .ne, .ni, .nl, .nn, .no, .nv, .vc, .vg, .vi { color: $ink; }
+  .nt { color: $accent; }       // HTML tags
+  .nf, .py { color: $ink; font-weight: 600; } // function names
+  .nx { color: $ink; }          // JS names
+
+  // Strings
+  .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: $code-string; }
+
+  // Numbers
+  .m, .mb, .mf, .mh, .mi, .il, .mo, .mx { color: $ink; }
+
+  // Operators / punctuation
+  .o, .ow { color: $ink-muted; }
+  .p { color: $ink-muted; }
+
+  // Whitespace
+  .w { color: transparent; }
+
+  // Generic — diff markers
+  .gd { color: $ink; background: $code-diff-del; }
+  .gi { color: $ink; background: $code-diff-add; }
+  .gh, .gu { color: $ink-muted; font-weight: 600; }
+  .gp { color: $ink-muted; }
+  .ge { font-style: italic; }
+  .gs { font-weight: 600; }
+  .gr { color: $code-err; }
+
+  // Line numbers (when enabled)
+  .lineno, .gutter, .lnt { color: $ink-muted; padding-right: 12px; }
+}

@@ -6,6 +6,8 @@ img: posts/github-sonarqube/sonarqube_page.png
 summary: SonarQube analysis on a GitHub project with the help of TravisCI.
 tags: [code-quality, github, travis-ci, sonarqube]
 title: "Continuous Code Quality On My OpenSource Project"
+redirect_from:
+  - /posts/github-sonarqube/
 ---
 
 Good quality in code plays an essential role when it comes to software,

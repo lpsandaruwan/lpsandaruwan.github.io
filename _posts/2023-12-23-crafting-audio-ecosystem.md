@@ -5,6 +5,8 @@ date: 2023-12-23
 img: /assets/images/content/posts/gcp-saga/flowchart.png
 tags: [audio, music, hobby, electronics]
 title: "GrooveCraft: Building Your Own Amplifier for Next-Level Music Vibes"
+redirect_from:
+  - /posts/crafting-audio-ecosystem/
 ---
 
 > People have different preferences when it comes to how they like to listen to music, and the sound experience can be different for each person. Here, I've put together my findings on creating an affordable do-it-yourself sound system that suits my taste.

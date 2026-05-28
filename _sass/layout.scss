@@ -1,118 +1,192 @@
+// Layout shell — header, footer, container, grid.
+// Editorial-redesign Phase 2.
+
 @import "variables";
 
+// --- Container -------------------------------------------------------------
 .container {
-    max-width: $container-width;
-    margin: 0 auto;
-    padding: 0 $spacing-6;
-    width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $gutter;
+  width: 100%;
 }
 
-.site-header {
-    padding: $spacing-6 0;
-    border-bottom: 1px solid rgba($primary, 0.1);
-    backdrop-filter: blur(20px);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: rgba($bg-body, 0.85);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-
-    .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .site-title {
-        font-family: $font-family-heading;
-        font-weight: 700;
-        font-size: $font-size-xl;
-        background: linear-gradient(135deg, $text-main, $primary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-decoration: none;
-        transition: all 0.3s ease;
-
-        &:hover {
-            filter: brightness(1.2);
-        }
-    }
-}
-
-.site-nav {
-    display: flex;
-    gap: $spacing-8;
-    align-items: center;
-
-    .page-link {
-        color: $text-muted;
-        font-weight: 600;
-        font-size: $font-size-base;
-        position: relative;
-        transition: color 0.3s ease;
-
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, $primary, $secondary);
-            transition: width 0.3s ease;
-        }
-
-        &:hover {
-            color: $primary;
-
-            &::after {
-                width: 100%;
-            }
-        }
-    }
-}
-
+main,
 .site-main {
-    min-height: 80vh;
-    padding: $spacing-12 0;
+  display: block;
+  min-height: 60vh;
 }
 
+// --- Header ----------------------------------------------------------------
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: $canvas;
+  padding-block: 20px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease-out;
+}
+
+.site-header.scrolled {
+  border-bottom-color: $hairline;
+}
+
+.nav-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: $space-6;
+}
+
+.nav-name {
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ink;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: $font-sans;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  color: $ink;
+  text-decoration: none;
+  position: relative;
+  padding-block: 4px;
+  transition: color 200ms ease-out;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: $accent;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 200ms ease-out;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: $accent;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.nav-links a[aria-current="page"] {
+  color: $accent;
+}
+
+// --- Footer ----------------------------------------------------------------
 .site-footer {
-    margin-top: auto;
-    padding: $spacing-12 0;
-    border-top: 1px solid rgba($border-color, 0.3);
-    background-color: $bg-body;
+  margin-top: $space-32;
+  padding-block: $space-16;
+  border-top: 1px solid $hairline;
+  font-size: 14px;
+  color: $ink-muted;
+}
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: $spacing-4;
-    }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-8;
+  align-items: start;
+}
 
-    p {
-        margin: 0;
-        font-size: 0.9rem;
-    }
+.footer-col {
+  p {
+    margin: 0 0 $space-2;
+  }
+}
 
-    .social-links {
-        display: flex;
-        gap: $spacing-4;
+.footer-col-end {
+  text-align: right;
+}
 
-        a {
-            color: $text-muted;
+.footer-kicker {
+  color: $ink;
+  margin-bottom: $space-3 !important;
+}
 
-            &:hover {
-                color: $primary;
-            }
+.footer-tagline {
+  font-family: $font-display;
+  font-size: 16px;
+  line-height: 1.4;
+  color: $ink;
+}
 
-            svg {
-                width: 24px;
-                height: 24px;
-                fill: currentColor;
-            }
-        }
-    }
+.footer-studio {
+  margin-top: $space-3 !important;
+  font-size: 13px;
+  color: $ink-muted;
+}
+
+.footer-link {
+  color: $ink-muted;
+  text-decoration: none;
+  background-image: linear-gradient($accent, $accent);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 200ms ease-out, color 200ms ease-out;
+  padding-bottom: 2px;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: $accent;
+  background-size: 100% 1px;
+}
+
+.footer-attribution,
+.footer-copy {
+  font-size: 13px;
+}
+
+// --- Responsive ------------------------------------------------------------
+@media (max-width: 720px) {
+  .nav-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-3;
+  }
+
+  .nav-links {
+    gap: 18px;
+    font-size: 13px;
+  }
+
+  .site-header {
+    padding-block: 14px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: $space-6;
+  }
+
+  .footer-col-end {
+    text-align: left;
+  }
 }

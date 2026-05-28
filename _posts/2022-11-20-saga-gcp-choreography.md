@@ -5,6 +5,8 @@ date: 2022-11-20
 img: /assets/images/content/posts/gcp-saga/flowchart.png
 tags: [gcp, serverless, saga, choreography, gostep]
 title:  "Saga Pattern with serverless model on Google Cloud Platform - Part 1"
+redirect_from:
+  - /posts/saga-gcp-choreography/
 ---
 
 > Gostep: 👉 [Guide](https://github.com/gostep-cli/gostep/wiki)  

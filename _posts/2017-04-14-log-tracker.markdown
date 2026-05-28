@@ -3,10 +3,11 @@ author: lpsandaruwan
 category: [Projects, DevOps]
 date:   2017-04-14
 img: log_tracker.png
-layout: post
 summary: Track log files using SSH, the way you want.
 tags: [python, log files, paramiko, wrapper application]
 title:  "Continuous listening to remote text files using python"
+redirect_from:
+  - /posts/log-tracker/
 ---
 
 Log Tracker is a simple wrapper around Python **paramiko** to track text files using SSH.

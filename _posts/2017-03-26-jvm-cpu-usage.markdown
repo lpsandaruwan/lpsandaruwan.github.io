@@ -7,6 +7,8 @@ img: java-logo.jpg
 summary: Calculate JVM CPU usage using Java management extension beans.
 tags: [ava, jvm cpu utilization, mxbeans, devops]
 title:  "JVM CPU usage using Java MXBeans"
+redirect_from:
+  - /posts/jvm-cpu-usage/
 ---
 
 This is a solution to a problem, occurred to me while developing [Depli](https://github.com/lpsandaruwan/depli) a JVM monitoring dashboard which uses JMX remote connections.

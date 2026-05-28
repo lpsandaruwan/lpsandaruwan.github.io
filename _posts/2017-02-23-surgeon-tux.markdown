@@ -6,6 +6,8 @@ img: surgeon-tux.png
 summary: A jekyll theme designed for people who love to work with terminal.
 tags: [jekyll, template, monospace, dark]
 title:  "Surgeon Tux - A Jekyll template"
+redirect_from:
+  - /posts/surgeon-tux/
 ---
 
 Surgeon Tux is a GPL(v3) licensed free Jekyll template meant for terminal lovers.

@@ -6,6 +6,8 @@ img: savior_ship.png
 summary: A simple C++ 2D shooter game using SDL2 libraries.
 tags: [c++, sdl2, game, 2d]
 title:  "Savior ship - A cross flatform C++ game"
+redirect_from:
+  - /posts/savior-ship/
 ---
 
 Savior Ship is a simple 2D shooter game implemented using C++ and simple direct media layer version 2(SDL2),

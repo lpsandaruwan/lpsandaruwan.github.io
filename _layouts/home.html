@@ -2,35 +2,120 @@
 layout: default
 ---
 
-<div class="hero">
-    <div class="container">
-        <img src="/assets/images/profile.jpg" alt="{{ site.author.name }}" class="profile-img"
-            onerror="this.src='https://ui-avatars.com/api/?name={{ site.author.name }}&background=06b6d4&color=fff&size=150'">
+<!-- SVG filter for duotone portrait. Stays out of layout flow. -->
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true" focusable="false">
+    <filter id="duotone" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="
+            0.2126 0.7152 0.0722 0 0
+            0.2126 0.7152 0.0722 0 0
+            0.2126 0.7152 0.0722 0 0
+            0      0      0      1 0" result="gray" />
+        <feComponentTransfer>
+            <!-- darks → #111111, lights → #C2410C -->
+            <feFuncR type="table" tableValues="0.066 0.760" />
+            <feFuncG type="table" tableValues="0.066 0.254" />
+            <feFuncB type="table" tableValues="0.066 0.047" />
+        </feComponentTransfer>
+    </filter>
+</svg>
 
-        <h1 class="hero-name">{{ site.author.name }}</h1>
-        <p class="hero-bio">{{ site.description }}</p>
+<!-- =========================================================================
+     HERO
+     ========================================================================= -->
+<section class="hero" aria-labelledby="hero-headline">
+    <div class="container hero-grid">
+        <div class="hero-portrait">
+            <div class="duotone-wrapper">
+                <img src="{{ '/assets/images/profile.jpg' | relative_url }}"
+                     alt="Portrait of {{ site.author.name }}"
+                     class="duotone-img"
+                     width="520"
+                     height="540"
+                     decoding="async">
+                <span class="noise-overlay" aria-hidden="true"></span>
+            </div>
+            <p class="hero-caption font-mono">{{ site.author.name | upcase | replace: 'SANDARUWAN ', '' }} , COLOMBO, SRI LANKA, {{ site.time | date: '%Y' }}</p>
+        </div>
 
-        <div class="skills-container">
-            <span class="skill-tag">AI Agents</span>
-            <span class="skill-tag">Serverless</span>
-            <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">Java</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Linux</span>
-            <span class="skill-tag">Open Source</span>
+        <div class="hero-copy">
+            <h1 id="hero-headline" class="hero-headline">
+                I build systems that <em>think</em> and scale. AI&nbsp;agents, serverless architecture, and the unglamorous infrastructure that holds them together.
+            </h1>
+
+            <div class="now-pill" role="status">
+                <span class="now-dot" aria-hidden="true"></span>
+                <span>Currently building agentic systems.</span>
+            </div>
+
+            <div class="hero-links">
+                <a href="{{ '/writing/' | relative_url }}" class="hero-link">Read writing <span aria-hidden="true">&darr;</span></a>
+                <a href="#contact" class="hero-link">Get in touch <span aria-hidden="true">&darr;</span></a>
+                <a href="https://softiva.app/" target="_blank" rel="noopener" class="hero-link">softiva.app <span aria-hidden="true">&nearr;</span></a>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="container">
-    <h2 class="section-title">Latest Articles</h2>
-    <div class="post-grid">
-        {% for post in site.posts limit:6 %}
-        {% include post-card.html post=post %}
-        {% endfor %}
-    </div>
+<!-- =========================================================================
+     PRACTICE
+     ========================================================================= -->
+<section class="section practice" aria-labelledby="practice-headline">
+    <div class="container">
+        <span class="kicker">Practice</span>
+        <h2 id="practice-headline" class="section-headline">What I build.</h2>
 
-    <div style="text-align: center; margin-top: 3rem;">
-        <a href="{{ " /posts" | relative_url }}" class="btn btn-primary">View All Posts</a>
+        <div class="practice-grid">
+            <article class="practice-col">
+                <span class="practice-number font-mono">01</span>
+                <h3 class="practice-title">AI Agents</h3>
+                <p class="practice-body">Building software that can plan, use tools, and finish multi-step work on its own. Not chatbots – systems that actually get things done, with very little hand-holding.</p>
+            </article>
+            <article class="practice-col">
+                <span class="practice-number font-mono">02</span>
+                <h3 class="practice-title">Serverless Architecture</h3>
+                <p class="practice-body">Backends that scale from zero to millions, and only cost money when they&rsquo;re actually working. Managed services where they save time, custom infrastructure where they get in the way.</p>
+            </article>
+            <article class="practice-col">
+                <span class="practice-number font-mono">03</span>
+                <h3 class="practice-title">Developer Tooling</h3>
+                <p class="practice-body">The boring stuff that makes the interesting work possible – logging, deployments, and the day-to-day tooling that lets a team ship without breaking things.</p>
+            </article>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- =========================================================================
+     SELECTED WRITING — dynamic from _posts
+     ========================================================================= -->
+<section class="section" aria-labelledby="writing-headline">
+    <div class="container">
+        <span class="kicker">Selected writing</span>
+        <h2 id="writing-headline" class="section-headline">From the journal.</h2>
+
+        {% include selected-writing.html limit=4 %}
+
+        <p class="section-tail">
+            <a href="{{ '/writing/' | relative_url }}" class="hero-link">All writing <span aria-hidden="true">&nearr;</span></a>
+        </p>
+    </div>
+</section>
+
+<!-- =========================================================================
+     CONTACT
+     ========================================================================= -->
+<section id="contact" class="section contact" aria-labelledby="contact-headline">
+    <div class="container">
+        <span class="kicker">Get in touch</span>
+        <h2 id="contact-headline" class="contact-headline">Open to interesting problems.</h2>
+        <p class="contact-body">I'm open to senior and lead engineering roles, and selective consulting on AI-agent architecture. The fastest way to reach me is by email.</p>
+
+        <a href="mailto:{{ site.author.email }}" class="contact-email">{{ site.author.email }} <span aria-hidden="true">&nearr;</span></a>
+
+        <ul class="contact-social">
+            <li><a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="footer-link">GitHub <span aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="footer-link">LinkedIn <span aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener" class="footer-link">X <span aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="https://youtube.com/@{{ site.social.youtube }}" target="_blank" rel="noopener" class="footer-link">YouTube <span aria-hidden="true">&nearr;</span></a></li>
+        </ul>
+    </div>
+</section>

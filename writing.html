@@ -1,0 +1,78 @@
+---
+layout: default
+title: Writing
+permalink: /writing/
+description: "Essays on building intelligent, scalable systems."
+---
+
+{%- comment -%}
+Build the kicker set: first non-"Posts" category per post, else "Notes".
+Used both for chip rendering and as a data attribute on each row.
+{%- endcomment -%}
+{%- assign all_kickers = "" | split: "" -%}
+{%- for post in site.posts -%}
+    {%- assign found = false -%}
+    {%- for c in post.categories -%}
+        {%- assign trimmed = c | strip -%}
+        {%- unless trimmed == 'Posts' or trimmed == 'posts' -%}
+            {%- assign all_kickers = all_kickers | push: trimmed -%}
+            {%- assign found = true -%}
+            {%- break -%}
+        {%- endunless -%}
+    {%- endfor -%}
+    {%- unless found -%}
+        {%- assign all_kickers = all_kickers | push: 'Notes' -%}
+    {%- endunless -%}
+{%- endfor -%}
+{%- assign unique_kickers = all_kickers | uniq | sort -%}
+
+<section class="writing-page container">
+    <header class="writing-header">
+        <h1 class="writing-title">Writing</h1>
+        <p class="writing-dek">{{ page.description }}</p>
+    </header>
+
+    <div class="filter-row" data-filter-row>
+        <label class="visually-hidden" for="filter-input">Search writing</label>
+        <input id="filter-input"
+               type="search"
+               class="filter-input"
+               placeholder="Search by title…"
+               autocomplete="off"
+               data-filter-input>
+        <div class="chip-row" role="group" aria-label="Filter by category">
+            <button type="button" class="category-chip" data-filter="all" aria-pressed="true">All</button>
+            {%- for k in unique_kickers %}
+            <button type="button" class="category-chip" data-filter="{{ k | downcase }}" aria-pressed="false">{{ k }}</button>
+            {%- endfor %}
+        </div>
+    </div>
+
+    {%- assign posts_by_year = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+    <div class="writing-list">
+    {%- for year_group in posts_by_year %}
+        <section class="year-group" data-year-group>
+            <h2 class="year-marker nums" aria-label="Posts from {{ year_group.name }}">{{ year_group.name }}</h2>
+            <ol class="year-posts">
+                {%- for post in year_group.items %}
+                    {%- assign kicker = 'Notes' -%}
+                    {%- for c in post.categories -%}
+                        {%- assign trimmed = c | strip -%}
+                        {%- unless trimmed == 'Posts' or trimmed == 'posts' -%}
+                            {%- assign kicker = trimmed -%}
+                            {%- break -%}
+                        {%- endunless -%}
+                    {%- endfor -%}
+                    <li class="post-row" data-category="{{ kicker | downcase }}" data-title="{{ post.title | downcase | escape }}">
+                        <time class="post-row-date font-mono" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d" }}</time>
+                        <a href="{{ post.url | relative_url }}" class="post-row-title">{{ post.title | escape }}</a>
+                        <span class="post-row-meta font-mono">{% include reading-time.html post=post %}</span>
+                    </li>
+                {%- endfor %}
+            </ol>
+        </section>
+    {%- endfor %}
+    </div>
+
+    <p class="no-results font-mono" data-no-results hidden>Nothing matches that yet.</p>
+</section>

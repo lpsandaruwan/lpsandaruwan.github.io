@@ -1,0 +1,26 @@
+---
+layout: default
+title: Now
+permalink: /now/
+description: "What I'm currently building, reading, and thinking about."
+---
+
+<article class="now-page container">
+    <header class="now-header">
+        <span class="kicker">Now</span>
+        <h1 class="now-title">What I'm doing right now.</h1>
+        <p class="now-updated font-mono">Updated: <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: "%B %-d, %Y" }}</time></p>
+    </header>
+
+    <div class="now-body">
+        <p><strong>Building.</strong> Agentic systems – the kind that reason, plan, call tools, and finish work without a human babysitter. Most of my day is split between designing the multi-agent architecture for a platform engagement and writing the unglamorous glue (observability, retries, evals) that makes any of it trustworthy.</p>
+
+        <p><strong>Reading.</strong> Re-reading <em>Designing Data-Intensive Applications</em> for the third time, because the chapters on consistency and replication keep paying out. On the side: papers on tool-using LLMs, and Cal Newport's <em>Slow Productivity</em> for the rhythm of it.</p>
+
+        <p><strong>Thinking about.</strong> Where the line is between "agent" and "automation with a chat interface." I keep meeting teams who built the latter and called it the former. The distinction matters for how you architect the system, evaluate it, and explain it to the people writing the cheque.</p>
+    </div>
+
+    <footer class="now-footer">
+        <p class="now-meta font-mono">This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener">now page</a> &mdash; an honest snapshot of what's actually on the desk, not a polished portfolio.</p>
+    </footer>
+</article>

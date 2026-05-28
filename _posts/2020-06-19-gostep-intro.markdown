@@ -6,6 +6,8 @@ img: posts/gostep/functions.png
 summary: Bootstrap a micro services project with Google cloud functions quickly.
 tags: [gcp, serverless, gostep, python, cli]
 title: "Super charge a Google cloud functions project"
+redirect_from:
+  - /posts/gostep-intro/
 ---
 <br>
 When developing a microservices project with cloud functions, managing the cluster of functions all of them together can be a pain in the ass. That is why I thought of developing a simple cli tool to super charge the development and deployment process.

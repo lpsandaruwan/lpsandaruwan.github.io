@@ -1,0 +1,36 @@
+---
+layout: default
+title: About
+permalink: /about/
+description: "Senior software engineer in Colombo. Building AI agents and serverless systems since 2016."
+---
+
+<article class="about-page container">
+    <header class="about-header">
+        <span class="kicker">About</span>
+        <h1 class="about-title">{{ site.author.name }}</h1>
+        <p class="about-subtitle">Lead Software Engineer – Colombo, Sri Lanka.</p>
+    </header>
+
+    <div class="about-portrait">
+        <img src="{{ '/assets/images/profile.jpg' | relative_url }}"
+             alt="Portrait of {{ site.author.name }}"
+             width="320"
+             height="332"
+             loading="lazy"
+             decoding="async">
+    </div>
+
+    <div class="about-bio">
+        <p>I've been professionally building software since 2016, on everything from simple tools to complex enterprise systems. The one thing always held true for me is that good design leads to great software.</p>
+        <p>These days I'm focused on AI agents and serverless architecture - building systems that are intelligent, scalable, and require minimal human intervention. I'm a computer science graduate, feel at home in a terminal, love Linux, and believe open source makes everything better.</p>
+        <p>I also run <a href="https://softiva.app/" target="_blank" rel="noopener">Softiva</a>, my independent app studio, where most of these ideas turn into products you can actually use.</p>
+        <p>Outside of engineering, I'm a proud father of Natialie and Riana. I work day-to-day with Agentic coding to solve problems.</p>
+    </div>
+
+    <section class="about-section about-cta">
+        <span class="kicker">Get in touch</span>
+        <p class="about-cta-line">The fastest way to reach me is email.</p>
+        <a href="mailto:{{ site.author.email }}" class="contact-email">{{ site.author.email }} <span aria-hidden="true">&nearr;</span></a>
+    </section>
+</article>
