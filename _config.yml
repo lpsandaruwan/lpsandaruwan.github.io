@@ -1,5 +1,5 @@
 title: "Lahiru Pathirage"
-description: "Building software since 2016. Now focused on systems that think and scale — AI agents, serverless architecture, and the unglamorous infrastructure that holds it together."
+description: "Software engineer based in Sri Lanka. Building AI agents and serverless backends since 2016."
 baseurl: ""
 url: "https://lpsandaruwan.github.io"
 
@@ -7,7 +7,7 @@ url: "https://lpsandaruwan.github.io"
 author:
   name: "Lahiru Sandaruwan Pathirage"
   email: "lpsandaruwan@gmail.com"
-  bio: "Senior Software Engineer focused on AI agents and serverless architecture. Computer science graduate who loves Linux, open source, and building intelligent, scalable systems."
+  bio: "Software engineer focused on AI agents and serverless backends. Building since 2016."
 
 # Social links
 social:

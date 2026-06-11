@@ -10,7 +10,7 @@
     {%- assign og_image_path = page.og_image | default: '/assets/images/profile.jpg' -%}
     {%- assign og_image = og_image_path | absolute_url -%}
 
-    <title>{% if page.title %}{{ page.title | escape }} — {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+    <title>{% if page.title %}{{ page.title | escape }} · {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
     <meta name="description" content="{{ page_desc | escape }}">
     <link rel="canonical" href="{{ page_url }}">
 

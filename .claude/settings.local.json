@@ -5,7 +5,27 @@
       "Bash(C:/Ruby33-x64/bin/bundle install)",
       "Bash(C:/Ruby33-x64/bin/bundle exec jekyll:*)",
       "WebFetch(domain:aicgen.github.io)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(pbcopy)",
+      "Read(//Users/lpsandaruwan/Softiva/tmp/sitelp/**)",
+      "Read(//Users/lpsandaruwan/**)",
+      "WebSearch",
+      "Bash(python3)",
+      "Bash(cp index.html /tmp/index.legacy.html)",
+      "Read(//tmp/**)",
+      "Bash(bundle --version)",
+      "Bash(ruby --version)",
+      "Bash(bundle exec *)",
+      "Bash(grep -v 'index.html$')",
+      "Bash(sed -n '/<header class=\"site-header\"/,/<\\\\/header>/p' _site/index.html)",
+      "Bash(sed -n '/<footer class=\"site-footer\"/,/<\\\\/footer>/p' _site/index.html)",
+      "Bash(mv /Users/lpsandaruwan/Softiva/lpsandaruwan.github.io/posts.html /tmp/legacy-deleted/posts.html)",
+      "Read(//private/tmp/legacy-deleted/**)",
+      "Bash(sed -n '/^---$/,/^---$/p' _posts/2017-03-26-jvm-cpu-usage.markdown)",
+      "Bash(sed -n '/^---$/,/^---$/p' _posts/2017-04-14-log-tracker.markdown)",
+      "Bash(sed -n '/post-filed/,/<\\\\/footer>/p' _site/writing/saga-gcp-choreography/index.html)",
+      "Bash(sed -n '/post-navigation/,/<\\\\/nav>/p' _site/writing/saga-gcp-choreography/index.html)",
+      "Bash(python3 -c \"import json; json.load\\(open\\('_site/assets/images/favicons/site.webmanifest'\\)\\); print\\('  valid'\\)\")"
     ]
   }
 }

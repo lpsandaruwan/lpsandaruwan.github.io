@@ -1,0 +1,45 @@
+{
+  "alwaysThinkingEnabled": true,
+  "hooks": {},
+  "aicgen": {
+    "profileLevel": "standard",
+    "safety": [
+      "Generated hooks are limited to local deterministic checks.",
+      "Generated hooks do not run test suites; use /check for validation.",
+      "Review hook commands before enabling additional side-effecting automation.",
+      "MCP and plugin setup scripts are not generated without explicit opt-in."
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      "Bash(bun:*)",
+      "Bash(git:*)",
+      "Bash(npx:*)",
+      "Read(src/**)",
+      "Read(package.json)",
+      "Read(tsconfig.json)",
+      "Read(CLAUDE.md)",
+      "Read(.claude/**)",
+      "Write(src/**)",
+      "Write(.claude/**)"
+    ],
+    "deny": [
+      "Read(.env*)",
+      "Read(secrets/**)",
+      "Bash(rm:*)",
+      "Bash(sudo:*)"
+    ],
+    "ask": [
+      "Write(package.json)",
+      "Write(.gitignore)",
+      "Write(.env.example)"
+    ]
+  },
+  "sandbox": {
+    "allowInternetAccess": false,
+    "workingDirectory": "/Users/lpsandaruwan/Softiva/lpsandaruwan.github.io"
+  }
+}

@@ -7,7 +7,7 @@ A Jekyll-based personal site that doubles as a professional landing page and a w
 - **URL**: https://lpsandaruwan.github.io
 - **Site title**: "Lahiru Pathirage"
 - **Author**: Lahiru Sandaruwan Pathirage (`lpsandaruwan`)
-- **Location**: Colombo, Sri Lanka
+- **Location**: Sri Lanka
 - **Email**: hello@lpsandaruwan.dev
 - **Focus**: AI agents, serverless architecture, distributed systems, Linux, open source
 
